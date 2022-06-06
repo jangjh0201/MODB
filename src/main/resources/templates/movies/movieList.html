@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
     <div class="container">
         <div>
             <h1>영화 위시리스트 검색 결과</h1>
@@ -21,6 +22,7 @@
                         <td>감독</td>
                         <td>배우</td>
                         <td>평점</td>
+
                     </tr>
                     <div th:if="${not #lists.isEmpty(movies)}">
                         내용
@@ -35,11 +37,36 @@
                         <td th:text="${movie.director}"></td>
                         <td th:text="${movie.actor}"></td>
                         <td th:text="${movie.userRating}"></td>
+                        <td>
+                            <input type="button" class="removeBtn" value="삭제" />
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div> <!-- /container -->
+
+    <script>
+        $(".removeBtn").click(function () {
+            var saveBtn = $(this);
+
+            var tr = saveBtn.parent().parent();
+            var td = tr.children();
+
+            var title = td.eq(0).text();
+
+            $.ajax({
+                type: "DELETE",
+                url: "/movies/delete",
+                data: { "title": title },
+
+            }).done(function (){
+                location.reload();
+                alert("위시리스트에 삭제되었습니다.");
+            });
+        });
+    </script>
+
 </body>
 
 </html>

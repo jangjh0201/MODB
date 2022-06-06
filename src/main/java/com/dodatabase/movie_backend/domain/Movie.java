@@ -10,10 +10,7 @@ import javax.persistence.Id;
 import lombok.*;
 
 @Entity
-@Data
-@NoArgsConstructor
-@Setter
-@Getter
+@Data @NoArgsConstructor
 public class Movie {
 
     @Id

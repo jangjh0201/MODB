@@ -27,17 +27,12 @@ public class MovieService {
     public List<Movie> findMovies() {
         return movieRepository.findAll();
     }
+    public Optional<Movie> findByTitle(String keyword) {
+        return movieRepository.findByTitle(keyword);
+    }
+    public void removeWish(Movie movie){
+        movieRepository.delete(movie);
+    }
 
-//    public void deleteMovie(Movie movie) {
-//        movieRepository.delete(movie);
-//
-//    }
 
-    // public Movie findCondMovie(Movie movie) {
-    // return movieRepository.findById(movie);
-    // }
-
-    // public Optional<Movie> findByTitle(String keyword) {
-    // return movieRepository.findByTitle(keyword);
-    // }
 }

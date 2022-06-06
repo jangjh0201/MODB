@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.Getter;
 
 @Data
-@Getter
 public class MovieForm {
 
     private String title = null;

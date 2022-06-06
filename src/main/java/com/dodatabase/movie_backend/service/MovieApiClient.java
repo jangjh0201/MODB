@@ -39,23 +39,4 @@ public class MovieApiClient {
                 .getBody();
     }
 
-    // public MovieResponseDTO requestMovie2(String keyword) {
-    // URI uri = UriComponentsBuilder.fromUriString("https://openapi.naver.com")
-    // .path("/v1/search/movie.json")
-    // .queryParam("query",keyword)
-    // .encode(Charset.forName("UTF-8"))
-    // .build()
-    // .toUri();
-    // RestTemplate restTemplate = new RestTemplate();
-
-    // RequestEntity<Void> requestEntity=
-    // RequestEntity.get(uri)
-    // .header("X-Naver-Client-ID",CLIENT_ID)
-    // .header("X-Naver-Client-Secret",CLIENT_SECRET)
-    // .build();
-    // ResponseEntity<MovieResponseDTO> result =
-    // restTemplate.exchange(requestEntity, MovieResponseDTO.class);
-    // System.out.println(result.getBody());
-    // return result.getBody();
-    // }
 }
