@@ -13,9 +13,7 @@ import lombok.*;
 @Data @NoArgsConstructor
 public class Movie {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
     public String title;
@@ -24,7 +22,7 @@ public class Movie {
 
     public String subTitle;
 
-    public Date pubDate;
+    public String pubDate;
 
     public String director;
 

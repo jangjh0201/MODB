@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-// import org.springframework.web.util.UriComponentsBuilder;
 
-// import java.net.URI;
-// import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 

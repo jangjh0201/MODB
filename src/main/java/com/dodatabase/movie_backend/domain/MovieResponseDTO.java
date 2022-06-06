@@ -15,7 +15,7 @@ public class MovieResponseDTO {
         public String title;
         public String link;
         public String subtitle;
-        public Date pubDate;
+        public String pubDate;
         public String director;
         public String actor;
         public float userRating;
