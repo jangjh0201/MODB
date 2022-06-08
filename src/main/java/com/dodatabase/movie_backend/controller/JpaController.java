@@ -5,6 +5,8 @@ import com.dodatabase.movie_backend.domain.MovieResponseDto;
 import com.dodatabase.movie_backend.service.MovieApiService;
 
 import com.dodatabase.movie_backend.service.MovieService;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,7 +20,28 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-public class MovieApiController {
+public class JpaController {
+
+    private final MovieService movieService;
+
+    private final ModelMapper modelMapper;
+
+    @PostMapping("/api/new")
+    public void addMovies(@RequestParam("count") int i) {
+        MovieResponseDto.Item item = movieService.items[i - 1];
+        Optional<Movie> byTitle = movieService.findByTitle(item.getTitle());
+
+        if (byTitle.isPresent()) {
+            System.out.println("이미 등록된 영화입니다.");
+        } else {
+            movieService.create(modelMapper.map(item, Movie.class));
+        }
+    }
+
+    @PostMapping("/movies/delete")
+    public void removeMovies(@RequestParam("title") String title) {
+        movieService.deleteByTitle(title);
+    }
 
     // private final MovieApiService movieApiService;
     // private final MovieService movieService;
