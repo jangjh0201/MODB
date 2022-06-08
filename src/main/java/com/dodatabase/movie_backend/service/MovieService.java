@@ -3,7 +3,10 @@ package com.dodatabase.movie_backend.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import com.dodatabase.movie_backend.domain.Movie;
+import com.dodatabase.movie_backend.domain.MovieResponseDto;
 import com.dodatabase.movie_backend.repository.MovieRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -14,9 +17,9 @@ import org.springframework.stereotype.Service;
 public class MovieService {
 
     private final MovieRepository movieRepository;
+    public MovieResponseDto.Item[] items;
 
     public void create(Movie movie) {
-        System.out.println(movie);
         movieRepository.save(movie);
     }
 
@@ -27,16 +30,16 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public void deleteMovie(Movie movie) {
-        movieRepository.delete(movie);
-
+    @Transactional()
+    public void deleteByTitle(String title) {
+        movieRepository.deleteByTitle(title);
     }
 
     // public Movie findCondMovie(Movie movie) {
     // return movieRepository.findById(movie);
     // }
 
-    // public Optional<Movie> findByTitle(String keyword) {
-    // return movieRepository.findByTitle(keyword);
-    // }
+    public Optional<Movie> findByTitle(String keyword) {
+        return movieRepository.findByTitle(keyword);
+    }
 }
