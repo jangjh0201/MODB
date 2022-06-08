@@ -1,7 +1,5 @@
 package com.dodatabase.movie_backend.domain;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,9 +20,9 @@ public class Movie {
 
     private String link;
 
-    private String subTitle;
+    private String subtitle;
 
-    private Date pubDate;
+    private String pubDate;
 
     private String director;
 

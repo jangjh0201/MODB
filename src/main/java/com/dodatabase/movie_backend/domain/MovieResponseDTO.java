@@ -2,8 +2,6 @@ package com.dodatabase.movie_backend.domain;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 public class MovieResponseDto {
 
@@ -11,11 +9,10 @@ public class MovieResponseDto {
 
     @Data
     public static class Item {
-        public int number;
         public String title;
         public String link;
         public String subtitle;
-        public Date pubDate;
+        public String pubDate;
         public String director;
         public String actor;
         public float userRating;
