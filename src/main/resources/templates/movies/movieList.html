@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <div class="container">
         <div>
             <h1>영화 위시리스트 검색 결과</h1>
@@ -22,21 +23,49 @@
                         <td>배우</td>
                         <td>평점</td>
                     </tr>
-                    <tr th:each="movie : ${movies}">
-                        <td th:utext="${movie.title}"></td>
+                    <tr th:each="movie, status : ${movies}">
+                        <td th:utext="${movie.title}">Title</td>
                         <td>
                             <a th:href="${movie.link}">이동</a>
                         </td>
-                        <td th:utext="${movie.subtitle}"></td>
-                        <td th:utext="${movie.pubDate}"></td>
-                        <td th:utext="${movie.director}"></td>
-                        <td th:utext="${movie.actor}"></td>
-                        <td th:utext="${movie.userRating}"></td>
+                        <td th:utext="${movie.subtitle}">Subtitle</td>
+                        <td th:utext="${movie.pubDate}">Pubslish Date</td>
+                        <td th:utext="${movie.director}">Director</td>
+                        <td th:utext="${movie.actor}">Actor</td>
+                        <td th:utext="${movie.userRating}">User Rating</td>
+                        <td>
+                            <input type="button" class="deleteBtn" value="삭제" />
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div> <!-- /container -->
+
+    <script>
+        // 버튼 클릭시 Row 값 가져오기
+        $(".deleteBtn").click(function () {
+            var deleteBtn = $(this);
+
+            // checkBtn.parent() : checkBtn의 부모는 <td>이다.
+            // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+            var tr = deleteBtn.parent().parent();
+            var td = tr.children();
+
+            var title = td.eq(0).text();
+
+            $.ajax({
+                type: "POST",
+                url: "/movies/delete",
+                data: { "title": title },
+                success: function () {
+                    location.reload();
+                }
+            });
+
+        });
+    </script>
+
 </body>
 
 </html>

@@ -1,12 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- jQuery  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-
 <body>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <div class="container">
@@ -30,8 +24,8 @@
                         <td>배우</td>
                         <td>평점</td>
                     </tr>
-                    <tr th:each="movie : ${movies}">
-                        <td th:utext="${movie.number}">Number</td>
+                    <tr th:each="movie, status : ${movies}">
+                        <td th:utext="${status.count}">Count</td>
                         <td th:utext="${movie.title}">Title</td>
                         <td>
                             <a th:href="${movie.link}">이동</a>
@@ -61,12 +55,12 @@
             var tr = saveBtn.parent().parent();
             var td = tr.children();
 
-            var number = td.eq(0).text();
+            var count = td.eq(0).text();
 
             $.ajax({
                 type: "POST",
                 url: "/api/new",
-                data: { "number": number }
+                data: { "count": count }
             });
 
         });
