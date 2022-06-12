@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 public class MovieService {
 
     private final MovieRepository movieRepository;
-    public MovieResponseDto.Item[] items;
 
     public void create(Movie movie) {
         movieRepository.save(movie);

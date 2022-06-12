@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.dodatabase.movie_backend.domain.Movie;
+import com.dodatabase.movie_backend.domain.MovieResponseDto;
 import com.dodatabase.movie_backend.service.MovieApiService;
 import com.dodatabase.movie_backend.service.MovieService;
 
@@ -31,8 +32,8 @@ public class MainController {
 
     @PostMapping("/api/search")
     public String searchApi(@RequestParam("keyword") String keyword, Model model) {
-        movieService.items = movieApiService.findByKeyword(keyword).getItems();
-        model.addAttribute("movies", movieService.items);
+        MovieResponseDto.Item[] items = movieApiService.findByKeyword(keyword).getItems();
+        model.addAttribute("movies", items);
 
         return "api/apiList";
     }
