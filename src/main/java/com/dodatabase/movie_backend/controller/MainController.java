@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.dodatabase.movie_backend.domain.Movie;
 import com.dodatabase.movie_backend.domain.MovieResponseDto;
 import com.dodatabase.movie_backend.service.MovieApiService;
@@ -31,18 +33,23 @@ public class MainController {
     }
 
     @PostMapping("/api/search")
-    public String searchApi(@RequestParam("keyword") String keyword, Model model) {
+    public ModelAndView searchApi(@RequestParam("keyword") String keyword) {
         MovieResponseDto.Item[] items = movieApiService.findByKeyword(keyword).getItems();
-        model.addAttribute("movies", items);
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("api/apiList");
+        mv.addObject("movies", items);
 
-        return "api/apiList";
+        return mv;
     }
 
     @GetMapping("/movies")
-    public String list(Model model) {
+    public ModelAndView list() {
         List<Movie> movies = movieService.findMovies();
-        model.addAttribute("movies", movies);
-        return "movies/movieList";
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("movies/movieList");
+        mv.addObject("movies", movies);
+
+        return mv;
     }
 
 }
