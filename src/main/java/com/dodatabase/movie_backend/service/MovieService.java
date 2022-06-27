@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import com.dodatabase.movie_backend.domain.Movie;
-import com.dodatabase.movie_backend.domain.MovieResponseDto;
 import com.dodatabase.movie_backend.repository.MovieRepository;
 
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.dodatabase.movie_backend.controller;
 
 import com.dodatabase.movie_backend.domain.Movie;
-import com.dodatabase.movie_backend.domain.MovieResponseDto;
+import com.dodatabase.movie_backend.domain.MovieDto;
 
 import com.dodatabase.movie_backend.service.MovieService;
 
@@ -20,7 +20,7 @@ public class JpaController {
     private final ModelMapper modelMapper;
 
     @PostMapping("/api/new")
-    public void addMovies(@RequestBody MovieResponseDto.Item item) {
+    public void addMovies(@RequestBody MovieDto.Item item) {
         Optional<Movie> byTitle = movieService.findByTitle(item.getTitle());
 
         if (byTitle.isPresent()) {
@@ -31,7 +31,7 @@ public class JpaController {
     }
 
     @PostMapping("/movies/delete")
-    public void removeMovies(@RequestBody MovieResponseDto.Item item) {
+    public void removeMovies(@RequestBody MovieDto.Item item) {
         movieService.deleteByTitle(item.getTitle());
     }
 }
