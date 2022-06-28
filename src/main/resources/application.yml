@@ -1,9 +1,15 @@
 spring:
   profiles:
-    active: dev
-    groups:
-      dev: local, localdb
-      test: test, testdb
+    active:
+      - dev
+    group:
+      dev:
+        - local
+        - localdb
+        - API-KEY
+      test:
+        - test
+        - testdb
 ---
 spring:
   config:
@@ -18,6 +24,10 @@ spring:
     show-sql: "true"
     hibernate:
       ddl-auto: none
+server:
+  port: 8082
+  tomcat:
+    uri-encoding: UTF-8
 ---
 spring:
   config:
@@ -32,15 +42,6 @@ spring:
     show-sql: "true"
     hibernate:
       ddl-auto: create
----
-server:
-  port: 8082
-  tomcat:
-    uri-encoding: UTF-8
-# api:
-#   secret: av_jqTlPjr
-#   id: Hqsz1tECcg712EE903wl
-
 # 운영 장비에서는 create, create-drop, update 사용하면 안됌.
 # 개발 초기 단계는 create 또는 update
 # 테스트 서버는 update 또는 validate

@@ -1,9 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:mariadb://127.0.0.1:3306/movie
-    username: root
-    password: system
-    driver-class-name: org.mariadb.jdbc.Driver
-  config:
-    activate:
-      on-profile: localdb
