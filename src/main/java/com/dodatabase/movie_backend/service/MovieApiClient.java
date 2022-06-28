@@ -14,15 +14,19 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 @Service
 @RequiredArgsConstructor
 public class MovieApiClient {
 
     private final RestTemplate restTemplate;
 
-    private final String CLIENT_ID = "Hqsz1tECcg712EE903wl";
+    @Value("${api.id}")
+    private final String CLIENT_ID;
 
-    private final String CLIENT_SECRET = "av_jqTlPjr";
+    @Value("${api.secret}")
+    private final String CLIENT_SECRET;
 
     private final String OpenNaverMovieUrl_getMovies = "https://openapi.naver.com/v1/search/movie.json?query={query}";
 
