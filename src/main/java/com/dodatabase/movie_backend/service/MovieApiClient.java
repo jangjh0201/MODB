@@ -2,30 +2,22 @@ package com.dodatabase.movie_backend.service;
 
 import com.dodatabase.movie_backend.domain.MovieDto;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-// import org.springframework.web.util.UriComponentsBuilder;
 
-// import java.net.URI;
-// import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MovieApiClient {
 
-    ApiKey apiKey;
+    private final ApiKey apiKey;
 
     private final RestTemplate restTemplate;
-
-    private final String OpenNaverMovieUrl_getMovies = "https://openapi.naver.com/v1/search/movie.json?query={query}";
 
     public MovieDto requestMovie(String keyword) {
         final HttpHeaders headers = new HttpHeaders(); // 헤더에 key들을 담아준다.
@@ -38,7 +30,7 @@ public class MovieApiClient {
         final HttpEntity<String> entity = new HttpEntity<>(headers);
 
         return restTemplate
-                .exchange(OpenNaverMovieUrl_getMovies, HttpMethod.GET, entity, MovieDto.class, params)
+                .exchange(apiKey.getUrl(), HttpMethod.GET, entity, MovieDto.class, params)
                 .getBody();
     }
 

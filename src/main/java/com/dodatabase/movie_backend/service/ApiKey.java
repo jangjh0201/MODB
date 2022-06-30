@@ -8,11 +8,12 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-@ConfigurationProperties(prefix = "api")
+@ConfigurationProperties(prefix = "movie-api")
 @ConstructorBinding
 public class ApiKey {
 
-    private final String id;
-    private final String secret;
+    private final String Url;
+    private final String Id;
+    private final String Secret;
 
 }
