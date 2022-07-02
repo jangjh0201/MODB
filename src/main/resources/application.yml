@@ -1,47 +1,11 @@
 spring:
   profiles:
     active:
-      - dev
+      - local
     group:
-      dev:
+      local:
         - local
-        - localdb
         - API-KEY
-      test:
-        - test
-        - testdb
----
-spring:
-  config:
-    activate:
-      on-profile: local
-  datasource:
-    hikari:
-      data-source-properties:
-        characterEncoding: UTF-8
-        useUnicode: "true"
-  jpa:
-    show-sql: "true"
-    hibernate:
-      ddl-auto: none
-server:
-  port: 8082
-  tomcat:
-    uri-encoding: UTF-8
----
-spring:
-  config:
-    activate:
-      on-profile: test
-  datasource:
-    hikari:
-      data-source-properties:
-        characterEncoding: UTF-8
-        useUnicode: "true"
-  jpa:
-    show-sql: "true"
-    hibernate:
-      ddl-auto: create
 # 운영 장비에서는 create, create-drop, update 사용하면 안됌.
 # 개발 초기 단계는 create 또는 update
 # 테스트 서버는 update 또는 validate
