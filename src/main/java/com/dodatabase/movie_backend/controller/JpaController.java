@@ -6,6 +6,8 @@ import com.dodatabase.movie_backend.domain.MovieDto;
 import com.dodatabase.movie_backend.service.MovieService;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
@@ -20,13 +22,19 @@ public class JpaController {
     private final ModelMapper modelMapper;
 
     @PostMapping("/api/new")
-    public void addMovies(@RequestBody MovieDto.Item item) {
+    public ResponseEntity<?> addMovies(@RequestBody MovieDto.Item item) {
         Optional<Movie> byTitle = movieService.findByTitle(item.getTitle());
 
-        if (byTitle.isPresent()) {
-            System.out.println("이미 등록된 영화입니다.");
-        } else {
-            movieService.create(modelMapper.map(item, Movie.class));
+        try {
+            if (byTitle.isPresent()) {
+                Exception e = new Exception("에러 발생");
+                throw e;
+            } else {
+                movieService.create(modelMapper.map(item, Movie.class));
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 
