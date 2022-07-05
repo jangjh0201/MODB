@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dodatabase.movie_backend.domain.Movie;
-import com.dodatabase.movie_backend.domain.MovieDto;
+import com.dodatabase.movie_backend.domain.MovieResponse;
 import com.dodatabase.movie_backend.service.MovieApiService;
 import com.dodatabase.movie_backend.service.MovieService;
 
@@ -33,7 +33,7 @@ public class MainController {
 
     @PostMapping("/api/search")
     public ModelAndView searchApi(@RequestParam("keyword") String keyword) {
-        MovieDto.Item[] items = movieApiService.findByKeyword(keyword).getItems();
+        MovieResponse.Item[] items = movieApiService.findByKeyword(keyword).getItems();
         ModelAndView mv = new ModelAndView();
         mv.setViewName("api/apiList");
         mv.addObject("movies", items);

@@ -3,7 +3,7 @@ package com.dodatabase.movie_backend.domain;
 import lombok.Data;
 
 @Data
-public class MovieDto {
+public class MovieResponse {
 
     private Item[] items;
 

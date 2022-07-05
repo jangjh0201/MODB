@@ -1,6 +1,6 @@
 package com.dodatabase.movie_backend.service;
 
-import com.dodatabase.movie_backend.domain.MovieDto;
+import com.dodatabase.movie_backend.domain.MovieResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +19,7 @@ public class MovieApiClient {
 
     private final RestTemplate restTemplate;
 
-    public MovieDto requestMovie(String keyword) {
+    public MovieResponse requestMovie(String keyword) {
         final HttpHeaders headers = new HttpHeaders(); // 헤더에 key들을 담아준다.
         headers.set("X-NAVER-Client-ID", apiKey.getId());
         headers.set("X-NAVER-Client-Secret", apiKey.getSecret());
@@ -30,7 +30,7 @@ public class MovieApiClient {
         final HttpEntity<String> entity = new HttpEntity<>(headers);
 
         return restTemplate
-                .exchange(apiKey.getUrl(), HttpMethod.GET, entity, MovieDto.class, params)
+                .exchange(apiKey.getUrl(), HttpMethod.GET, entity, MovieResponse.class, params)
                 .getBody();
     }
 
