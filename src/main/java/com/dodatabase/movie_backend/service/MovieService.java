@@ -19,7 +19,6 @@ public class MovieService {
 
     public void create(Movie movie) {
         movieRepository.save(movie);
-        return movie.getId();
     }
 
     /**
