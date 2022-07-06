@@ -1,7 +1,5 @@
 package com.dodatabase.movie_backend.domain;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,25 +8,26 @@ import javax.persistence.Id;
 import lombok.*;
 
 @Entity
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class Movie {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public String title;
+    private String title;
 
-    public String link;
+    private String link;
 
-    public String subTitle;
+    private String subtitle;
 
-    public String pubDate;
+    private String pubDate;
 
-    public String director;
+    private String director;
 
-    public String actor;
+    private String actor;
 
-    public float userRating;
-
+    private float userRating;
 
 }

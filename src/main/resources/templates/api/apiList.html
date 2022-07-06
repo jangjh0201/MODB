@@ -1,12 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- jQuery  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-
 <body>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <div class="container">
@@ -31,7 +25,6 @@
                         <td>평점</td>
                     </tr>
                     <tr th:each="movie : ${movies}">
-                        <td th:utext="${movie.number}">Number</td>
                         <td th:utext="${movie.title}">Title</td>
                         <td>
                             <a th:href="${movie.link}">이동</a>
@@ -42,7 +35,7 @@
                         <td th:utext="${movie.actor}">Actor</td>
                         <td th:utext="${movie.userRating}">User Rating</td>
                         <td>
-                            <input type="button" class="saveBtn" value="저장" />
+                            <button th:onclick="save_movie([[${movieStat.current}]])">저장</button>
                         </td>
                     </tr>
 
@@ -51,26 +44,25 @@
         </div>
     </div> <!-- /container -->
 
-    <script>
-        // 버튼 클릭시 Row 값 가져오기
-        $(".saveBtn").click(function () {
-            var saveBtn = $(this);
+    <script th:inline="javascript">
 
-            // checkBtn.parent() : checkBtn의 부모는 <td>이다.
-            // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
-            var tr = saveBtn.parent().parent();
-            var td = tr.children();
-
-            var number = td.eq(0).text();
-
+        function save_movie(object) {
             $.ajax({
                 type: "POST",
+                async: false,
                 url: "/api/new",
-                data: { "number": number }
-            }).done(function (){
+                data: JSON.stringify(object),
+                dataType: "text",
+                contentType: "application/json; charset=utf-8"
+            }).done(function (data, textStatus, jqXHR) {
                 alert("위시리스트에 저장되었습니다.");
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                switch (jqXHR.status) {
+                    case 409:
+                        alert("이미 등록된 영화입니다.");
+                }
             });
-        });
+        }
     </script>
 
 </body>

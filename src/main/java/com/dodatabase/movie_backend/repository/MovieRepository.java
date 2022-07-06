@@ -7,10 +7,17 @@ import com.dodatabase.movie_backend.domain.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-     Optional<Movie> findByTitle(String keyword);
+    // Movie findById(Movie movie);
+
+    Optional<Movie> findByTitle(String keyword);
+
+    // List<Movie> findAll();
+
+    // List<Movie> Save(Movie movie);
+
+    void deleteByTitle(String title);
 
 }

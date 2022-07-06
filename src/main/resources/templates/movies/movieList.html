@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <div class="container">
         <div>
             <h1>영화 위시리스트 검색 결과</h1>
@@ -28,17 +28,17 @@
                         내용
                     </div>
                     <tr th:each="movie : ${movies}">
-                        <td th:text="${movie.title}"></td>
+                        <td th:utext="${movie.title}">Title</td>
                         <td>
                             <a th:href="${movie.link}">이동</a>
                         </td>
-                        <td th:text="${movie.subTitle}"></td>
-                        <td th:text="${movie.pubDate}"></td>
-                        <td th:text="${movie.director}"></td>
-                        <td th:text="${movie.actor}"></td>
-                        <td th:text="${movie.userRating}"></td>
+                        <td th:utext="${movie.subtitle}">Subtitle</td>
+                        <td th:utext="${movie.pubDate}">Pubslish Date</td>
+                        <td th:utext="${movie.director}">Director</td>
+                        <td th:utext="${movie.actor}">Actor</td>
+                        <td th:utext="${movie.userRating}">User Rating</td>
                         <td>
-                            <input type="button" class="removeBtn" value="삭제" />
+                            <button th:onclick="delete_movie([[${movieStat.current}]])">삭제</button>
                         </td>
                     </tr>
                 </tbody>
@@ -47,24 +47,18 @@
     </div> <!-- /container -->
 
     <script>
-        $(".removeBtn").click(function () {
-            var saveBtn = $(this);
-
-            var tr = saveBtn.parent().parent();
-            var td = tr.children();
-
-            var title = td.eq(0).text();
-
+        function delete_movie(object) {
             $.ajax({
-                type: "DELETE",
+                type: "POST",
                 url: "/movies/delete",
-                data: { "title": title },
-
-            }).done(function (){
+                data: JSON.stringify(object),
+                dataType: "text",
+                contentType: "application/json; charset=utf-8",
+            }).done(function () {
+                alert("삭제되었습니다.");
                 location.reload();
-                alert("위시리스트에 삭제되었습니다.");
             });
-        });
+        }
     </script>
 
 </body>
