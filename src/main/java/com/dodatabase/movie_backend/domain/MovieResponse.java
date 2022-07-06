@@ -9,13 +9,13 @@ public class MovieResponse {
 
     @Data
     public static class Item {
-        public String title;
-        public String link;
-        public String subtitle;
-        public String pubDate;
-        public String director;
-        public String actor;
-        public float userRating;
+        private String title;
+        private String link;
+        private String subtitle;
+        private String pubDate;
+        private String director;
+        private String actor;
+        private float userRating;
     }
 
 }
