@@ -27,8 +27,7 @@ public class JpaController {
 
         try {
             if (byTitle.isPresent()) {
-                Exception e = new Exception("에러 발생");
-                throw e;
+                throw new Exception("이미 존재하는 영화입니다.");
             } else {
                 movieService.create(modelMapper.map(item, Movie.class));
                 return new ResponseEntity<>(HttpStatus.CREATED);
