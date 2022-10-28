@@ -1,4 +1,0 @@
-movie-api:
-  url: https://openapi.naver.com/v1/search/movie.json?query={query};
-  id: Hqsz1tECcg712EE903wl
-  secret: av_jqTlPjr
