@@ -33,10 +33,10 @@ public class MainController {
 
     @PostMapping("/api/search")
     public ModelAndView searchApi(@RequestParam("keyword") String keyword) {
-        MovieResponse.Item[] items = movieApiService.findByKeyword(keyword).getItems();
+        MovieResponse items = movieApiService.findByKeyword(keyword);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("api/apiList");
-        mv.addObject("movies", items);
+        mv.addObject("movies", items.getItems());
 
         return mv;
     }

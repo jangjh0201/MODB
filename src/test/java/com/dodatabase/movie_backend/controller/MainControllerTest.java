@@ -12,6 +12,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import com.dodatabase.movie_backend.domain.MovieResponse;
+import com.dodatabase.movie_backend.domain.MovieResponseItem;
 import com.dodatabase.movie_backend.service.MovieApiService;
 import com.dodatabase.movie_backend.service.MovieService;
 
@@ -38,6 +39,9 @@ public class MainControllerTest {
     @MockBean
     private MovieService movieService;
 
+    @MockBean
+    private MovieResponse movieResponse;
+
     @Test
     public void searchApiFormTest() throws Exception {
         mockMvc.perform(get("/api/search"))
@@ -51,9 +55,8 @@ public class MainControllerTest {
         String param = "keyword";
         String value = "star";
 
-        // MultiValueMap<String, MovieResponse.Item> multiValueMap = new
-        // LinkedMultiValueMap<>();
-        // multiValueMap.put("moveResponseID", List<MovieResponse.Item[]> movieItems);
+        MultiValueMap<String, MovieResponseItem> multiValueMap = new LinkedMultiValueMap<>();
+        multiValueMap.put("moveResponseID", movieResponse.getItems());
 
         // given
         given(movieApiService.findByKeyword(value)).willReturn(new MovieResponse());

@@ -1,20 +1,26 @@
 package com.dodatabase.movie_backend.domain;
 
-import lombok.Data;
+import java.util.Date;
+import java.util.List;
 
-@Data
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class MovieResponse {
 
-    private Item[] items;
+    private Date lastBuildDate;
+    private int total;
+    private List<MovieResponseItem> items;
 
-    @Data
-    public static class Item {
-        private String title;
-        private String link;
-        private String subtitle;
-        private String pubDate;
-        private String director;
-        private String actor;
-        private float userRating;
+    @Builder
+    public MovieResponse(Date lastBuildDate, int total, List<MovieResponseItem> items) {
+        this.lastBuildDate = lastBuildDate;
+        this.total = total;
+        this.items = items;
     }
 }
