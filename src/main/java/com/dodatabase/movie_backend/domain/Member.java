@@ -9,27 +9,10 @@ import lombok.*;
 
 @Entity
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class Movie {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long movieId;
-
-    private String title;
-
-    private String link;
-
-    private String subtitle;
-
-    private String pubDate;
-
-    private String director;
-
-    private String actor;
-
-    private float userRating;
-
+    private Long memId;
 }
