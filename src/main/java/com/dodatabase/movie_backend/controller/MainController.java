@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dodatabase.movie_backend.domain.Movie;
-import com.dodatabase.movie_backend.domain.MovieResponse;
+import com.dodatabase.movie_backend.domain.Movie.Movie;
+import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
 import com.dodatabase.movie_backend.service.MovieApiService;
 import com.dodatabase.movie_backend.service.MovieService;
 
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Mono;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,10 +34,11 @@ public class MainController {
 
     @PostMapping("/api/search")
     public ModelAndView searchApi(@RequestParam("keyword") String keyword) {
-        MovieResponse items = movieApiService.findByKeyword(keyword);
+        Mono<MovieResponse> items = movieApiService.findByKeyword(keyword);
+        // MovieResponse items = movieApiService.findByKeyword(keyword);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("api/apiList");
-        mv.addObject("movies", items.getItems());
+        mv.addObject("movies", items.block().getItems());
 
         return mv;
     }
