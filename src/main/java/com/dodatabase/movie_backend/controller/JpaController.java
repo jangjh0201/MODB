@@ -1,7 +1,7 @@
 package com.dodatabase.movie_backend.controller;
 
-import com.dodatabase.movie_backend.domain.Movie;
-import com.dodatabase.movie_backend.domain.MovieResponseItem;
+import com.dodatabase.movie_backend.domain.Movie.Movie;
+import com.dodatabase.movie_backend.domain.Movie.MovieResponseItem;
 import com.dodatabase.movie_backend.service.MovieService;
 
 import org.modelmapper.ModelMapper;
