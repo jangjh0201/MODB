@@ -25,7 +25,7 @@ public class Movie {
 
     @Builder
     public Movie(Long movieId, String title, String link, String subtitle,
-            String pubDate, String director, String actor, float userRating) {re
+            String pubDate, String director, String actor, float userRating) {
         this.movieId = movieId;
         this.title = title;
         this.link = link;
