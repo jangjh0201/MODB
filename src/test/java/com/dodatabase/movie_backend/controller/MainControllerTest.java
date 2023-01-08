@@ -11,8 +11,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import com.dodatabase.movie_backend.domain.MovieResponse;
-import com.dodatabase.movie_backend.domain.MovieResponseItem;
+import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
+import com.dodatabase.movie_backend.domain.Movie.MovieResponseItem;
 import com.dodatabase.movie_backend.service.MovieApiService;
 import com.dodatabase.movie_backend.service.MovieService;
 
@@ -59,7 +59,7 @@ public class MainControllerTest {
         multiValueMap.put("moveResponseID", movieResponse.getItems());
 
         // given
-        given(movieApiService.findByKeyword(value)).willReturn(new MovieResponse());
+        // given(movieApiService.findByKeyword(value)).willReturn(new MovieResponse());
 
         // when
         ResultActions resultActions = mockMvc.perform(post("/api/search")
