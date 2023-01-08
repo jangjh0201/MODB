@@ -2,6 +2,7 @@ package com.dodatabase.movie_backend;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,6 +18,5 @@ public class SpringConfig {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-
 
 }
