@@ -1,4 +1,4 @@
-package com.dodatabase.movie_backend.domain;
+package com.dodatabase.movie_backend.domain.Movie;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +9,7 @@ import lombok.*;
 
 @Entity
 @Getter
-@Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Movie {
 
     @Id
@@ -26,7 +25,7 @@ public class Movie {
 
     @Builder
     public Movie(Long movieId, String title, String link, String subtitle,
-            String pubDate, String director, String actor, float userRating) {
+            String pubDate, String director, String actor, float userRating) {re
         this.movieId = movieId;
         this.title = title;
         this.link = link;

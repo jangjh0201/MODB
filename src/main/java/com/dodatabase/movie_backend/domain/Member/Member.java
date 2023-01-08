@@ -1,4 +1,4 @@
-package com.dodatabase.movie_backend.domain;
+package com.dodatabase.movie_backend.domain.Member;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

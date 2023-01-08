@@ -1,10 +1,8 @@
-package com.dodatabase.movie_backend.domain;
+package com.dodatabase.movie_backend.domain.Movie;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class MovieResponseItem {
     private String title;
     private String link;
