@@ -1,19 +1,12 @@
 package com.dodatabase.movie_backend.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
 import com.dodatabase.movie_backend.domain.MovieWebClient.MovieApiWebClient;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
