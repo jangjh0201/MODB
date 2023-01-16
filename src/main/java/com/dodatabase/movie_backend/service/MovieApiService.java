@@ -3,41 +3,30 @@ package com.dodatabase.movie_backend.service;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
-import com.dodatabase.movie_backend.domain.MovieWebClient.MovieApiWebClient;
 
 @Service
 @RequiredArgsConstructor
 public class MovieApiService {
 
-    // private final ApiKey apiKey;
+    private final WebClient movieApClient;
 
-    // private final RestTemplate restTemplate;
+    public MovieResponse findByKeyword(String keyword) {
+        Mono<MovieResponse> mono = movieApClient.mutate()
+                .build()
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .queryParam("query", keyword)
+                        .build())
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(MovieResponse.class);
 
-    private final MovieApiWebClient movieApiWebClient;
-
-    // public MovieResponse findByKeyword(String keyword) {
-    // final HttpHeaders headers = new HttpHeaders(); // 헤더에 key들을 담아준다.
-    // headers.set("X-NAVER-Client-ID", apiKey.getId());
-    // headers.set("X-NAVER-Client-Secret", apiKey.getSecret());
-
-    // Map<String, String> params = new HashMap<String, String>();
-    // params.put("query", keyword);
-
-    // final HttpEntity<String> entity = new HttpEntity<>(headers);
-
-    // return restTemplate
-    // .exchange(apiKey.getUrl(), HttpMethod.GET, entity, MovieResponse.class,
-    // params)
-    // .getBody();
-    // }
-
-    public Mono<MovieResponse> findByKeyword(String keyword) {
-
-        return movieApiWebClient.findByKeyword(keyword);
-
+        return mono.block();
     }
 
 }

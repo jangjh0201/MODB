@@ -34,11 +34,10 @@ public class MainController {
 
     @PostMapping("/api/search")
     public ModelAndView searchApi(@RequestParam("keyword") String keyword) {
-        Mono<MovieResponse> items = movieApiService.findByKeyword(keyword);
-        // MovieResponse items = movieApiService.findByKeyword(keyword);
+        MovieResponse items = movieApiService.findByKeyword(keyword);
         ModelAndView mv = new ModelAndView();
         mv.setViewName("api/apiList");
-        mv.addObject("movies", items.block().getItems());
+        mv.addObject("movies", items.getItems());
 
         return mv;
     }
