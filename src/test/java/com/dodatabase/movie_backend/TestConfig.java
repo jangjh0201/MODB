@@ -9,11 +9,6 @@ import org.springframework.web.client.RestTemplate;
 public class TestConfig {
 
     @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
-    @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }

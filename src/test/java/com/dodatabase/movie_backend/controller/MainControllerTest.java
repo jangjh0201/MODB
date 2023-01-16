@@ -59,7 +59,7 @@ public class MainControllerTest {
         multiValueMap.put("moveResponseID", movieResponse.getItems());
 
         // given
-        // given(movieApiService.findByKeyword(value)).willReturn(new MovieResponse());
+        given(movieApiService.findByKeyword(value)).willReturn(new MovieResponse());
 
         // when
         ResultActions resultActions = mockMvc.perform(post("/api/search")
