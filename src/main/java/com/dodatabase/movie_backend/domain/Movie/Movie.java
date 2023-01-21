@@ -1,5 +1,7 @@
 package com.dodatabase.movie_backend.domain.Movie;
 
+import java.time.Year;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,14 +20,14 @@ public class Movie {
     private String title;
     private String link;
     private String subtitle;
-    private String pubDate;
+    private Year pubDate;
     private String director;
     private String actor;
     private float userRating;
 
     @Builder
     public Movie(Long movieId, String title, String link, String subtitle,
-            String pubDate, String director, String actor, float userRating) {
+            Year pubDate, String director, String actor, float userRating) {
         this.movieId = movieId;
         this.title = title;
         this.link = link;
