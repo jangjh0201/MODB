@@ -21,7 +21,7 @@ public class JpaController {
     private final ModelMapper modelMapper;
 
     @PostMapping("/api/new")
-    public ResponseEntity<?> addMovies(@RequestBody MovieResponseItem item) {
+    public ResponseEntity<Movie> addMovies(@RequestBody MovieResponseItem item) {
         Optional<Movie> byTitle = movieService.findByTitle(item.getTitle());
 
         try {
@@ -29,10 +29,10 @@ public class JpaController {
                 throw new Exception("이미 존재하는 영화입니다.");
             } else {
                 movieService.create(modelMapper.map(item, Movie.class));
-                return new ResponseEntity<>(HttpStatus.CREATED);
+                return ResponseEntity.status(HttpStatus.CREATED).build();
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 
