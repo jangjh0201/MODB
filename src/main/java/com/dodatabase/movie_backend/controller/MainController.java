@@ -23,7 +23,7 @@ public class MainController {
 
     @GetMapping("/")
     public String home() {
-        return "home";
+        return "index";
     }
 
     @GetMapping("/api/search")
