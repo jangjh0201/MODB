@@ -27,7 +27,7 @@ public class MovieApiService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(MovieResponse.class);
-
+        
         return mono.block();
     }
 
