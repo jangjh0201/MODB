@@ -57,7 +57,7 @@ public class MovieApiServiceTest {
                 .addHeader("Content-Type", "application/json"));
 
         // when
-        final MovieResponse result = movieApiService.findByKeyword("star");
+        final MovieResponse result = movieApiService.findByKeyword("JP", "15", "star");
 
         // then
         StepVerifier.create(Mono.just(result))

@@ -50,20 +50,22 @@ public class MainControllerTest {
 
     @Test
     public void searchApiTest() throws Exception {
-        String param = "keyword";
-        String value = "star";
+        String country = "JP";
+        String genre = "15";
+        String query = "star";
 
         MultiValueMap<String, MovieResponseItem> multiValueMap = new LinkedMultiValueMap<>();
         multiValueMap.put("moveResponseID", movieResponse.getItems());
 
         // given
-        given(movieApiService.findByKeyword(value)).willReturn(new MovieResponse());
+        given(movieApiService.findByKeyword(country, genre, query)).willReturn(new MovieResponse());
 
         // when
         ResultActions resultActions = mockMvc.perform(post("/api/search")
-                .param(param, value))
+                .param("country", country)
+                .param("genre", genre)
+                .param("query", query))
                 .andDo(print());
-
         // then
         resultActions
                 .andExpect(status().isOk())
