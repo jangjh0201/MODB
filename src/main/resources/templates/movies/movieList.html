@@ -49,6 +49,7 @@
             </div>
         </div>
     </nav>
+
     <!-- 테이블 -->
     <div th:if="${#lists.isEmpty(movies)}">
     </div>
@@ -78,7 +79,7 @@
                     <td th:utext="${movie.userRating}">User Rating</td>
                     <td>
                         <button class="btn btn-outline-primary"
-                            th:onclick="delete_movie([[${movieStat.current}]])">삭제</button>
+                            th:onclick="deleteMovie([[${movieStat.current}]])">삭제</button>
                     </td>
                 </tr>
             </tbody>
@@ -86,7 +87,7 @@
     </div>
     <div th:unless="${movies}"></div>
     <script>
-        function delete_movie(object) {
+        function deleteMovie(object) {
             $.ajax({
                 type: "POST",
                 url: "/movies/delete",

@@ -38,26 +38,40 @@
     </nav>
 
     <!-- 검색 -->
-    <form class="row g-3" action="/api/search" method="post">
+    <form name="searchForm" class="row g-3" action="/api/search" method="post" onSubmit="return errorCheck()">
         <div class="col-md-1">
             <label for="inputState" class="form-label">국가</label>
-            <select id="inputState" class="form-select">
-                <option selected></option>
-                <option>...</option>
+            <select id="inputState" class="form-select" th:name="country">
+                <option value=""></option>
+                <option th:each="country : ${countries}" th:value="${country.getCode()}" th:utext="${country}"></option>
             </select>
         </div>
         <div class="col-md-2">
             <label for="inputState" class="form-label">장르</label>
-            <select id="inputState" class="form-select">
-                <option selected></option>
-                <option>...</option>
+            <select id="inputState" class="form-select" th:name="genre">
+                <option value=""></option>
+                <option th:each="genre : ${genres}" th:value="${genre.getCode()}" th:utext="${genre}">
+                </option>
             </select>
         </div>
         <div class="col-md-4">
             <label for="inputCity" class="form-label">키워드</label>
-            <input type="text" class="form-control" id="inputCity" th:name="keyword" th:value="${keyword}">
+            <input type="text" class="form-control" id="query" th:name="query" th:value="${query}">
         </div>
     </form>
+
+    <script th:inline="javascript">
+
+        function errorCheck() {
+            if (searchForm.query.value == "") {
+                alert("검색어는 필수입니다.");
+                return false;
+            } else {
+                document.searchForm.submit();
+            }
+        }
+
+    </script>
 
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
