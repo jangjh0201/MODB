@@ -28,9 +28,9 @@ public class MainController {
     }
 
     @GetMapping("/api/search")
-    public String searchApiForm(Model mv) {
-        mv.addAttribute("countries", CountryType.values());
-        mv.addAttribute("genres", GenreType.values());
+    public String searchApiForm(Model model) {
+        model.addAttribute("countries", CountryType.values());
+        model.addAttribute("genres", GenreType.values());
         return "api/apiSearchForm";
     }
 
@@ -39,20 +39,20 @@ public class MainController {
             @RequestParam(value = "country", required = false) String country,
             @RequestParam(value = "genre", required = false) String genre,
             @RequestParam(value = "query") String query,
-            Model mv) {
+            Model model) {
         MovieResponse items = movieApiService.findByKeyword(country, genre, query);
 
-        mv.addAttribute("countries", CountryType.values());
-        mv.addAttribute("genres", GenreType.values());
-        mv.addAttribute("movies", items.getItems());
+        model.addAttribute("countries", CountryType.values());
+        model.addAttribute("genres", GenreType.values());
+        model.addAttribute("movies", items.getItems());
 
         return "api/apiList";
     }
 
     @GetMapping("/movies")
-    public String list(Model mv) {
+    public String list(Model model) {
         List<Movie> movies = movieService.findMovies();
-        mv.addAttribute("movies", movies);
+        model.addAttribute("movies", movies);
 
         return "movies/movieList";
     }
