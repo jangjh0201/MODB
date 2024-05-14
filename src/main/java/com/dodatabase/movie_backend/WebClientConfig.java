@@ -11,7 +11,7 @@ import lombok.Builder;
 @Configuration
 public class WebClientConfig {
 
-    private static final String NAVER_HOST = "https://openapi.naver.com/v1/search/movie.json";
+    private static final String KMDB_HOST = "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2";
 
     private final ApiKey apiKey;
 
@@ -22,12 +22,9 @@ public class WebClientConfig {
 
     @Bean
     public WebClient movieApiClient() {
+        String HOST = KMDB_HOST + "&" + "ServiceKey=" + apiKey.getKey();
         return WebClient.builder()
-                .baseUrl(NAVER_HOST)
-                .defaultHeaders(httpHeaders -> {
-                    httpHeaders.add("X-NAVER-Client-ID", apiKey.getId());
-                    httpHeaders.add("X-NAVER-Client-Secret", apiKey.getSecret());
-                })
+                .baseUrl(HOST)
                 .build();
     }
 }
