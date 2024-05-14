@@ -15,19 +15,19 @@ public class MovieApiService {
 
     private final WebClient movieApClient;
 
-    public MovieResponse findByKeyword(String country, String genre, String query) {
+    public MovieResponse findByKeyword(String nation, String genre, String title) {
         Mono<MovieResponse> mono = movieApClient.mutate()
                 .build()
                 .get()
                 .uri(uriBuilder -> uriBuilder
-                        .queryParam("country", country)
+                        .queryParam("nation", nation)
                         .queryParam("genre", genre)
-                        .queryParam("query", query)
+                        .queryParam("title", title)
                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(MovieResponse.class);
-        
+
         return mono.block();
     }
 

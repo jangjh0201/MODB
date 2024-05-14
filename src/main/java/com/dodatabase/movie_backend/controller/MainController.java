@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.dodatabase.movie_backend.domain.Movie.GenreType;
-import com.dodatabase.movie_backend.domain.Movie.CountryType;
+import com.dodatabase.movie_backend.domain.Movie.NationType;
 import com.dodatabase.movie_backend.domain.Movie.Movie;
 import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
 import com.dodatabase.movie_backend.service.MovieApiService;
@@ -29,20 +29,20 @@ public class MainController {
 
     @GetMapping("/api/search")
     public String searchApiForm(Model model) {
-        model.addAttribute("countries", CountryType.values());
+        model.addAttribute("nations", NationType.values());
         model.addAttribute("genres", GenreType.values());
         return "api/apiSearchForm";
     }
 
     @PostMapping("/api/search")
     public String searchApi(
-            @RequestParam(value = "country", required = false) String country,
+            @RequestParam(value = "nation", required = false) String nation,
             @RequestParam(value = "genre", required = false) String genre,
-            @RequestParam(value = "query") String query,
+            @RequestParam(value = "title") String title,
             Model model) {
-        MovieResponse items = movieApiService.findByKeyword(country, genre, query);
+        MovieResponse items = movieApiService.findByKeyword(nation, genre, title);
 
-        model.addAttribute("countries", CountryType.values());
+        model.addAttribute("nations", NationType.values());
         model.addAttribute("genres", GenreType.values());
         model.addAttribute("movies", items.getItems());
 
