@@ -14,15 +14,11 @@ import lombok.Getter;
 public class ApiKey {
 
     @NotBlank
-    private final String id;
-
-    @NotBlank
-    private final String secret;
+    private final String key;
 
     @Builder
-    public ApiKey(String id, String secret) {
-        this.id = id;
-        this.secret = secret;
+    public ApiKey(String key) {
+        this.key = key;
     }
 
 }

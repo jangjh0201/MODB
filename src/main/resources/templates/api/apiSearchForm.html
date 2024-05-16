@@ -41,9 +41,9 @@
     <form name="searchForm" class="row g-3" action="/api/search" method="post" onSubmit="return errorCheck()">
         <div class="col-md-1">
             <label for="inputState" class="form-label">국가</label>
-            <select id="inputState" class="form-select" th:name="country">
+            <select id="inputState" class="form-select" th:name="nation">
                 <option value=""></option>
-                <option th:each="country : ${countries}" th:value="${country.getCode()}" th:utext="${country}"></option>
+                <option th:each="nation : ${nations}" th:value="${nation.getCode()}" th:utext="${nation}"></option>
             </select>
         </div>
         <div class="col-md-2">
@@ -55,8 +55,8 @@
             </select>
         </div>
         <div class="col-md-4">
-            <label for="inputCity" class="form-label">키워드</label>
-            <input type="text" class="form-control" id="query" th:name="query" th:value="${query}">
+            <label for="inputCity" class="form-label">제목</label>
+            <input type="text" class="form-control" id="title" th:name="title" th:value="${title}">
         </div>
     </form>
 
