@@ -11,13 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MovieResponse {
 
-    private Date lastBuildDate;
     private int total;
     private List<MovieResponseItem> items;
 
     @Builder
-    public MovieResponse(Date lastBuildDate, int total, List<MovieResponseItem> items) {
-        this.lastBuildDate = lastBuildDate;
+    public MovieResponse(int total, List<MovieResponseItem> items) {
         this.total = total;
         this.items = items;
     }
