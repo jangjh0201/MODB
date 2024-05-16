@@ -22,7 +22,7 @@ public class WebClientConfig {
 
     @Bean
     public WebClient movieApiClient() {
-        String HOST = KMDB_HOST + "&" + "ServiceKey=" + apiKey.getKey();
+        String HOST = KMDB_HOST + "&ServiceKey=" + apiKey.getKey();
         return WebClient.builder()
                 .baseUrl(HOST)
                 .build();

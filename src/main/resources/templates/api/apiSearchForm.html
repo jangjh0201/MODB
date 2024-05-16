@@ -41,9 +41,9 @@
     <form name="searchForm" class="row g-3" action="/api/search" method="post" onSubmit="return errorCheck()">
         <div class="col-md-1">
             <label for="inputState" class="form-label">국가</label>
-            <select id="inputState" class="form-select" th:name="country">
+            <select id="inputState" class="form-select" th:name="nation">
                 <option value=""></option>
-                <option th:each="nation : ${nation}" th:value="${nation.getCode()}" th:utext="${nation}"></option>
+                <option th:each="nation : ${nations}" th:value="${nation.getCode()}" th:utext="${nation}"></option>
             </select>
         </div>
         <div class="col-md-2">

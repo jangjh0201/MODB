@@ -20,7 +20,7 @@ class MovieBackendApplicationTests {
 
     @Test
     public void test() {
-        assertThat(apiKey.getId(), is(equalTo("Hqsz1tECcg712EE903wl")));
+        assertThat(apiKey.getKey(), is(equalTo("Hqsz1tECcg712EE903wl")));
     }
 
 }
