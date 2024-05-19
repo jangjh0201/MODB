@@ -1,4 +1,4 @@
-package com.dodatabase.movie_backend;
+package com.dodatabase.movie_backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +24,8 @@ public class WebClientConfig {
     public WebClient movieApiClient() {
         String HOST = KMDB_HOST + "&ServiceKey=" + apiKey.getKey();
         return WebClient.builder()
+                // .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(16 * 1024 *
+                // 1024))
                 .baseUrl(HOST)
                 .build();
     }
