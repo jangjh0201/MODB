@@ -23,21 +23,37 @@
             justify-content: center;
         }
 
-        table {
-            display: block;
-            max-width: 70%;
-            margin-left: auto;
-            margin-right: auto;
-            table-layout: auto;
-            text-align: center;
+        .table-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
         }
 
-        th {
-            white-space: nowrap;
+        table {
+            width: 80%;
+            max-width: 80%;
+            margin: 0 auto;
+            table-layout: auto;
+            text-align: center;
+            word-break: break-all;
+        }
+
+        th,
+        td {
+            white-space: normal;
+        }
+
+        .fixed-width-td {
+            width: 30%;
+            word-wrap: break-word;
         }
 
         button {
             white-space: nowrap;
+        }
+
+        .text-center {
+            text-align: center;
         }
     </style>
 </head>
@@ -59,9 +75,9 @@
     <form name="searchForm" class="row g-3" action="/api/search" method="post" onSubmit="return errorCheck()">
         <div class="col-md-1">
             <label for="inputState" class="form-label">국가</label>
-            <select id="inputState" class="form-select" th:name="country">
+            <select id="inputState" class="form-select" th:name="nation">
                 <option value=""></option>
-                <option th:each="country : ${countries}" th:value="${country.getCode()}" th:utext="${country}"></option>
+                <option th:each="nation : ${nations}" th:value="${nation.getCode()}" th:utext="${nation}"></option>
             </select>
         </div>
         <div class="col-md-2">
@@ -73,41 +89,40 @@
             </select>
         </div>
         <div class="col-md-4">
-            <label for="inputCity" class="form-label">키워드</label>
-            <input type="text" class="form-control" id="query" th:name="query" th:value="${query}">
+            <label for="inputCity" class="form-label">제목</label>
+            <input type="text" class="form-control" id="title" th:name="title" th:value="${title}">
         </div>
     </form>
 
-    <!-- 테이블 -->
-    <div th:if="${#lists.isEmpty(movies)}">
+    <!-- 검색 결과 테이블 -->
+    <div th:if="${#lists.isEmpty(movies)}" class="text-center">
+        <p>검색 결과가 없습니다.</p>
     </div>
-    <div th:unless="${#lists.isEmpty(movies)}">
+    <div th:unless="${#lists.isEmpty(movies)}" class="table-container">
         <table class="table table-hover table-bordered">
             <thead>
                 <tr>
                     <th scope="col">제목</th>
-                    <th scope="col">링크</th>
-                    <th scope="col">부제</th>
                     <th scope="col">개봉</th>
+                    <th scope="col">장르</th>
+                    <th scope="col">제작국가</th>
+                    <th scope="col">상영시간</th>
                     <th scope="col">감독</th>
                     <th scope="col">배우</th>
-                    <th scope="col">평점</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
                 <tr th:each="movie : ${movies}">
-                    <td th:utext="${movie.title}">Title</td>
+                    <td th:text="${movie.title}">Title</td>
+                    <td th:text="${movie.prodYear}">Publish Date</td>
+                    <td th:text="${movie.genre}">Genre</td>
+                    <td th:text="${movie.nation}">Nation</td>
+                    <td th:text="${movie.runtime}">Runtime</td>
+                    <td th:text="${movie.director}">Directors</td>
+                    <td th:text="${movie.actor}" class="fixed-width-td">Actors</td>
                     <td>
-                        <a th:href="${movie.link}">이동</a>
-                    </td>
-                    <td th:utext="${movie.subtitle}">Subtitle</td>
-                    <td th:utext="${movie.pubDate}">Pubslish Date</td>
-                    <td th:utext="${movie.director}">Director</td>
-                    <td th:utext="${movie.actor}">Actor</td>
-                    <td th:utext="${movie.userRating}">User Rating</td>
-                    <td>
-                        <button class="btn btn-outline-primary"
-                            th:onclick="saveMovie([[${movieStat.current}]])">저장</button>
+                        <button class="btn btn-outline-primary" th:onclick="saveMovie([[${movie}]])">저장</button>
                     </td>
                 </tr>
             </tbody>
@@ -115,7 +130,6 @@
     </div>
 
     <script th:inline="javascript">
-
         function errorCheck() {
             if (searchForm.query.value == "") {
                 alert("검색어는 필수입니다.");
