@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.dodatabase.movie_backend.domain.Movie.GenreType;
 import com.dodatabase.movie_backend.domain.Movie.NationType;
-import com.dodatabase.movie_backend.domain.Movie.Movie;
 import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
+import com.dodatabase.movie_backend.domain.Movie.Movie;
 import com.dodatabase.movie_backend.service.MovieApiService;
 import com.dodatabase.movie_backend.service.MovieService;
 
@@ -40,11 +40,9 @@ public class MainController {
             @RequestParam(value = "genre", required = false) String genre,
             @RequestParam(value = "title") String title,
             Model model) {
-        MovieResponse items = movieApiService.findByKeyword(nation, genre, title);
+        List<MovieResponse> results = movieApiService.findByKeyword(nation, genre, title);
 
-        model.addAttribute("nations", NationType.values());
-        model.addAttribute("genres", GenreType.values());
-        model.addAttribute("movies", items.getItems());
+        model.addAttribute("movies", results);
 
         return "api/apiList";
     }

@@ -1,4 +1,4 @@
-package com.dodatabase.movie_backend;
+package com.dodatabase.movie_backend.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration.AccessLevel;

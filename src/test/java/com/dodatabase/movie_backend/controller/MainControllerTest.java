@@ -12,7 +12,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
-import com.dodatabase.movie_backend.domain.Movie.MovieResponseItem;
 import com.dodatabase.movie_backend.service.MovieApiService;
 import com.dodatabase.movie_backend.service.MovieService;
 
@@ -50,12 +49,12 @@ public class MainControllerTest {
 
     @Test
     public void searchApiTest() throws Exception {
-        String country = "JP";
-        String genre = "15";
-        String query = "star";
+        String country = "미국";
+        String genre = "SF";
+        String query = "스타워즈";
 
-        MultiValueMap<String, MovieResponseItem> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.put("moveResponseID", movieResponse.getItems());
+        MultiValueMap<String, MovieResponse> multiValueMap = new LinkedMultiValueMap<>();
+        multiValueMap.put("moveResponseID", movieResponse);
 
         // given
         given(movieApiService.findByKeyword(country, genre, query)).willReturn(new MovieResponse());

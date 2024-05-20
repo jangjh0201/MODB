@@ -3,11 +3,14 @@ package com.dodatabase.movie_backend.service;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
+import com.dodatabase.movie_backend.util.JsonParser;
 
 @Service
 @RequiredArgsConstructor
@@ -15,8 +18,8 @@ public class MovieApiService {
 
     private final WebClient movieApClient;
 
-    public MovieResponse findByKeyword(String nation, String genre, String title) {
-        Mono<MovieResponse> mono = movieApClient.mutate()
+    public List<MovieResponse> findByKeyword(String nation, String genre, String title) {
+        Mono<String> mono = movieApClient.mutate()
                 .build()
                 .get()
                 .uri(uriBuilder -> uriBuilder
@@ -26,9 +29,9 @@ public class MovieApiService {
                         .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(MovieResponse.class);
-
-        return mono.block();
+                .bodyToMono(String.class);
+        String jsonResponse = mono.block();
+        return JsonParser.parseResponse(jsonResponse);
     }
 
 }

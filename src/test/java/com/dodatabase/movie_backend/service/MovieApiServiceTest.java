@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
-import com.dodatabase.movie_backend.domain.Movie.MovieResponseItem;
+import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import okhttp3.mockwebserver.MockResponse;
@@ -50,8 +50,8 @@ public class MovieApiServiceTest {
     @Test
     public void findByKeyword() throws Exception {
         // given
-        List<MovieResponseItem> items = new LinkedList<>();
-        MovieResponse movieResponse = new MovieResponse(null, 0, items);
+        List<MovieResponse> items = new LinkedList<>();
+        MovieResponse movieResponse = new MovieResponse(0, items);
         mockWebServer.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(movieResponse))
                 .addHeader("Content-Type", "application/json"));
