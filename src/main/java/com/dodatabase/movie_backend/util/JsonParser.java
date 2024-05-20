@@ -1,6 +1,5 @@
 package com.dodatabase.movie_backend.util;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonParser {
 
-    @SuppressWarnings("unused")
     public static List<MovieResponse> parseResponse(String jsonResponse) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
