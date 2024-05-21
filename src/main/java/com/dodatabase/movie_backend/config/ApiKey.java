@@ -1,4 +1,4 @@
-package com.dodatabase.movie_backend.service;
+package com.dodatabase.movie_backend.config;
 
 import javax.validation.constraints.NotBlank;
 
