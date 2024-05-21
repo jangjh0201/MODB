@@ -2,7 +2,7 @@ package com.dodatabase.movie_backend.controller;
 
 import com.dodatabase.movie_backend.domain.Movie.Movie;
 import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
-import com.dodatabase.movie_backend.service.MovieService;
+import com.dodatabase.movie_backend.service.WishListService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -16,11 +16,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class JpaController {
 
-    private final MovieService movieService;
+    private final WishListService movieService;
 
     private final ModelMapper modelMapper;
 
-    @PostMapping("/api/new")
+    @PostMapping("/movie/new")
     public ResponseEntity<Movie> addMovies(@RequestBody MovieResponse item) {
         Optional<Movie> byTitle = movieService.findByTitle(item.getTitle());
 
@@ -36,7 +36,7 @@ public class JpaController {
         }
     }
 
-    @PostMapping("/movies/delete")
+    @PostMapping("/movie/delete")
     public void removeMovies(@RequestBody MovieResponse item) {
         movieService.deleteByTitle(item.getTitle());
     }

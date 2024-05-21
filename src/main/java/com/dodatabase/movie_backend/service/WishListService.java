@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MovieService {
+public class WishListService {
 
     private final MovieRepository movieRepository;
 

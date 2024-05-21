@@ -14,12 +14,12 @@ import com.dodatabase.movie_backend.util.JsonParser;
 
 @Service
 @RequiredArgsConstructor
-public class MovieApiService {
+public class ExternalApiService {
 
-    private final WebClient movieApClient;
+    private final WebClient movieApiClient;
 
     public List<MovieResponse> findByKeyword(String nation, String genre, String title) {
-        Mono<String> mono = movieApClient.mutate()
+        Mono<String> mono = movieApiClient.mutate()
                 .build()
                 .get()
                 .uri(uriBuilder -> uriBuilder

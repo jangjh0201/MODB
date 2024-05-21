@@ -10,8 +10,8 @@ import com.dodatabase.movie_backend.domain.Movie.GenreType;
 import com.dodatabase.movie_backend.domain.Movie.NationType;
 import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
 import com.dodatabase.movie_backend.domain.Movie.Movie;
-import com.dodatabase.movie_backend.service.MovieApiService;
-import com.dodatabase.movie_backend.service.MovieService;
+import com.dodatabase.movie_backend.service.ExternalApiService;
+import com.dodatabase.movie_backend.service.WishListService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,8 +19,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MainController {
 
-    private final MovieApiService movieApiService;
-    private final MovieService movieService;
+    private final ExternalApiService movieApiService;
+    private final WishListService movieService;
 
     @GetMapping("/")
     public String home() {
@@ -31,7 +31,7 @@ public class MainController {
     public String searchApiForm(Model model) {
         model.addAttribute("nations", NationType.values());
         model.addAttribute("genres", GenreType.values());
-        return "api/apiSearchForm";
+        return "api/html/apiSearchForm";
     }
 
     @PostMapping("/api/search")
@@ -44,15 +44,15 @@ public class MainController {
 
         model.addAttribute("movies", results);
 
-        return "api/apiList";
+        return "api/html/apiList";
     }
 
-    @GetMapping("/movies")
+    @GetMapping("/movie")
     public String list(Model model) {
         List<Movie> movies = movieService.findMovies();
         model.addAttribute("movies", movies);
 
-        return "movies/movieList";
+        return "movie/html/movieList";
     }
 
 }
