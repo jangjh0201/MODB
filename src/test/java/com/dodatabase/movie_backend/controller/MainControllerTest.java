@@ -8,19 +8,18 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
 import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
-import com.dodatabase.movie_backend.service.MovieApiService;
-import com.dodatabase.movie_backend.service.MovieService;
+import com.dodatabase.movie_backend.service.ExternalApiService;
+import com.dodatabase.movie_backend.service.WishListService;
+
+import java.util.Collections;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import static org.mockito.BDDMockito.*;
-
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @WebMvcTest(MainController.class)
@@ -31,44 +30,72 @@ public class MainControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private MovieApiService movieApiService;
+    private ExternalApiService externalApiService;
 
     @MockBean
-    private MovieService movieService;
-
-    @MockBean
-    private MovieResponse movieResponse;
+    private WishListService wishListService;
 
     @Test
     public void searchApiFormTest() throws Exception {
         mockMvc.perform(get("/api/search"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(view().name("api/apiSearchForm"))
                 .andDo(print());
     }
 
     @Test
     public void searchApiTest() throws Exception {
-        String country = "미국";
+        String nation = "미국";
         String genre = "SF";
-        String query = "스타워즈";
+        String title = "스타워즈";
 
-        MultiValueMap<String, MovieResponse> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.put("moveResponseID", movieResponse);
+        MovieResponse movieResponse = new MovieResponse();
+        movieResponse.setTitle("스타워즈");
+        movieResponse.setProdYear(1977);
+        movieResponse.setGenre("SF");
+        movieResponse.setNation("미국");
+        movieResponse.setRuntime(121);
+        movieResponse.setDirector("조지 루카스");
+        movieResponse.setActor("한 솔로");
+
+        List<MovieResponse> movieResponseList = Collections.singletonList(movieResponse);
 
         // given
-        given(movieApiService.findByKeyword(country, genre, query)).willReturn(new MovieResponse());
+        given(externalApiService.findByKeyword(nation, genre, title)).willReturn(movieResponseList);
 
         // when
         ResultActions resultActions = mockMvc.perform(post("/api/search")
-                .param("country", country)
+                .param("nation", nation)
                 .param("genre", genre)
-                .param("query", query))
+                .param("title", title)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andDo(print());
+
         // then
         resultActions
                 .andExpect(status().isOk())
+                .andExpect(view().name("api/html/apiList"))
+                .andExpect(model().attributeExists("movies"))
+                .andExpect(model().attribute("movies", movieResponseList))
+                .andDo(print());
+    }
+
+    @Test
+    public void listMoviesTest() throws Exception {
+        // given
+        given(wishListService.findMovies()).willReturn(Collections.emptyList());
+
+        // when
+        ResultActions resultActions = mockMvc.perform(get("/movie"))
                 .andDo(print());
 
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(view().name("movie/html/movieList"))
+                .andExpect(model().attributeExists("movies"))
+                .andExpect(model().attribute("movies", Collections.emptyList()))
+                .andDo(print());
     }
 }
