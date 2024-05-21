@@ -11,7 +11,7 @@ function saveMovie(object) {
   $.ajax({
     type: "POST",
     async: false,
-    url: "/api/new",
+    url: "/movie/new",
     data: JSON.stringify(object),
     dataType: "text",
     contentType: "application/json; charset=utf-8",
