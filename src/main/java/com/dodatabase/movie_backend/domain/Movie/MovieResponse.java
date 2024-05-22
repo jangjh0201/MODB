@@ -1,10 +1,10 @@
 package com.dodatabase.movie_backend.domain.Movie;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
+@Builder
 public class MovieResponse {
     private String title;
     private int prodYear;
