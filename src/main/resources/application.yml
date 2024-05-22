@@ -6,6 +6,9 @@ spring:
       local:
         - local
         - API-KEY
+      test:
+        - test
+        - API-KEY
 # 운영 장비에서는 create, create-drop, update 사용하면 안됌.
 # 개발 초기 단계는 create 또는 update
 # 테스트 서버는 update 또는 validate
