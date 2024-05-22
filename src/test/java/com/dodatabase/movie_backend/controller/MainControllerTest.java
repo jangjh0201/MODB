@@ -50,14 +50,15 @@ public class MainControllerTest {
         String genre = "SF";
         String title = "스타워즈";
 
-        MovieResponse movieResponse = new MovieResponse();
-        movieResponse.setTitle("스타워즈");
-        movieResponse.setProdYear(1977);
-        movieResponse.setGenre("SF");
-        movieResponse.setNation("미국");
-        movieResponse.setRuntime(121);
-        movieResponse.setDirector("조지 루카스");
-        movieResponse.setActor("한 솔로");
+        MovieResponse movieResponse = MovieResponse.builder()
+                .title("스타워즈")
+                .prodYear(1977)
+                .genre("SF")
+                .nation("미국")
+                .runtime(121)
+                .director("조지 루카스")
+                .actor("한 솔로")
+                .build();
 
         List<MovieResponse> movieResponseList = Collections.singletonList(movieResponse);
 

@@ -1,70 +1,87 @@
-// package com.dodatabase.movie_backend.service;
+package com.dodatabase.movie_backend.service;
 
-// import org.junit.jupiter.api.AfterAll;
-// import org.junit.jupiter.api.BeforeAll;
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.Test;
-// import org.springframework.web.reactive.function.client.WebClient;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.web.reactive.function.client.WebClient;
 
-// import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
-// import com.dodatabase.movie_backend.domain.Movie.MovieResponseItem;
-// import com.fasterxml.jackson.databind.ObjectMapper;
+import com.dodatabase.movie_backend.domain.Movie.MovieResponse;
 
-// import okhttp3.mockwebserver.MockResponse;
-// import okhttp3.mockwebserver.MockWebServer;
-// import reactor.core.publisher.Mono;
-// import reactor.test.StepVerifier;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
-// import java.io.IOException;
-// import java.util.LinkedList;
-// import java.util.List;
+import java.io.IOException;
+import java.util.List;
 
-// public class MovieApiServiceTest {
+public class ExternalApiServiceTest {
 
-// private static MockWebServer mockWebServer;
+    private static MockWebServer mockWebServer;
 
-// private MovieApiService movieApiService;
+    private ExternalApiService externalApiService;
 
-// private WebClient movieApiClient;
+    private WebClient movieApiClient;
 
-// private ObjectMapper objectMapper = new ObjectMapper();
+    @BeforeAll
+    static void setUp() throws IOException {
+        mockWebServer = new MockWebServer();
+        mockWebServer.start();
+    }
 
-// @BeforeAll
-// static void setUp() throws IOException {
-// mockWebServer = new MockWebServer();
-// mockWebServer.start();
-// }
+    @BeforeEach
+    void initialize() {
+        String baseUrl = String.format("http://localhost:%s", mockWebServer.getPort());
+        movieApiClient = WebClient.create(baseUrl);
+        externalApiService = new ExternalApiService(movieApiClient);
+    }
 
-// @BeforeEach
-// void initialize() {
-// String baseUrl = String.format("http://localhost:%s",
-// mockWebServer.getPort());
-// movieApiClient = WebClient.create(baseUrl);
-// movieApiService = new MovieApiService(movieApiClient);
-// }
+    @AfterAll
+    static void shutdown() throws IOException {
+        mockWebServer.shutdown();
+    }
 
-// @AfterAll
-// static void shutdown() throws IOException {
-// mockWebServer.shutdown();
-// }
+    @Test
+    public void findByKeyword() throws Exception {
+        // given
+        String jsonResponse = """
+                {
+                    "Data": [
+                        {
+                            "Result": [
+                                {
+                                    "title": "스타워즈",
+                                    "prodYear": 1977,
+                                    "genre": "SF",
+                                    "nation": "미국",
+                                    "runtime": 121,
+                                    "directors": {
+                                        "director": [
+                                            { "directorNm": "조지 루카스" }
+                                        ]
+                                    },
+                                    "actors": {
+                                        "actor": [
+                                            { "actorNm": "한 솔로" }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+                """;
+        mockWebServer.enqueue(new MockResponse()
+                .setBody(jsonResponse)
+                .addHeader("Content-Type", "application/json"));
 
-// @Test
-// public void findByKeyword() throws Exception {
-// // given
-// List<MovieResponseItem> items = new LinkedList<>();
-// MovieResponse movieResponse = new MovieResponse(null, 0, items);
-// mockWebServer.enqueue(new MockResponse()
-// .setBody(objectMapper.writeValueAsString(movieResponse))
-// .addHeader("Content-Type", "application/json"));
+        // when
+        final List<MovieResponse> result = externalApiService.findByKeyword("미국", "SF", "스타워즈");
 
-// // when
-// final MovieResponse result = movieApiService.findByKeyword("JP", "15",
-// "star");
-
-// // then
-// StepVerifier.create(Mono.just(result))
-// .expectNextMatches(data -> data.getClass().equals(movieResponse.getClass()))
-// .verifyComplete();
-// }
-
-// }
+        // then
+        StepVerifier.create(Mono.just(result))
+                .expectNextMatches(data -> data.size() == 1 && data.get(0).getTitle().equals("스타워즈"))
+                .verifyComplete();
+    }
+}
