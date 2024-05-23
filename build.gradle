@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.15'
+    id 'org.springframework.boot' version '2.7.18'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
@@ -31,11 +31,12 @@ dependencies {
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
     testImplementation 'org.assertj:assertj-core:3.23.1'
     testImplementation "com.squareup.okhttp3:mockwebserver:4.10.0"
     testImplementation 'io.projectreactor:reactor-test'
@@ -44,4 +45,8 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
