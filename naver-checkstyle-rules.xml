@@ -418,13 +418,6 @@ The following rules in the Naver coding convention cannot be checked by this con
 			<property name="influenceFormat" value="0"/>
 		</module>
 	</module>
-
-	<!--- Suppression -->
-	<module name="SuppressionFilter">
-		<property name="file" value="C:\Users\Junho\Project\movie_Backend\naver-checkstyle-suppressions"/>
-		<property name="optional" value="true"/>
-	</module>
-
 	<!--- Exclude module-info.java -->
 	<module name="BeforeExecutionExclusionFileFilter">
 		<property name="fileNamePattern" value="module\-info\.java$"/>
