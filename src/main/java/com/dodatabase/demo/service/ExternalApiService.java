@@ -16,7 +16,12 @@ public class ExternalApiService {
   private final WebClient movieApiClient;
 
   public List<MovieResponse> findByKeyword(String nation, String genre, String title) {
-    Mono<String> mono = movieApiClient.mutate()
+    String jsonResponse = getApiResponse(nation, genre, title).block();
+    return JsonParser.parseResponse(jsonResponse);
+  }
+
+  private Mono<String> getApiResponse(String nation, String genre, String title) {
+    return movieApiClient.mutate()
         .build()
         .get()
         .uri(uriBuilder -> uriBuilder
@@ -27,8 +32,6 @@ public class ExternalApiService {
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .bodyToMono(String.class);
-    String jsonResponse = mono.block();
-    return JsonParser.parseResponse(jsonResponse);
   }
 
 }

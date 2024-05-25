@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class MainController {
 
-  private final ExternalApiService movieApiService;
-  private final WishListService movieService;
+  private final ExternalApiService externalApiService;
+  private final WishListService wishListService;
 
   @GetMapping("/")
   public String home() {
@@ -39,7 +39,7 @@ public class MainController {
       @RequestParam(value = "genre", required = false) String genre,
       @RequestParam(value = "title") String title,
       Model model) {
-    List<MovieResponse> results = movieApiService.findByKeyword(nation, genre, title);
+    List<MovieResponse> results = externalApiService.findByKeyword(nation, genre, title);
 
     model.addAttribute("movies", results);
 
@@ -48,7 +48,7 @@ public class MainController {
 
   @GetMapping("/movie")
   public String list(Model model) {
-    List<Movie> movies = movieService.findMovies();
+    List<Movie> movies = wishListService.findMovies();
     model.addAttribute("movies", movies);
 
     return "movie/html/movieList";
