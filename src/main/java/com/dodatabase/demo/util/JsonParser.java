@@ -17,8 +17,8 @@ public class JsonParser {
   /**
    * JSON 형태의 문자열을 {@link MovieResponse} 타입의 객체로 변환해주는 메소드.
    *
-   * @param jsonResponse JSON 형식의 문자열. 이 문자열은 영화 데이터를 포함해야 합니다.
-   * @return 변환된 {@link MovieResponse} 타입의 리스트. JSON 파싱에 실패하면 빈 리스트를 반환합니다.
+   * @param jsonResponse JSON 형식의 문자열, 이 문자열은 영화 데이터를 포함해야 합니다.
+   * @return 변환된 {@link MovieResponse} 타입의 리스트, JSON 파싱에 실패하면 빈 리스트를 반환합니다.
    * @throws IOException JSON 파싱 중 발생할 수 있는 예외.
    */
   public static List<MovieResponse> parseResponse(String jsonResponse) {

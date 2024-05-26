@@ -45,27 +45,27 @@ public class ExternalApiServiceTest {
     String jsonResponse = """
         {
         "Data": [
-        	{
-        		"Result": [
-        			{
-        				"title": "스타워즈",
-        				"prodYear": 1977,
-        				"genre": "SF",
-        				"nation": "미국",
-        				"runtime": 121,
-        				"directors": {
-        					"director": [
-        						{ "directorNm": "조지 루카스" }
-        					]
-        				},
-        				"actors": {
-        					"actor": [
-        						{ "actorNm": "한 솔로" }
-        					]
-        				}
-        			}
-        		]
-        	}
+          {
+            "Result": [
+              {
+                "title": "스타워즈",
+                "prodYear": 1977,
+                "genre": "SF",
+                "nation": "미국",
+                "runtime": 121,
+                "directors": {
+                  "director": [
+                    { "directorNm": "조지 루카스" }
+                  ]
+                },
+                "actors": {
+                  "actor": [
+                    { "actorNm": "한 솔로" }
+                  ]
+                }
+              }
+            ]
+          }
         ]
         }
         """;

@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class JpaController {
 
-  private final WishListService movieService;
+  private final WishListService wishListService;
 
   private final ModelMapper modelMapper;
 
   @PostMapping("/movie/new")
-  public ResponseEntity<Movie> addMovies(@RequestBody MovieResponse item) {
-    Optional<Movie> byTitle = movieService.findByTitle(item.getTitle());
+  public ResponseEntity<Movie> addMovie(@RequestBody MovieResponse movieResponse) {
+    Optional<Movie> existingMovie = wishListService.findByTitle(movieResponse.getTitle());
 
     try {
-      if (byTitle.isPresent()) {
+      if (existingMovie.isPresent()) {
         throw new Exception("이미 존재하는 영화입니다.");
       } else {
-        movieService.create(modelMapper.map(item, Movie.class));
+        wishListService.create(modelMapper.map(movieResponse, Movie.class));
         return ResponseEntity.status(HttpStatus.CREATED).build();
       }
     } catch (Exception e) {
@@ -37,7 +37,7 @@ public class JpaController {
   }
 
   @PostMapping("/movie/delete")
-  public void removeMovies(@RequestBody MovieResponse item) {
-    movieService.deleteByTitle(item.getTitle());
+  public void removeMovies(@RequestBody MovieResponse movieResponse) {
+    wishListService.deleteByTitle(movieResponse.getTitle());
   }
 }
