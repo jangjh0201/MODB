@@ -7,22 +7,20 @@ function errorCheck() {
   }
 }
 
-function saveMovie(object) {
+function saveMovie(movie) {
   $.ajax({
     type: "POST",
-    async: false,
     url: "/movie/new",
-    data: JSON.stringify(object),
+    data: JSON.stringify(movie),
     dataType: "text",
     contentType: "application/json; charset=utf-8",
   })
-    .done(function (data, textStatus, jqXHR) {
+    .done(() => {
       alert("위시리스트에 저장되었습니다.");
     })
-    .fail(function (jqXHR, textStatus, errorThrown) {
-      switch (jqXHR.status) {
-        case 409:
-          alert("이미 등록된 영화입니다.");
+    .fail((jqXHR) => {
+      if (jqXHR.status === 409) {
+        alert("이미 등록된 영화입니다.");
       }
     });
 }
