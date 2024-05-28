@@ -12,20 +12,26 @@
 </head>
 
 <body>
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
   <!-- 네비게이션 -->
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">홈</a>
-      <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="/api/search">영화 조회</a>
-        <a class="nav-link" href="/movies">위시리스트</a>
-      </div>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">홈</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/api/search">영화 조회</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/movie">위시리스트</a>
+        </li>
+      </ul>
     </div>
   </nav>
 
   <!-- 검색 -->
-  <form name="searchForm" class="row g-3" action="/api/search" method="post" onSubmit="return errorCheck()">
+  <form name="searchForm" class="row g-3" action="/api/search" method="post" id="searchForm">
     <div class="col-md-1">
       <label for="inputState" class="form-label">국가</label>
       <select id="inputState" class="form-select" th:name="nation">
@@ -37,8 +43,7 @@
       <label for="inputState" class="form-label">장르</label>
       <select id="inputState" class="form-select" th:name="genre">
         <option value=""></option>
-        <option th:each="genre : ${genres}" th:value="${genre.getCode()}" th:utext="${genre}">
-        </option>
+        <option th:each="genre : ${genres}" th:value="${genre.getCode()}" th:utext="${genre}"></option>
       </select>
     </div>
     <div class="col-md-3">
@@ -66,7 +71,7 @@
         </tr>
       </thead>
       <tbody class="table-group-divider">
-        <tr th:each="movie : ${movies}">
+        <tr th:each="movie, stat : ${movies}">
           <td th:text="${movie.title}">Title</td>
           <td th:text="${movie.prodYear}">Publish Date</td>
           <td th:text="${movie.genre}">Genre</td>
@@ -75,10 +80,11 @@
           <td th:text="${movie.director}">Directors</td>
           <td th:text="${movie.actor}" class="fixed-width-td">Actors</td>
           <td>
-            <button class="btn btn-outline-primary" th:onclick="saveMovie([[${movie}]])">저장</button>
+            <button class="btn btn-outline-primary save-button" th:data-movie-id="${stat.index}">저장</button>
           </td>
         </tr>
       </tbody>
+
     </table>
   </div>
 
