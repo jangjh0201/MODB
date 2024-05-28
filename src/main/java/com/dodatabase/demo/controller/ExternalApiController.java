@@ -1,12 +1,10 @@
 package com.dodatabase.demo.controller;
 
 import com.dodatabase.demo.domain.movie.GenreType;
-import com.dodatabase.demo.domain.movie.Movie;
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.domain.movie.NationType;
 import com.dodatabase.demo.service.ExternalApiService;
-import com.dodatabase.demo.service.WishListService;
-import java.util.List;
+import com.dodatabase.demo.service.MovieCacheService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 @RequiredArgsConstructor
-public class MainController {
+public class ExternalApiController {
 
   private final ExternalApiService externalApiService;
-  private final WishListService wishListService;
+  private final MovieCacheService movieCacheService;
 
   @GetMapping("/")
   public String home() {
@@ -41,17 +42,19 @@ public class MainController {
       Model model) {
     List<MovieResponse> results = externalApiService.findByKeyword(nation, genre, title);
 
+    // 캐시 초기화
+    movieCacheService.clearCache();
+
+    // 캐시에 영화 데이터를 저장하고 ID를 매핑합니다.
+    List<Long> movieIds = results.stream()
+        .map(movieCacheService::addMovie)
+        .collect(Collectors.toList());
+
+    model.addAttribute("nations", NationType.values());
+    model.addAttribute("genres", GenreType.values());
     model.addAttribute("movies", results);
+    model.addAttribute("movieIds", movieIds);
 
     return "api/html/apiList";
   }
-
-  @GetMapping("/movie")
-  public String list(Model model) {
-    List<Movie> movies = wishListService.findMovies();
-    model.addAttribute("movies", movies);
-
-    return "movie/html/movieList";
-  }
-
 }

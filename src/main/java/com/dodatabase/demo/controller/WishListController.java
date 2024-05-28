@@ -2,26 +2,46 @@ package com.dodatabase.demo.controller;
 
 import com.dodatabase.demo.domain.movie.Movie;
 import com.dodatabase.demo.domain.movie.MovieResponse;
+import com.dodatabase.demo.service.MovieCacheService;
 import com.dodatabase.demo.service.WishListService;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
-public class JpaController {
+public class WishListController {
 
   private final WishListService wishListService;
-
+  private final MovieCacheService movieCacheService;
   private final ModelMapper modelMapper;
 
+  @GetMapping("/movie")
+  public String list(Model model) {
+    List<Movie> movies = wishListService.findMovies();
+    model.addAttribute("movies", movies);
+
+    return "movie/html/movieList";
+  }
+
   @PostMapping("/movie/new")
-  public ResponseEntity<Movie> addMovie(@RequestBody MovieResponse movieResponse) {
+  @ResponseBody
+  public ResponseEntity<Movie> addMovie(@RequestBody Long movieId) {
+    Optional<MovieResponse> movieResponseOptional = Optional.ofNullable(movieCacheService.getMovieById(movieId));
+    if (movieResponseOptional.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    MovieResponse movieResponse = movieResponseOptional.get();
     Optional<Movie> existingMovie = wishListService.findByTitle(movieResponse.getTitle());
 
     try {
