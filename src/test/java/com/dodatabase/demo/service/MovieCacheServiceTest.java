@@ -31,19 +31,19 @@ public class MovieCacheServiceTest {
     MovieResponse cachedMovie = movieCacheService.getMovieById(id);
 
     assertThat(cachedMovie).isNotNull();
-    assertThat(cachedMovie.getTitle()).isEqualTo("Test Movie");
+    assertThat(cachedMovie.getTitle()).isEqualTo("스타워즈");
   }
 
   @Test
   public void testClearCache() {
     MovieResponse movieResponse = MovieResponse.builder()
-        .title("Test Movie")
-        .prodYear(2021)
-        .genre("Action")
-        .nation("USA")
-        .runtime(120)
-        .director("John Doe")
-        .actor("Jane Doe")
+        .title("스타워즈")
+        .prodYear(1977)
+        .genre("SF")
+        .nation("미국")
+        .runtime(121)
+        .director("조지 루카스")
+        .actor("한 솔로")
         .build();
 
     movieCacheService.addMovie(movieResponse);
