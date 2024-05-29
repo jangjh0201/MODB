@@ -46,14 +46,13 @@ public class ExternalApiController {
     movieCacheService.clearCache();
 
     // 캐시에 영화 데이터를 저장하고 ID를 매핑합니다.
-    List<Long> movieIds = results.stream()
+    results.stream()
         .map(movieCacheService::addMovie)
         .collect(Collectors.toList());
 
     model.addAttribute("nations", NationType.values());
     model.addAttribute("genres", GenreType.values());
     model.addAttribute("movies", results);
-    model.addAttribute("movieIds", movieIds);
 
     return "api/html/apiList";
   }
