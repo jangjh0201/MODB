@@ -30,6 +30,11 @@ public class WishListService {
   }
 
   @Transactional
+  public void deleteById(Long id) {
+    movieRepository.deleteById(id);
+  }
+
+  @Transactional
   public void deleteByTitle(String title) {
     movieRepository.deleteByTitle(title);
   }

@@ -11,7 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.service.ExternalApiService;
-import com.dodatabase.demo.service.WishListService;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -19,22 +18,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-@WebMvcTest(MainController.class)
-@WebAppConfiguration
-public class MainControllerTest {
+@WebMvcTest(ExternalApiController.class)
+public class ExternalApiControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @MockBean
   private ExternalApiService externalApiService;
-
-  @MockBean
-  private WishListService wishListService;
 
   @Test
   public void searchApiFormTest() throws Exception {
@@ -80,24 +74,6 @@ public class MainControllerTest {
         .andExpect(view().name("api/html/apiList"))
         .andExpect(model().attributeExists("movies"))
         .andExpect(model().attribute("movies", movieResponseList))
-        .andDo(print());
-  }
-
-  @Test
-  public void listMoviesTest() throws Exception {
-    // given
-    given(wishListService.findMovies()).willReturn(Collections.emptyList());
-
-    // when
-    ResultActions resultActions = mockMvc.perform(get("/movie"))
-        .andDo(print());
-
-    // then
-    resultActions
-        .andExpect(status().isOk())
-        .andExpect(view().name("movie/html/movieList"))
-        .andExpect(model().attributeExists("movies"))
-        .andExpect(model().attribute("movies", Collections.emptyList()))
         .andDo(print());
   }
 }

@@ -1,28 +1,37 @@
 function errorCheck() {
-  if (document.forms["searchForm"]["title"].value == "") {
+  if (searchForm.query.value == "") {
     alert("검색어는 필수입니다.");
     return false;
   } else {
-    document.forms["searchForm"].submit();
+    document.searchForm.submit();
   }
 }
 
-function saveMovie(object) {
+// 영화 저장 버튼 클릭 이벤트 처리
+$(document).ready(function () {
+  $(".save-button").on("click", function () {
+    var movieIndex = $(this).data("movie-index");
+    saveMovie(movieIndex);
+  });
+});
+
+// 영화 저장 함수
+function saveMovie(movieIndex) {
   $.ajax({
     type: "POST",
-    async: false,
     url: "/movie/new",
-    data: JSON.stringify(object),
     dataType: "text",
     contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(movieIndex),
   })
-    .done(function (data, textStatus, jqXHR) {
-      alert("위시리스트에 저장되었습니다.");
+    .done(() => {
+      alert("등록되었습니다.");
     })
-    .fail(function (jqXHR, textStatus, errorThrown) {
-      switch (jqXHR.status) {
-        case 409:
-          alert("이미 등록된 영화입니다.");
+    .fail((jqXHR) => {
+      if (jqXHR.status == 409) {
+        alert("이미 등록된 영화입니다.");
+      } else if (jqXHR.status == 404) {
+        alert("영화를 찾을 수 없습니다.");
       }
     });
 }
