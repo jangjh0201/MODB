@@ -71,7 +71,7 @@
         </tr>
       </thead>
       <tbody class="table-group-divider">
-        <tr th:each="movie, stat : ${movies}">
+        <tr th:each="movie, movieStat : ${movies}">
           <td th:text="${movie.title}">Title</td>
           <td th:text="${movie.prodYear}">Publish Date</td>
           <td th:text="${movie.genre}">Genre</td>
@@ -80,7 +80,7 @@
           <td th:text="${movie.director}">Directors</td>
           <td th:text="${movie.actor}" class="fixed-width-td">Actors</td>
           <td>
-            <button class="btn btn-outline-primary save-button" th:data-movie-id="${stat.index}">저장</button>
+            <button class="btn btn-outline-primary save-button" th:data-movie-index="${movieStat.index}">저장</button>
           </td>
         </tr>
       </tbody>

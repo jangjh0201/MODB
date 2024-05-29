@@ -32,7 +32,7 @@
   </nav>
 
   <!-- 테이블 -->
-  <div th:if="${#lists.isEmpty(movies)}" class="text-center">
+  <div th:if="${#lists.isEmpty(movies)}" class="text-center no-movies-message">
     <p>저장된 영화가 없습니다.</p>
   </div>
   <div th:unless="${#lists.isEmpty(movies)}" class="table-container">
@@ -50,7 +50,7 @@
         </tr>
       </thead>
       <tbody class="table-group-divider">
-        <tr th:each="movie : ${movies}">
+        <tr th:each="movie, movieStat : ${movies}">
           <td th:text="${movie.title}">Title</td>
           <td th:text="${movie.prodYear}">Publish Date</td>
           <td th:text="${movie.genre}">Genre</td>
@@ -59,7 +59,7 @@
           <td th:text="${movie.director}">Directors</td>
           <td th:text="${movie.actor}" class="fixed-width-td">Actors</td>
           <td>
-            <button class="btn btn-outline-primary delete-button" th:data-movie-id="${movieStat.current}">삭제</button>
+            <button class="btn btn-outline-primary delete-button" th:data-movie-id="${movie.id}">삭제</button>
           </td>
         </tr>
       </tbody>
