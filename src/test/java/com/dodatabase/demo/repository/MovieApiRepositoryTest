@@ -1,0 +1,5 @@
+package com.dodatabase.demo.repository;
+
+public class MovieApiRepositoryTest extends MovieBackendApplicationTests {
+
+}
