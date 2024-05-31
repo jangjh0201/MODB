@@ -2,7 +2,7 @@ package com.dodatabase.demo.controller;
 
 import com.dodatabase.demo.domain.movie.Movie;
 import com.dodatabase.demo.domain.movie.MovieResponse;
-import com.dodatabase.demo.service.MovieCacheService;
+import com.dodatabase.demo.repository.MovieCacheMemory;
 import com.dodatabase.demo.service.WishListService;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class WishListController {
 
   private final WishListService wishListService;
-  private final MovieCacheService movieCacheService;
+  private final MovieCacheMemory movieCacheMemory;
   private final ModelMapper modelMapper;
 
   @GetMapping("/movie")
@@ -36,12 +36,13 @@ public class WishListController {
   @PostMapping("/movie/new")
   @ResponseBody
   public ResponseEntity<Movie> addMovie(@RequestBody Long movieId) {
-    Optional<MovieResponse> movieResponseOptional = Optional.ofNullable(movieCacheService.getMovieById(movieId));
-    if (movieResponseOptional.isEmpty()) {
+    Optional<MovieResponse> cache = Optional.ofNullable(movieCacheMemory.getMovieById(movieId));
+
+    if (cache.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    MovieResponse movieResponse = movieResponseOptional.get();
+    MovieResponse movieResponse = cache.get();
     Optional<Movie> existingMovie = wishListService.findByTitle(movieResponse.getTitle());
 
     try {

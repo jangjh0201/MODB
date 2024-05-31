@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import com.dodatabase.demo.domain.movie.MovieResponse;
+import com.dodatabase.demo.repository.MovieCacheMemory;
 import com.dodatabase.demo.service.ExternalApiService;
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +30,9 @@ public class ExternalApiControllerTest {
 
   @MockBean
   private ExternalApiService externalApiService;
+
+  @MockBean
+  private MovieCacheMemory movieCacheMemory;
 
   @Test
   public void searchApiFormTest() throws Exception {

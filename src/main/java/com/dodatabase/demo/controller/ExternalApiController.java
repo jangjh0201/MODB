@@ -3,8 +3,11 @@ package com.dodatabase.demo.controller;
 import com.dodatabase.demo.domain.movie.GenreType;
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.domain.movie.NationType;
+import com.dodatabase.demo.repository.MovieCacheMemory;
 import com.dodatabase.demo.service.ExternalApiService;
-import com.dodatabase.demo.service.MovieCacheService;
+
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,15 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Controller
 @RequiredArgsConstructor
 public class ExternalApiController {
 
   private final ExternalApiService externalApiService;
-  private final MovieCacheService movieCacheService;
+  private final MovieCacheMemory movieCacheMemory;
 
   @GetMapping("/")
   public String home() {
@@ -43,11 +43,11 @@ public class ExternalApiController {
     List<MovieResponse> results = externalApiService.findByKeyword(nation, genre, title);
 
     // 캐시 초기화
-    movieCacheService.clearCache();
+    movieCacheMemory.clearCache();
 
     // 캐시에 영화 데이터를 저장하고 ID를 매핑합니다.
     results.stream()
-        .map(movieCacheService::addMovie)
+        .map(movieCacheMemory::addMovie)
         .collect(Collectors.toList());
 
     model.addAttribute("nations", NationType.values());

@@ -1,12 +1,14 @@
-package com.dodatabase.demo.service;
+package com.dodatabase.demo.repository;
 
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.stereotype.Service;
 
-@Service
-public class MovieCacheService {
+import org.springframework.stereotype.Component;
+
+@Component
+public class MovieCacheMemory {
+
   private final Map<Long, MovieResponse> movieCache = new HashMap<>();
   private long currentId = 0;
 
