@@ -2,7 +2,6 @@ package com.dodatabase.demo.domain.movie;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 public class MovieResponse {
