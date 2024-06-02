@@ -29,7 +29,6 @@ public class WishListController {
   public String list(Model model) {
     List<Movie> movies = wishListService.findMovies();
     model.addAttribute("movies", movies);
-
     return "movie/html/movieList";
   }
 
@@ -43,18 +42,13 @@ public class WishListController {
     }
 
     MovieResponse movieResponse = cache.get();
-    Optional<Movie> existingMovie = wishListService.findByTitle(movieResponse.getTitle());
-
-    try {
-      if (existingMovie.isPresent()) {
-        throw new Exception("이미 존재하는 영화입니다.");
-      } else {
-        wishListService.create(modelMapper.map(movieResponse, Movie.class));
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-      }
-    } catch (Exception e) {
+    if (wishListService.findByTitle(movieResponse.getTitle()).isPresent()) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
+
+    Movie movie = modelMapper.map(movieResponse, Movie.class);
+    wishListService.create(movie);
+    return ResponseEntity.status(HttpStatus.CREATED).body(movie);
   }
 
   @PostMapping("/movie/delete")
