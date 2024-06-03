@@ -1,9 +1,9 @@
 function errorCheck() {
-  if (searchForm.query.value == "") {
+  if (document.searchForm.title.value == "") {
     alert("검색어는 필수입니다.");
     return false;
   } else {
-    document.searchForm.submit();
+    document.searchForm.submit(); // 폼을 제출합니다.
   }
 }
 
@@ -19,7 +19,7 @@ $(document).ready(function () {
 function saveMovie(movieIndex) {
   $.ajax({
     type: "POST",
-    url: "/movie/new",
+    url: "/v1/movie/create",
     dataType: "text",
     contentType: "application/json; charset=utf-8",
     data: JSON.stringify(movieIndex),

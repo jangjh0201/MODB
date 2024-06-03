@@ -18,6 +18,4 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
   void deleteById(Long id);
 
-  void deleteByTitle(String title);
-
 }

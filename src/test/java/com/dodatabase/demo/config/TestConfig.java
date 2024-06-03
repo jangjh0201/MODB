@@ -1,4 +1,4 @@
-package com.dodatabase.demo;
+package com.dodatabase.demo.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.TestConfiguration;
