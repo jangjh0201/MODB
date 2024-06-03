@@ -55,7 +55,7 @@ public class WishListController {
 
   @PostMapping("/delete")
   @ResponseBody
-  public void removeMovies(@RequestBody Long moieId) {
-    wishListService.deleteById(moieId);
+  public void removeMovie(@RequestBody Long movieId) {
+    wishListService.deleteById(movieId);
   }
 }
