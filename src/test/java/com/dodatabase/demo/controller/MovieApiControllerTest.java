@@ -11,10 +11,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.repository.MovieCacheMemory;
-import com.dodatabase.demo.service.ExternalApiService;
+import com.dodatabase.demo.service.MovieApiService;
 import java.util.Collections;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +23,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-@WebMvcTest(ExternalApiController.class)
-public class ExternalApiControllerTest {
+@WebMvcTest(MovieApiController.class)
+public class MovieApiControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @MockBean
-  private ExternalApiService externalApiService;
+  private MovieApiService movieApiService;
 
   @MockBean
   private MovieCacheMemory movieCacheMemory;
@@ -70,7 +69,7 @@ public class ExternalApiControllerTest {
     String title = "스타워즈";
 
     // given
-    given(externalApiService.findByKeyword(nation, genre, title)).willReturn(movieResponseList);
+    given(movieApiService.findByKeyword(nation, genre, title)).willReturn(movieResponseList);
 
     // when
     ResultActions resultActions = mockMvc.perform(post("/v1/api/search")

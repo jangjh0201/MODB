@@ -13,11 +13,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-public class ExternalApiServiceTest {
+public class MovieApiServiceTest {
 
   private static MockWebServer mockWebServer;
 
-  private ExternalApiService externalApiService;
+  private MovieApiService movieApiService;
 
   private WebClient movieApiClient;
 
@@ -31,7 +31,7 @@ public class ExternalApiServiceTest {
   void initialize() {
     String baseUrl = String.format("http://localhost:%s", mockWebServer.getPort());
     movieApiClient = WebClient.create(baseUrl);
-    externalApiService = new ExternalApiService(movieApiClient);
+    movieApiService = new MovieApiService(movieApiClient);
   }
 
   @AfterAll
@@ -74,7 +74,7 @@ public class ExternalApiServiceTest {
         .addHeader("Content-Type", "application/json"));
 
     // when
-    final List<MovieResponse> result = externalApiService.findByKeyword("미국", "SF", "스타워즈");
+    final List<MovieResponse> result = movieApiService.findByKeyword("미국", "SF", "스타워즈");
 
     // then
     StepVerifier.create(Mono.just(result))

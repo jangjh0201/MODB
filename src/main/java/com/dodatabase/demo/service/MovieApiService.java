@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-public class ExternalApiService {
+public class MovieApiService {
 
   private final WebClient movieApiClient;
 

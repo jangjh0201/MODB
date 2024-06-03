@@ -4,7 +4,7 @@ import com.dodatabase.demo.domain.movie.GenreType;
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.domain.movie.NationType;
 import com.dodatabase.demo.repository.MovieCacheMemory;
-import com.dodatabase.demo.service.ExternalApiService;
+import com.dodatabase.demo.service.MovieApiService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/v1/api")
-public class ExternalApiController {
+public class MovieApiController {
 
-  private final ExternalApiService externalApiService;
+  private final MovieApiService movieApiService;
   private final MovieCacheMemory movieCacheMemory;
 
   @GetMapping("/search")
@@ -36,7 +36,7 @@ public class ExternalApiController {
       @RequestParam(value = "genre", required = false) String genre,
       @RequestParam(value = "title") String title,
       Model model) {
-    List<MovieResponse> results = externalApiService.findByKeyword(nation, genre, title);
+    List<MovieResponse> results = movieApiService.findByKeyword(nation, genre, title);
 
     // 캐시 초기화
     movieCacheMemory.clearCache();
