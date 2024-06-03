@@ -31,7 +31,7 @@ public class WishListController {
   public String list(Model model) {
     List<Movie> movies = wishListService.findMovies();
     model.addAttribute("movies", movies);
-    return "movie/html/movieList";
+    return "html/movie/list";
   }
 
   @PostMapping("/create")

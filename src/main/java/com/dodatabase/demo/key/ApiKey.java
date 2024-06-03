@@ -1,4 +1,4 @@
-package com.dodatabase.demo.config;
+package com.dodatabase.demo.key;
 
 import javax.validation.constraints.NotBlank;
 import lombok.Builder;

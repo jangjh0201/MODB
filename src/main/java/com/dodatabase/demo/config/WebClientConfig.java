@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.dodatabase.demo.key.ApiKey;
+
 @Configuration
 public class WebClientConfig {
 
