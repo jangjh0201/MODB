@@ -15,26 +15,28 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/v1/movie")
 public class WishListController {
 
   private final WishListService wishListService;
   private final MovieCacheMemory movieCacheMemory;
   private final ModelMapper modelMapper;
 
-  @GetMapping("/movie")
+  @GetMapping("")
   public String list(Model model) {
     List<Movie> movies = wishListService.findMovies();
     model.addAttribute("movies", movies);
     return "movie/html/movieList";
   }
 
-  @PostMapping("/movie/new")
+  @PostMapping("/create")
   @ResponseBody
-  public ResponseEntity<Movie> addMovie(@RequestBody Long movieId) {
+  public ResponseEntity<Movie> createMovie(@RequestBody Long movieId) {
     Optional<MovieResponse> cache = Optional.ofNullable(movieCacheMemory.getMovieById(movieId));
 
     if (cache.isEmpty()) {
@@ -51,7 +53,7 @@ public class WishListController {
     return ResponseEntity.status(HttpStatus.CREATED).body(movie);
   }
 
-  @PostMapping("/movie/delete")
+  @PostMapping("/delete")
   @ResponseBody
   public void removeMovies(@RequestBody Long moieId) {
     wishListService.deleteById(moieId);

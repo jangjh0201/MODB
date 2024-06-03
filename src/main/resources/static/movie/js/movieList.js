@@ -10,7 +10,7 @@ $(document).ready(function () {
 function deleteMovie(movieId) {
   $.ajax({
     type: "POST",
-    url: "/movie/delete",
+    url: "/v1/movie/delete",
     dataType: "text",
     contentType: "application/json; charset=utf-8",
     data: JSON.stringify(movieId),

@@ -3,8 +3,12 @@ package com.dodatabase.demo.controller;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import com.dodatabase.demo.domain.movie.Movie;
 import com.dodatabase.demo.domain.movie.MovieResponse;
@@ -18,6 +22,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(WishListController.class)
@@ -64,33 +69,42 @@ public class WishListControllerTest {
   }
 
   @Test
-  void addMovieTest_Success() throws Exception {
+  public void movieListTest() throws Exception {
+    mockMvc.perform(get("/v1/movie"))
+        .andExpect(status().isOk())
+        .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+        .andExpect(view().name("movie/html/movieList"))
+        .andDo(print());
+  }
+
+  @Test
+  void createMovieTest_Success() throws Exception {
     when(movieCacheMemory.getMovieById(any(Long.class))).thenReturn(movieResponse);
     when(wishListService.findByTitle(any())).thenReturn(Optional.empty());
     when(modelMapper.map(any(MovieResponse.class), eq(Movie.class))).thenReturn(movie);
 
-    mockMvc.perform(post("/movie/new")
+    mockMvc.perform(post("/v1/movie/create")
         .contentType("application/json")
         .content(objectMapper.writeValueAsString(1L)))
         .andExpect(status().isCreated());
   }
 
   @Test
-  void addMovieTest_AlreadyExists() throws Exception {
+  void createMovieTest_AlreadyExists() throws Exception {
     when(movieCacheMemory.getMovieById(any(Long.class))).thenReturn(movieResponse);
     when(wishListService.findByTitle(any())).thenReturn(Optional.of(movie));
 
-    mockMvc.perform(post("/movie/new")
+    mockMvc.perform(post("/v1/movie/create")
         .contentType("application/json")
         .content(objectMapper.writeValueAsString(1L)))
         .andExpect(status().isConflict());
   }
 
   @Test
-  void addMovieTest_NotFound() throws Exception {
+  void createMovieTest_NotFound() throws Exception {
     when(movieCacheMemory.getMovieById(any(Long.class))).thenReturn(null);
 
-    mockMvc.perform(post("/movie/new")
+    mockMvc.perform(post("/v1/movie/create")
         .contentType("application/json")
         .content(objectMapper.writeValueAsString(1L)))
         .andExpect(status().isNotFound());

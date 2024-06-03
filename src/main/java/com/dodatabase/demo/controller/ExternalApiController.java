@@ -12,28 +12,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/v1/api")
 public class ExternalApiController {
 
   private final ExternalApiService externalApiService;
   private final MovieCacheMemory movieCacheMemory;
 
-  @GetMapping("/")
-  public String home() {
-    return "index";
-  }
-
-  @GetMapping("/api/search")
+  @GetMapping("/search")
   public String searchApiForm(Model model) {
     model.addAttribute("nations", NationType.values());
     model.addAttribute("genres", GenreType.values());
     return "api/html/apiSearchForm";
   }
 
-  @PostMapping("/api/search")
+  @PostMapping("/search")
   public String searchApi(
       @RequestParam(value = "nation", required = false) String nation,
       @RequestParam(value = "genre", required = false) String genre,
