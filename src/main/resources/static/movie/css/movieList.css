@@ -1,10 +1,4 @@
-body {
-  overflow-x: hidden;
-}
-
-.navbar > .container-fluid {
-  justify-content: center;
-}
+@import url("../../common/css/common.css");
 
 .no-movies-message {
   margin-top: 30px;

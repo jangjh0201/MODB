@@ -1,0 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
+.navbar > .container-fluid {
+  justify-content: center;
+}
