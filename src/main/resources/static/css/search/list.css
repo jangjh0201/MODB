@@ -1,5 +1,5 @@
-@import url("../../common/css/common.css");
-@import url("../../common/css/common-form.css");
+@import url("../common/navbar.css");
+@import url("../common/form.css");
 
 .table-container {
   display: flex;
