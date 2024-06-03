@@ -9,7 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import com.dodatabase.demo.domain.movie.GenreType;
 import com.dodatabase.demo.domain.movie.MovieResponse;
+import com.dodatabase.demo.domain.movie.NationType;
 import com.dodatabase.demo.repository.MovieCacheMemory;
 import com.dodatabase.demo.service.MovieApiService;
 import java.util.Collections;
@@ -54,16 +56,16 @@ public class MovieApiControllerTest {
   }
 
   @Test
-  public void searchApiFormTest() throws Exception {
+  public void searchApiGetTest() throws Exception {
     mockMvc.perform(get("/v1/api/search"))
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-        .andExpect(view().name("api/html/apiSearchForm"))
+        .andExpect(view().name("html/search/list"))
         .andDo(print());
   }
 
   @Test
-  public void searchApiTest() throws Exception {
+  public void searchApiPostTest() throws Exception {
     String nation = "미국";
     String genre = "SF";
     String title = "스타워즈";
@@ -82,8 +84,12 @@ public class MovieApiControllerTest {
     // then
     resultActions
         .andExpect(status().isOk())
-        .andExpect(view().name("api/html/apiList"))
+        .andExpect(view().name("html/search/list"))
+        .andExpect(model().attributeExists("nations"))
+        .andExpect(model().attributeExists("genres"))
         .andExpect(model().attributeExists("movies"))
+        .andExpect(model().attribute("nations", NationType.values()))
+        .andExpect(model().attribute("genres", GenreType.values()))
         .andExpect(model().attribute("movies", movieResponseList))
         .andDo(print());
   }

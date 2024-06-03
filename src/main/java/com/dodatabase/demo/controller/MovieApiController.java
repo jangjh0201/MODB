@@ -24,10 +24,8 @@ public class MovieApiController {
   private final MovieCacheMemory movieCacheMemory;
 
   @GetMapping("/search")
-  public String searchApiForm(Model model) {
-    model.addAttribute("nations", NationType.values());
-    model.addAttribute("genres", GenreType.values());
-    return "api/html/apiSearchForm";
+  public String searchApi() {
+    return "html/search/list";
   }
 
   @PostMapping("/search")
@@ -50,6 +48,6 @@ public class MovieApiController {
     model.addAttribute("genres", GenreType.values());
     model.addAttribute("movies", results);
 
-    return "api/html/apiList";
+    return "html/search/list";
   }
 }

@@ -19,6 +19,6 @@ public class HomeControllerTest {
   public void home() throws Exception {
     mockMvc.perform(get("/v1"))
         .andExpect(status().isOk())
-        .andExpect(view().name("index"));
+        .andExpect(view().name("html/index"));
   }
 }

@@ -73,7 +73,7 @@ public class WishListControllerTest {
     mockMvc.perform(get("/v1/movie"))
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-        .andExpect(view().name("movie/html/movieList"))
+        .andExpect(view().name("html/movie/list"))
         .andDo(print());
   }
 

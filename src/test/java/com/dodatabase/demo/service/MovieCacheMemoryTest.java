@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.repository.MovieCacheMemory;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

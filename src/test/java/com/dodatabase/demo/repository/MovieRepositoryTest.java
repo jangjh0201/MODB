@@ -3,6 +3,8 @@ package com.dodatabase.demo.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.dodatabase.demo.domain.movie.Movie;
+import com.dodatabase.demo.repository.MovieRepository;
+
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
