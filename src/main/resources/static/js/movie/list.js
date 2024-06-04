@@ -9,7 +9,7 @@ $(document).ready(function () {
 // 영화 삭제 함수
 function deleteMovie(movieId) {
   $.ajax({
-    type: "POST",
+    type: "DELETE",
     url: "/v1/movie/delete",
     dataType: "text",
     contentType: "application/json; charset=utf-8",
