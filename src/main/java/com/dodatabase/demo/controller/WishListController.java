@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/v1/movie")
+@RequestMapping("/v1/wishlist")
 public class WishListController {
 
   private final WishListService wishListService;
@@ -37,13 +38,14 @@ public class WishListController {
   @PostMapping("/create")
   @ResponseBody
   public ResponseEntity<Movie> createMovie(@RequestBody Long movieId) {
-    Optional<MovieResponse> cache = Optional.ofNullable(movieCacheMemory.getMovieById(movieId));
+    Optional<MovieResponse> cachedMovie;
+    cachedMovie = Optional.ofNullable(movieCacheMemory.getMovieById(movieId));
 
-    if (cache.isEmpty()) {
+    if (cachedMovie.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    MovieResponse movieResponse = cache.get();
+    MovieResponse movieResponse = cachedMovie.get();
     if (wishListService.findByTitle(movieResponse.getTitle()).isPresent()) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
@@ -53,7 +55,7 @@ public class WishListController {
     return ResponseEntity.status(HttpStatus.CREATED).body(movie);
   }
 
-  @PostMapping("/delete")
+  @DeleteMapping("/delete")
   @ResponseBody
   public void removeMovie(@RequestBody Long movieId) {
     wishListService.deleteById(movieId);
