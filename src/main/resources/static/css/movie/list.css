@@ -1,8 +1,5 @@
 @import url("../common/navbar.css");
-
-.no-movies-message {
-  margin-top: 30px;
-}
+@import url("../common/form.css");
 
 .table-container {
   display: flex;
