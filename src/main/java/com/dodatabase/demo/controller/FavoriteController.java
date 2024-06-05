@@ -3,7 +3,7 @@ package com.dodatabase.demo.controller;
 import com.dodatabase.demo.domain.movie.Movie;
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.repository.MovieCacheMemory;
-import com.dodatabase.demo.service.WishListService;
+import com.dodatabase.demo.service.FavoriteService;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -21,21 +21,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/v1/wishlist")
-public class WishListController {
+@RequestMapping("/v1/favorites")
+public class FavoriteController {
 
-  private final WishListService wishListService;
+  private final FavoriteService favoriteService;
   private final MovieCacheMemory movieCacheMemory;
   private final ModelMapper modelMapper;
 
   @GetMapping("")
   public String list(Model model) {
-    List<Movie> movies = wishListService.findMovies();
+    List<Movie> movies = favoriteService.findMovies();
     model.addAttribute("movies", movies);
-    return "html/movie/list";
+    return "html/favorite/list";
   }
 
-  @PostMapping("/create")
+  @PostMapping("")
   @ResponseBody
   public ResponseEntity<Movie> createMovie(@RequestBody Long movieId) {
     Optional<MovieResponse> cachedMovie;
@@ -46,18 +46,18 @@ public class WishListController {
     }
 
     MovieResponse movieResponse = cachedMovie.get();
-    if (wishListService.findByTitle(movieResponse.getTitle()).isPresent()) {
+    if (favoriteService.findByTitle(movieResponse.getTitle()).isPresent()) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
     Movie movie = modelMapper.map(movieResponse, Movie.class);
-    wishListService.create(movie);
+    favoriteService.create(movie);
     return ResponseEntity.status(HttpStatus.CREATED).body(movie);
   }
 
-  @DeleteMapping("/delete")
+  @DeleteMapping("")
   @ResponseBody
   public void removeMovie(@RequestBody Long movieId) {
-    wishListService.deleteById(movieId);
+    favoriteService.deleteById(movieId);
   }
 }

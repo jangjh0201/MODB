@@ -17,18 +17,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/v1/api")
-public class MovieApiController {
+@RequestMapping("/v1/movies")
+public class MovieController {
 
   private final MovieApiService movieApiService;
   private final MovieCacheMemory movieCacheMemory;
 
-  @GetMapping("/search")
+  @GetMapping("")
   public String searchApi() {
-    return "html/search/list";
+    return "html/movie/list";
   }
 
-  @PostMapping("/search")
+  @PostMapping("")
   public String searchApi(
       @RequestParam(value = "nation", required = false) String nation,
       @RequestParam(value = "genre", required = false) String genre,
@@ -48,6 +48,6 @@ public class MovieApiController {
     model.addAttribute("genres", GenreType.values());
     model.addAttribute("movies", results);
 
-    return "html/search/list";
+    return "html/movie/list";
   }
 }
