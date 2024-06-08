@@ -18,6 +18,7 @@ public class JsonParserTest {
           {
             "Result": [
               {
+                "DOCID": "A00000",
                 "title": "스타워즈",
                 "prodYear": 1977,
                 "genre": "SF",
@@ -47,6 +48,7 @@ public class JsonParserTest {
     assertNotNull(movieResponses);
     assertEquals(1, movieResponses.size());
     MovieResponse movieResponse = movieResponses.get(0);
+    assertEquals("A00000", movieResponse.getDocId());
     assertEquals("스타워즈", movieResponse.getTitle());
     assertEquals(1977, movieResponse.getProdYear());
     assertEquals("SF", movieResponse.getGenre());

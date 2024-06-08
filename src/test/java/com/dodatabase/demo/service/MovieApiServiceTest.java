@@ -48,6 +48,7 @@ public class MovieApiServiceTest {
           {
             "Result": [
               {
+                "DOCID": "A00000",
                 "title": "스타워즈",
                 "prodYear": 1977,
                 "genre": "SF",
