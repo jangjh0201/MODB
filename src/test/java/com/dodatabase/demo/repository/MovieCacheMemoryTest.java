@@ -10,14 +10,15 @@ public class MovieCacheMemoryTest {
 
   private MovieCacheMemory movieCacheMemory;
 
-  @BeforeEach
-  public void setUp() {
-    movieCacheMemory = new MovieCacheMemory();
-  }
+  private MovieResponse movieResponse;
+  private String id;
 
-  @Test
-  public void testAddAndGetMovie() {
-    MovieResponse movieResponse = MovieResponse.movieResponseBuilder()
+  @BeforeEach
+  void initialize() {
+    movieCacheMemory = new MovieCacheMemory();
+
+    movieResponse = MovieResponse.movieResponseBuilder()
+        .id("A00000")
         .title("스타워즈")
         .prodYear(1977)
         .genre("SF")
@@ -27,10 +28,18 @@ public class MovieCacheMemoryTest {
         .actor("한 솔로")
         .build();
 
-    long id = movieCacheMemory.addMovie(movieResponse);
-    MovieResponse cachedMovie = movieCacheMemory.getMovieById(id);
+    id = "A00000";
+  }
+
+  @Test
+  public void addMovieCacheTest() {
+
+    movieCacheMemory.addMovieCache(movieResponse);
+
+    MovieResponse cachedMovie = movieCacheMemory.getMovieCacheById(id);
 
     assertThat(cachedMovie).isNotNull();
+    assertThat(cachedMovie.getId()).isEqualTo("A00000");
     assertThat(cachedMovie.getTitle()).isEqualTo("스타워즈");
     assertThat(cachedMovie.getProdYear()).isEqualTo(1977);
     assertThat(cachedMovie.getGenre()).isEqualTo("SF");
@@ -41,21 +50,12 @@ public class MovieCacheMemoryTest {
   }
 
   @Test
-  public void testClearCache() {
-    MovieResponse movieResponse = MovieResponse.movieResponseBuilder()
-        .title("스타워즈")
-        .prodYear(1977)
-        .genre("SF")
-        .nation("미국")
-        .runtime(121)
-        .director("조지 루카스")
-        .actor("한 솔로")
-        .build();
+  public void clearCacheTest() {
 
-    movieCacheMemory.addMovie(movieResponse);
+    movieCacheMemory.addMovieCache(movieResponse);
     movieCacheMemory.clearCache();
 
-    MovieResponse cachedMovie = movieCacheMemory.getMovieById(0);
+    MovieResponse cachedMovie = movieCacheMemory.getMovieCacheById(id);
     assertThat(cachedMovie).isNull();
   }
 }

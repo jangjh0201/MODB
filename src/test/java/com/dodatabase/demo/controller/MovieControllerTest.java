@@ -41,8 +41,9 @@ public class MovieControllerTest {
   private List<MovieResponse> movieResponseList;
 
   @BeforeEach
-  void setUp() {
+  void initialize() {
     movieResponse = MovieResponse.builder()
+        .id("A00000")
         .title("스타워즈")
         .prodYear(1977)
         .genre("SF")
