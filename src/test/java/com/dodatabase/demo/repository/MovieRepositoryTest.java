@@ -1,11 +1,9 @@
 package com.dodatabase.demo.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.dodatabase.demo.domain.movie.Movie;
 import java.util.Optional;
-import javax.sql.DataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +14,6 @@ public class MovieRepositoryTest {
 
   @Autowired
   private MovieRepository movieRepository;
-
-  @Autowired
-  private DataSource dataSource;
 
   private Movie movie;
 
@@ -34,11 +29,6 @@ public class MovieRepositoryTest {
         .director("조지 루카스")
         .actor("한 솔로")
         .build();
-  }
-
-  @Test
-  public void dataSourceTest() {
-    assertNotNull(dataSource);
   }
 
   @Test
