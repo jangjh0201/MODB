@@ -20,6 +20,7 @@ public class MovieApiServiceTest {
   private MovieApiService movieApiService;
 
   private WebClient movieApiClient;
+  private String result;
 
   @BeforeAll
   static void setUp() throws IOException {
@@ -32,22 +33,14 @@ public class MovieApiServiceTest {
     String baseUrl = String.format("http://localhost:%s", mockWebServer.getPort());
     movieApiClient = WebClient.create(baseUrl);
     movieApiService = new MovieApiService(movieApiClient);
-  }
 
-  @AfterAll
-  static void shutdown() throws IOException {
-    mockWebServer.shutdown();
-  }
-
-  @Test
-  public void findByKeyword() throws Exception {
-    // given
-    String jsonResponse = """
+    result = """
         {
         "Data": [
           {
             "Result": [
               {
+                "DOCID": "A00000",
                 "title": "스타워즈",
                 "prodYear": 1977,
                 "genre": "SF",
@@ -69,15 +62,25 @@ public class MovieApiServiceTest {
         ]
         }
         """;
+  }
+
+  @AfterAll
+  static void shutdown() throws IOException {
+    mockWebServer.shutdown();
+  }
+
+  @Test
+  public void findByKeywordTest() throws Exception {
+    // given
     mockWebServer.enqueue(new MockResponse()
-        .setBody(jsonResponse)
+        .setBody(result)
         .addHeader("Content-Type", "application/json"));
 
     // when
-    final List<MovieResponse> result = movieApiService.findByKeyword("미국", "SF", "스타워즈");
+    final List<MovieResponse> movieResponses = movieApiService.findByKeyword("미국", "SF", "스타워즈");
 
     // then
-    StepVerifier.create(Mono.just(result))
+    StepVerifier.create(Mono.just(movieResponses))
         .expectNextMatches(data -> data.size() == 1 && data.get(0).getTitle().equals("스타워즈"))
         .verifyComplete();
   }

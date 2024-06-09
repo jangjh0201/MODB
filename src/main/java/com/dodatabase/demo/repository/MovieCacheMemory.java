@@ -8,21 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class MovieCacheMemory {
 
-  private final Map<Long, MovieResponse> movieCache = new HashMap<>();
-  private long currentId = 0;
+  private final Map<String, MovieResponse> movieCache = new HashMap<>();
 
-  public long addMovie(MovieResponse movieResponse) {
-    long id = currentId++;
-    movieCache.put(id, movieResponse);
-    return id;
+  public void addMovieCache(MovieResponse movieResponse) {
+    movieCache.put(movieResponse.getId(), movieResponse);
   }
 
-  public MovieResponse getMovieById(long id) {
+  public MovieResponse getMovieCacheById(String id) {
     return movieCache.get(id);
   }
 
   public void clearCache() {
     movieCache.clear();
-    currentId = 0;
   }
 }

@@ -2,7 +2,6 @@ package com.dodatabase.demo.service;
 
 import com.dodatabase.demo.domain.movie.Movie;
 import com.dodatabase.demo.repository.MovieRepository;
-
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class WishListService {
+public class FavoriteService {
 
   private final MovieRepository movieRepository;
 
@@ -31,7 +30,7 @@ public class WishListService {
   }
 
   @Transactional
-  public void deleteById(Long id) {
+  public void deleteById(String id) {
     movieRepository.deleteById(id);
   }
 }

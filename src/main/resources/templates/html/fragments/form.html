@@ -3,26 +3,26 @@
 
 <body>
   <!-- 검색 -->
-  <form th:fragment="searchForm" name="searchForm" class="row g-3" action="/v1/api/search" method="post"
+  <form th:fragment="searchForm" name="searchForm" class="row g-3" action="/v1/movies" method="post"
     onSubmit="return errorCheck()">
     <div class="col-md-1">
-      <label for="inputState" class="form-label">국가</label>
-      <select id="inputState" class="form-select" th:name="nation">
+      <label for="inputNation" class="form-label">국가</label>
+      <select id="inputNation" class="form-select" th:name="nation">
         <option value=""></option>
         <option th:each="nation : ${nations}" th:value="${nation.getCode()}" th:utext="${nation}"></option>
       </select>
     </div>
     <div class="col-md-1">
-      <label for="inputState" class="form-label">장르</label>
-      <select id="inputState" class="form-select" th:name="genre">
+      <label for="inputGenre" class="form-label">장르</label>
+      <select id="inputGenre" class="form-select" th:name="genre">
         <option value=""></option>
         <option th:each="genre : ${genres}" th:value="${genre.getCode()}" th:utext="${genre}">
         </option>
       </select>
     </div>
     <div class="col-md-3">
-      <label for="inputCity" class="form-label">제목</label>
-      <input type="text" class="form-control" id="title" th:name="title" th:value="${title}">
+      <label for="inputTitle" class="form-label">제목</label>
+      <input id="inputTitle" class="form-control" type="text" th:name="title" th:value="${title}">
     </div>
   </form>
 </body>

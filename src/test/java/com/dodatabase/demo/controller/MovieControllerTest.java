@@ -25,8 +25,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-@WebMvcTest(MovieApiController.class)
-public class MovieApiControllerTest {
+@WebMvcTest(MovieController.class)
+public class MovieControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
@@ -41,8 +41,9 @@ public class MovieApiControllerTest {
   private List<MovieResponse> movieResponseList;
 
   @BeforeEach
-  void setUp() {
+  void initialize() {
     movieResponse = MovieResponse.builder()
+        .id("A00000")
         .title("스타워즈")
         .prodYear(1977)
         .genre("SF")
@@ -57,10 +58,10 @@ public class MovieApiControllerTest {
 
   @Test
   public void searchApiGetTest() throws Exception {
-    mockMvc.perform(get("/v1/api/search"))
+    mockMvc.perform(get("/v1/movies"))
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-        .andExpect(view().name("html/search/list"))
+        .andExpect(view().name("html/movie/list"))
         .andDo(print());
   }
 
@@ -74,7 +75,7 @@ public class MovieApiControllerTest {
     given(movieApiService.findByKeyword(nation, genre, title)).willReturn(movieResponseList);
 
     // when
-    ResultActions resultActions = mockMvc.perform(post("/v1/api/search")
+    ResultActions resultActions = mockMvc.perform(post("/v1/movies")
         .param("nation", nation)
         .param("genre", genre)
         .param("title", title)
@@ -84,7 +85,7 @@ public class MovieApiControllerTest {
     // then
     resultActions
         .andExpect(status().isOk())
-        .andExpect(view().name("html/search/list"))
+        .andExpect(view().name("html/movie/list"))
         .andExpect(model().attributeExists("nations"))
         .andExpect(model().attributeExists("genres"))
         .andExpect(model().attributeExists("movies"))

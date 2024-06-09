@@ -12,44 +12,51 @@
 </head>
 
 <body>
-  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
 
   <!-- 네비게이션 -->
-  <div th:replace="html/fragments/navbar :: navbar('wishlist')"></div>
+  <div th:replace="~{html/fragments/navbar :: navbar('movies')}"></div>
 
-  <!-- 테이블 -->
-  <div th:if="${#lists.isEmpty(movies)}" class="text-center no-movies-message">
-    <p>저장된 영화가 없습니다.</p>
-  </div>
-  <div th:unless="${#lists.isEmpty(movies)}" class="table-container">
-    <table class="table table-hover table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">제목</th>
-          <th scope="col">개봉</th>
-          <th scope="col">장르</th>
-          <th scope="col">제작국가</th>
-          <th scope="col">상영시간(분)</th>
-          <th scope="col">감독</th>
-          <th scope="col">배우</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody class="table-group-divider">
-        <tr th:each="movie, movieStat : ${movies}">
-          <td th:text="${movie.title}">Title</td>
-          <td th:text="${movie.prodYear}">Publish Date</td>
-          <td th:text="${movie.genre}">Genre</td>
-          <td th:text="${movie.nation}">Nation</td>
-          <td th:text="${movie.runtime}">Runtime</td>
-          <td th:text="${movie.director}">Directors</td>
-          <td th:text="${movie.actor}" class="fixed-width-td">Actors</td>
-          <td>
-            <button class="btn btn-outline-primary delete-button" th:data-movie-id="${movie.id}">삭제</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- 검색 -->
+  <div th:replace="~{html/fragments/form :: searchForm}"></div>
+
+  <!-- 검색 결과 섹션 -->
+  <div th:if="${movies != null}" class="search-result">
+    <!-- 검색 결과가 없을 때 표시되는 문구 -->
+    <div th:if="${#lists.isEmpty(movies)}" class="text-center">
+      <p>검색 결과가 없습니다.</p>
+    </div>
+    <!-- 검색 결과 테이블 -->
+    <div th:if="${!#lists.isEmpty(movies)}" class="table-container">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">제목</th>
+            <th scope="col">개봉</th>
+            <th scope="col">장르</th>
+            <th scope="col">제작국가</th>
+            <th scope="col">상영시간(분)</th>
+            <th scope="col">감독</th>
+            <th scope="col">배우</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          <tr th:each="movie : ${movies}">
+            <td th:text="${movie.title}">Title</td>
+            <td th:text="${movie.prodYear}">Publish Date</td>
+            <td th:text="${movie.genre}">Genre</td>
+            <td th:text="${movie.nation}">Nation</td>
+            <td th:text="${movie.runtime}">Runtime</td>
+            <td th:text="${movie.director}">Directors</td>
+            <td th:text="${movie.actor}" class="fixed-width-td">Actors</td>
+            <td>
+              <button class="btn btn-outline-primary save-button" th:data-movie-id="${movie.id}">저장</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- 분리된 JS 파일 로드 -->

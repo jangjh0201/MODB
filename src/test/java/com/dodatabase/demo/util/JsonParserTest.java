@@ -5,19 +5,22 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class JsonParserTest {
 
-  @Test
-  public void parseResponse() {
-    // given
-    String jsonResponse = """
+  String result;
+
+  @BeforeEach
+  void initialize() {
+    result = """
         {
         "Data": [
           {
             "Result": [
               {
+                "DOCID": "A00000",
                 "title": "스타워즈",
                 "prodYear": 1977,
                 "genre": "SF",
@@ -39,14 +42,19 @@ public class JsonParserTest {
         ]
         }
         """;
+  }
+
+  @Test
+  public void parseResponseTest() {
 
     // when
-    List<MovieResponse> movieResponses = JsonParser.parseResponse(jsonResponse);
+    List<MovieResponse> movieResponses = JsonParser.parseResponse(result);
 
     // then
     assertNotNull(movieResponses);
     assertEquals(1, movieResponses.size());
     MovieResponse movieResponse = movieResponses.get(0);
+    assertEquals("A00000", movieResponse.getId());
     assertEquals("스타워즈", movieResponse.getTitle());
     assertEquals(1977, movieResponse.getProdYear());
     assertEquals("SF", movieResponse.getGenre());

@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.dodatabase.demo.domain.movie.Movie;
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.repository.MovieCacheMemory;
-import com.dodatabase.demo.service.WishListService;
+import com.dodatabase.demo.service.FavoriteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,14 +25,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(WishListController.class)
-public class WishListControllerTest {
+@WebMvcTest(FavoriteController.class)
+public class FavoriteControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @MockBean
-  private WishListService wishListService;
+  private FavoriteService favoriteService;
 
   @MockBean
   private MovieCacheMemory movieCacheMemory;
@@ -46,8 +46,8 @@ public class WishListControllerTest {
   private MovieResponse movieResponse;
 
   @BeforeEach
-  void setUp() {
-    movie = Movie.builder(1L)
+  void initialize() {
+    movie = Movie.builder("A00000")
         .title("스타워즈")
         .prodYear(1977)
         .genre("SF")
@@ -58,6 +58,7 @@ public class WishListControllerTest {
         .build();
 
     movieResponse = MovieResponse.builder()
+        .id("A00000")
         .title("스타워즈")
         .prodYear(1977)
         .genre("SF")
@@ -70,20 +71,20 @@ public class WishListControllerTest {
 
   @Test
   public void movieListTest() throws Exception {
-    mockMvc.perform(get("/v1/movie"))
+    mockMvc.perform(get("/v1/favorites"))
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-        .andExpect(view().name("html/movie/list"))
+        .andExpect(view().name("html/favorite/list"))
         .andDo(print());
   }
 
   @Test
   void createMovieTest_Success() throws Exception {
-    when(movieCacheMemory.getMovieById(any(Long.class))).thenReturn(movieResponse);
-    when(wishListService.findByTitle(any())).thenReturn(Optional.empty());
+    when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(movieResponse);
+    when(favoriteService.findByTitle(any())).thenReturn(Optional.empty());
     when(modelMapper.map(any(MovieResponse.class), eq(Movie.class))).thenReturn(movie);
 
-    mockMvc.perform(post("/v1/movie/create")
+    mockMvc.perform(post("/v1/favorites")
         .contentType("application/json")
         .content(objectMapper.writeValueAsString(1L)))
         .andExpect(status().isCreated());
@@ -91,10 +92,10 @@ public class WishListControllerTest {
 
   @Test
   void createMovieTest_AlreadyExists() throws Exception {
-    when(movieCacheMemory.getMovieById(any(Long.class))).thenReturn(movieResponse);
-    when(wishListService.findByTitle(any())).thenReturn(Optional.of(movie));
+    when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(movieResponse);
+    when(favoriteService.findByTitle(any())).thenReturn(Optional.of(movie));
 
-    mockMvc.perform(post("/v1/movie/create")
+    mockMvc.perform(post("/v1/favorites")
         .contentType("application/json")
         .content(objectMapper.writeValueAsString(1L)))
         .andExpect(status().isConflict());
@@ -102,9 +103,9 @@ public class WishListControllerTest {
 
   @Test
   void createMovieTest_NotFound() throws Exception {
-    when(movieCacheMemory.getMovieById(any(Long.class))).thenReturn(null);
+    when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(null);
 
-    mockMvc.perform(post("/v1/movie/create")
+    mockMvc.perform(post("/v1/favorites")
         .contentType("application/json")
         .content(objectMapper.writeValueAsString(1L)))
         .andExpect(status().isNotFound());
