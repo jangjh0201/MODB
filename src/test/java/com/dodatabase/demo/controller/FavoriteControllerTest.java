@@ -3,7 +3,6 @@ package com.dodatabase.demo.controller;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -47,8 +46,8 @@ public class FavoriteControllerTest {
   private MovieResponse movieResponse;
 
   @BeforeEach
-  void setUp() {
-    movie = Movie.builder(1L)
+  void initialize() {
+    movie = Movie.builder("A00000")
         .title("스타워즈")
         .prodYear(1977)
         .genre("SF")
@@ -59,6 +58,7 @@ public class FavoriteControllerTest {
         .build();
 
     movieResponse = MovieResponse.builder()
+        .id("A00000")
         .title("스타워즈")
         .prodYear(1977)
         .genre("SF")
@@ -80,7 +80,7 @@ public class FavoriteControllerTest {
 
   @Test
   void createMovieTest_Success() throws Exception {
-    when(movieCacheMemory.getMovieById(any(Long.class))).thenReturn(movieResponse);
+    when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(movieResponse);
     when(favoriteService.findByTitle(any())).thenReturn(Optional.empty());
     when(modelMapper.map(any(MovieResponse.class), eq(Movie.class))).thenReturn(movie);
 
@@ -92,7 +92,7 @@ public class FavoriteControllerTest {
 
   @Test
   void createMovieTest_AlreadyExists() throws Exception {
-    when(movieCacheMemory.getMovieById(any(Long.class))).thenReturn(movieResponse);
+    when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(movieResponse);
     when(favoriteService.findByTitle(any())).thenReturn(Optional.of(movie));
 
     mockMvc.perform(post("/v1/favorites")
@@ -103,7 +103,7 @@ public class FavoriteControllerTest {
 
   @Test
   void createMovieTest_NotFound() throws Exception {
-    when(movieCacheMemory.getMovieById(any(Long.class))).thenReturn(null);
+    when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(null);
 
     mockMvc.perform(post("/v1/favorites")
         .contentType("application/json")
