@@ -10,19 +10,19 @@ function errorCheck() {
 // 영화 저장 버튼 클릭 이벤트 처리
 $(document).ready(function () {
   $(".save-button").on("click", function () {
-    var movieIndex = $(this).data("movie-index");
-    saveMovie(movieIndex);
+    var movieId = $(this).data("movie-id");
+    saveMovie(movieId);
   });
 });
 
 // 영화 저장 함수
-function saveMovie(movieIndex) {
+function saveMovie(movieId) {
   $.ajax({
     type: "POST",
     url: "/v1/favorites",
     dataType: "text",
     contentType: "application/json; charset=utf-8",
-    data: JSON.stringify(movieIndex),
+    data: JSON.stringify(movieId),
   })
     .done(() => {
       alert("등록되었습니다.");
