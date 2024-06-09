@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class MovieResponse {
-  private String docId;
+  private String id;
   private String title;
   private int prodYear;
   private String genre;
@@ -15,10 +15,9 @@ public class MovieResponse {
   private String actor;
 
   @Builder(builderClassName = "MovieResponseBuilder", builderMethodName = "movieResponseBuilder")
-  public MovieResponse(String docId, String title, int prodYear, String genre, String nation, int runtime,
-      String director,
-      String actor) {
-    this.docId = docId;
+  public MovieResponse(String id, String title, int prodYear, String genre,
+      String nation, int runtime, String director, String actor) {
+    this.id = id;
     this.title = title;
     this.prodYear = prodYear;
     this.genre = genre;

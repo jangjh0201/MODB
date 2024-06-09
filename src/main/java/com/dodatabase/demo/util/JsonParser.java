@@ -44,7 +44,7 @@ public class JsonParser {
    * @return 변환된 {@link MovieResponse} 객체
    */
   private static MovieResponse parseResultNode(JsonNode resultNode) {
-    String docId = resultNode.path("DOCID").asText();
+    String id = resultNode.path("DOCID").asText();
     String title = resultNode.path("title").asText().replaceAll("!HS\\s|!HE\\s", "");
     int prodYear = resultNode.path("prodYear").asInt();
     String genre = resultNode.path("genre").asText();
@@ -54,7 +54,7 @@ public class JsonParser {
     String actors = parseActors(resultNode.path("actors").path("actor"));
 
     return MovieResponse.builder()
-        .docId(docId)
+        .id(id)
         .title(title)
         .prodYear(prodYear)
         .genre(genre)
