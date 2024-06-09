@@ -15,7 +15,7 @@
   <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
   <!-- 네비게이션 -->
-  <div th:replace="html/fragments/navbar :: navbar('favorites')"></div>
+  <div th:replace="~{html/fragments/navbar :: navbar('favorites')}"></div>
 
   <!-- 테이블 -->
   <div th:if="${#lists.isEmpty(movies)}" class="text-center no-movies-message">

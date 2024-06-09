@@ -15,10 +15,10 @@
   <script src="https://code.jquery.com/jquery-latest.js"></script>
 
   <!-- 네비게이션 -->
-  <div th:replace="html/fragments/navbar :: navbar('movies')"></div>
+  <div th:replace="~{html/fragments/navbar :: navbar('movies')}"></div>
 
   <!-- 검색 -->
-  <div th:replace="html/fragments/form :: searchForm"></div>
+  <div th:replace="~{html/fragments/form :: searchForm}"></div>
 
   <!-- 검색 결과 섹션 -->
   <div th:if="${movies != null}" class="search-result">
