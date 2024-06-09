@@ -1,14 +1,12 @@
 package com.dodatabase.demo.key;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.ConstructorBinding;
 
 @Getter
-@ConfigurationProperties(prefix = "movie-api")
-@ConstructorBinding
+@ConfigurationProperties("movie-api")
 public class ApiKey {
 
   @NotBlank
