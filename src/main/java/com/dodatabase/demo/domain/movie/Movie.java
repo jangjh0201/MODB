@@ -1,8 +1,8 @@
 package com.dodatabase.demo.domain.movie;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.GeneratedValue; // 원래 Long id로 자동생성 전략을 채택하였는데
+import javax.persistence.GenerationType; // String타입의 docId를 받아서 사용하기로 바꾼 후 문제가 생김. 자세히 탐구해볼 것.
 import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -15,8 +15,7 @@ import lombok.NoArgsConstructor;
 public class Movie {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String id;
 
   private String title;
   private int prodYear;
@@ -27,8 +26,8 @@ public class Movie {
   private String actor;
 
   @Builder(builderClassName = "MovieBuilder", builderMethodName = "movieBuilder")
-  public Movie(Long id, String title, int prodYear, String genre, String nation, int runtime, String director,
-      String actor) {
+  public Movie(String id, String title, int prodYear, String genre,
+      String nation, int runtime, String director, String actor) {
     this.id = id;
     this.title = title;
     this.prodYear = prodYear;
@@ -39,7 +38,7 @@ public class Movie {
     this.actor = actor;
   }
 
-  public static MovieBuilder builder(Long id) {
+  public static MovieBuilder builder(String id) {
     return movieBuilder().id(id);
   }
 
