@@ -30,7 +30,7 @@ public class FavoriteService {
   }
 
   @Transactional
-  public void deleteById(Long id) {
+  public void deleteById(String id) {
     movieRepository.deleteById(id);
   }
 }

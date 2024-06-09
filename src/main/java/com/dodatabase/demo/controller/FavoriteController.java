@@ -37,9 +37,9 @@ public class FavoriteController {
 
   @PostMapping("")
   @ResponseBody
-  public ResponseEntity<Movie> createMovie(@RequestBody Long movieId) {
+  public ResponseEntity<Movie> createMovie(@RequestBody String id) {
     Optional<MovieResponse> cachedMovie;
-    cachedMovie = Optional.ofNullable(movieCacheMemory.getMovieById(movieId));
+    cachedMovie = Optional.ofNullable(movieCacheMemory.getMovieCacheById(id));
 
     if (cachedMovie.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -57,7 +57,7 @@ public class FavoriteController {
 
   @DeleteMapping("")
   @ResponseBody
-  public void removeMovie(@RequestBody Long movieId) {
-    favoriteService.deleteById(movieId);
+  public void removeMovie(@RequestBody String id) {
+    favoriteService.deleteById(id);
   }
 }

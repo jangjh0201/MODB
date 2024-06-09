@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MovieRepository extends JpaRepository<Movie, Long> {
+public interface MovieRepository extends JpaRepository<Movie, String> {
 
   // Movie findById(Movie movie);i
 
@@ -16,6 +16,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
   // List<Movie> Save(Movie movie);
 
-  void deleteById(Long id);
+  void deleteById(String id);
 
 }
