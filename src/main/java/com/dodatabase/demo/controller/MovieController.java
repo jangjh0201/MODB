@@ -6,7 +6,6 @@ import com.dodatabase.demo.domain.movie.NationType;
 import com.dodatabase.demo.repository.MovieCacheMemory;
 import com.dodatabase.demo.service.MovieApiService;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,9 +39,7 @@ public class MovieController {
     movieCacheMemory.clearCache();
 
     // 캐시에 영화 데이터를 저장하고 ID를 매핑합니다.
-    results.stream()
-        .map(movieCacheMemory::addMovie)
-        .collect(Collectors.toList());
+    results.forEach(movieCacheMemory::addMovieCache);
 
     model.addAttribute("nations", NationType.values());
     model.addAttribute("genres", GenreType.values());
