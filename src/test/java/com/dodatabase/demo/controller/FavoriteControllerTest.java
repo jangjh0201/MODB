@@ -3,6 +3,7 @@ package com.dodatabase.demo.controller;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -85,8 +86,8 @@ public class FavoriteControllerTest {
     when(modelMapper.map(any(MovieResponse.class), eq(Movie.class))).thenReturn(movie);
 
     mockMvc.perform(post("/v1/favorites")
-        .contentType("application/json")
-        .content(objectMapper.writeValueAsString(1L)))
+        .contentType("text/plain")
+        .content(objectMapper.writeValueAsString("A00000")))
         .andExpect(status().isCreated());
   }
 
@@ -96,8 +97,8 @@ public class FavoriteControllerTest {
     when(favoriteService.findByTitle(any())).thenReturn(Optional.of(movie));
 
     mockMvc.perform(post("/v1/favorites")
-        .contentType("application/json")
-        .content(objectMapper.writeValueAsString(1L)))
+        .contentType("text/plain")
+        .content(objectMapper.writeValueAsString("A00000")))
         .andExpect(status().isConflict());
   }
 
@@ -106,8 +107,16 @@ public class FavoriteControllerTest {
     when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(null);
 
     mockMvc.perform(post("/v1/favorites")
-        .contentType("application/json")
-        .content(objectMapper.writeValueAsString(1L)))
+        .contentType("text/plain")
+        .content(objectMapper.writeValueAsString("A00000")))
         .andExpect(status().isNotFound());
+  }
+
+  @Test
+  void removeMovieTest_Success() throws Exception {
+    mockMvc.perform(delete("/v1/favorites")
+        .contentType("text/plain")
+        .content(objectMapper.writeValueAsString("A00000")))
+        .andExpect(status().isOk());
   }
 }

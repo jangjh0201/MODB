@@ -11,9 +11,9 @@ function deleteMovie(movieId) {
   $.ajax({
     type: "DELETE",
     url: "/v1/favorites",
-    dataType: "text",
-    contentType: "application/json; charset=utf-8",
-    data: JSON.stringify(movieId),
+    dataType: "json",
+    contentType: "text/plain; charset=utf-8",
+    data: movieId,
   })
     .done(() => {
       alert("삭제되었습니다.");
