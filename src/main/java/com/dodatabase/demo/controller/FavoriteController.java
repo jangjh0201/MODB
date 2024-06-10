@@ -57,7 +57,7 @@ public class FavoriteController {
 
   @DeleteMapping("")
   @ResponseBody
-  public void removeMovie(@RequestBody String id) {
+  public ResponseEntity<Void> removeMovie(@RequestBody String id) {
     favoriteService.deleteById(id);
   }
 }
