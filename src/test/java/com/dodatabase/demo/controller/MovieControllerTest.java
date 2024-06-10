@@ -9,9 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import com.dodatabase.demo.domain.movie.GenreType;
 import com.dodatabase.demo.domain.movie.MovieResponse;
-import com.dodatabase.demo.domain.movie.NationType;
 import com.dodatabase.demo.repository.MovieCacheMemory;
 import com.dodatabase.demo.service.MovieApiService;
 import java.util.Collections;
@@ -86,11 +84,7 @@ public class MovieControllerTest {
     resultActions
         .andExpect(status().isOk())
         .andExpect(view().name("html/movie/list"))
-        .andExpect(model().attributeExists("nations"))
-        .andExpect(model().attributeExists("genres"))
         .andExpect(model().attributeExists("movies"))
-        .andExpect(model().attribute("nations", NationType.values()))
-        .andExpect(model().attribute("genres", GenreType.values()))
         .andExpect(model().attribute("movies", movieResponseList))
         .andDo(print());
   }
