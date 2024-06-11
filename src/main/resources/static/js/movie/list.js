@@ -20,7 +20,7 @@ function saveMovie(movieId) {
   $.ajax({
     type: "POST",
     url: "/v1/favorites",
-    dataType: "json",
+    dataType: "text",
     contentType: "text/plain; charset=utf-8",
     data: movieId,
   })

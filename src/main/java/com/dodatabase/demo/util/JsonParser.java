@@ -1,6 +1,6 @@
 package com.dodatabase.demo.util;
 
-import com.dodatabase.demo.domain.movie.MovieResponse;
+import com.dodatabase.demo.domain.movie.Movie;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -10,18 +10,18 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
- * JSON 형태의 응답을 받아 {@link MovieResponse} 타입의 List를 반환하는 클래스.
+ * JSON 형태의 응답을 받아 {@link Movie} 타입의 List를 반환하는 클래스.
  */
 public class JsonParser {
 
   /**
-   * JSON 형태의 문자열을 {@link MovieResponse} 타입의 객체로 변환해주는 메소드.
+   * JSON 형태의 문자열을 {@link Movie} 타입의 객체로 변환해주는 메소드.
    *
    * @param jsonResponse JSON 형식의 문자열, 이 문자열은 영화 데이터를 포함해야 합니다.
-   * @return 변환된 {@link MovieResponse} 타입의 리스트, JSON 파싱에 실패하면 빈 리스트를 반환합니다.
+   * @return 변환된 {@link Movie} 타입의 리스트, JSON 파싱에 실패하면 빈 리스트를 반환합니다.
    * @throws IOException JSON 파싱 중 발생할 수 있는 예외.
    */
-  public static List<MovieResponse> parseResponse(String jsonResponse) {
+  public static List<Movie> parseResponse(String jsonResponse) {
     try {
       ObjectMapper objectMapper = new ObjectMapper();
       JsonNode root = objectMapper.readTree(jsonResponse);
@@ -38,12 +38,12 @@ public class JsonParser {
   }
 
   /**
-   * JSON 노드를 {@link MovieResponse} 객체로 변환하는 메소드.
+   * JSON 노드를 {@link Movie} 객체로 변환하는 메소드.
    *
    * @param resultNode 변환할 JSON 노드
-   * @return 변환된 {@link MovieResponse} 객체
+   * @return 변환된 {@link Movie} 객체
    */
-  private static MovieResponse parseResultNode(JsonNode resultNode) {
+  private static Movie parseResultNode(JsonNode resultNode) {
     String id = resultNode.path("DOCID").asText();
     String title = resultNode.path("title").asText().replaceAll("!HS\\s|!HE\\s", "");
     int prodYear = resultNode.path("prodYear").asInt();
@@ -53,8 +53,7 @@ public class JsonParser {
     String directors = parseDirectors(resultNode.path("directors").path("director"));
     String actors = parseActors(resultNode.path("actors").path("actor"));
 
-    return MovieResponse.builder()
-        .id(id)
+    return Movie.builder(id)
         .title(title)
         .prodYear(prodYear)
         .genre(genre)

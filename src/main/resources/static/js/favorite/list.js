@@ -11,12 +11,11 @@ function deleteMovie(movieId) {
   $.ajax({
     type: "DELETE",
     url: "/v1/favorites",
-    dataType: "json",
+    dataType: "text",
     contentType: "text/plain; charset=utf-8",
     data: movieId,
   })
     .done(() => {
-      alert("삭제되었습니다.");
       location.reload();
     })
     .fail((jqXHR) => {

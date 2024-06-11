@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import com.dodatabase.demo.domain.movie.MovieResponse;
+import com.dodatabase.demo.domain.movie.Movie;
 import com.dodatabase.demo.repository.MovieCacheMemory;
 import com.dodatabase.demo.service.MovieApiService;
 import java.util.Collections;
@@ -35,13 +35,12 @@ public class MovieControllerTest {
   @MockBean
   private MovieCacheMemory movieCacheMemory;
 
-  private MovieResponse movieResponse;
-  private List<MovieResponse> movieResponseList;
+  private Movie movie;
+  private List<Movie> movieList;
 
   @BeforeEach
   void initialize() {
-    movieResponse = MovieResponse.builder()
-        .id("A00000")
+    movie = Movie.builder("A00000")
         .title("스타워즈")
         .prodYear(1977)
         .genre("SF")
@@ -51,7 +50,7 @@ public class MovieControllerTest {
         .actor("한 솔로")
         .build();
 
-    movieResponseList = Collections.singletonList(movieResponse);
+    movieList = Collections.singletonList(movie);
   }
 
   @Test
@@ -70,7 +69,7 @@ public class MovieControllerTest {
     String title = "스타워즈";
 
     // given
-    given(movieApiService.findByKeyword(nation, genre, title)).willReturn(movieResponseList);
+    given(movieApiService.findByKeyword(nation, genre, title)).willReturn(movieList);
 
     // when
     ResultActions resultActions = mockMvc.perform(post("/v1/movies")
@@ -85,7 +84,7 @@ public class MovieControllerTest {
         .andExpect(status().isOk())
         .andExpect(view().name("html/movie/list"))
         .andExpect(model().attributeExists("movies"))
-        .andExpect(model().attribute("movies", movieResponseList))
+        .andExpect(model().attribute("movies", movieList))
         .andDo(print());
   }
 }

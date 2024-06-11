@@ -1,6 +1,6 @@
 package com.dodatabase.demo.service;
 
-import com.dodatabase.demo.domain.movie.MovieResponse;
+import com.dodatabase.demo.domain.movie.Movie;
 import java.io.IOException;
 import java.util.List;
 import okhttp3.mockwebserver.MockResponse;
@@ -77,10 +77,10 @@ public class MovieApiServiceTest {
         .addHeader("Content-Type", "application/json"));
 
     // when
-    final List<MovieResponse> movieResponses = movieApiService.findByKeyword("미국", "SF", "스타워즈");
+    final List<Movie> Movies = movieApiService.findByKeyword("미국", "SF", "스타워즈");
 
     // then
-    StepVerifier.create(Mono.just(movieResponses))
+    StepVerifier.create(Mono.just(Movies))
         .expectNextMatches(data -> data.size() == 1 && data.get(0).getTitle().equals("스타워즈"))
         .verifyComplete();
   }

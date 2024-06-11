@@ -1,7 +1,7 @@
 package com.dodatabase.demo.controller;
 
 import com.dodatabase.demo.domain.movie.Movie;
-import com.dodatabase.demo.domain.movie.MovieResponse;
+import com.dodatabase.demo.domain.movie.Movie;
 import com.dodatabase.demo.repository.MovieCacheMemory;
 import com.dodatabase.demo.service.FavoriteService;
 import java.util.List;
@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class FavoriteController {
 
   private final FavoriteService favoriteService;
-  private final MovieCacheMemory movieCacheMemory;
-  private final ModelMapper modelMapper;
 
   @GetMapping("")
   public String list(Model model) {
@@ -37,27 +35,26 @@ public class FavoriteController {
 
   @PostMapping("")
   @ResponseBody
-  public ResponseEntity<Movie> createMovie(@RequestBody String id) {
-    Optional<MovieResponse> cachedMovie;
-    cachedMovie = Optional.ofNullable(movieCacheMemory.getMovieCacheById(id));
+  public ResponseEntity<Void> createMovie(@RequestBody Movie movie) {
 
-    if (cachedMovie.isEmpty()) {
+    Optional<Movie> favoriteMovie = favoriteService.findById(movie.getId());
+
+    if (favoriteMovie.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    MovieResponse movieResponse = cachedMovie.get();
-    if (favoriteService.findByTitle(movieResponse.getTitle()).isPresent()) {
+    if (favoriteService.findById(movie.getId()).isPresent()) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
-    Movie movie = modelMapper.map(movieResponse, Movie.class);
     favoriteService.create(movie);
-    return ResponseEntity.status(HttpStatus.CREATED).body(movie);
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @DeleteMapping("")
   @ResponseBody
   public ResponseEntity<Void> removeMovie(@RequestBody String id) {
     favoriteService.deleteById(id);
+    return ResponseEntity.status(HttpStatus.OK).build();
   }
 }

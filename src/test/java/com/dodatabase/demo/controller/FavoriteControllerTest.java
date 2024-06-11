@@ -12,7 +12,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import com.dodatabase.demo.domain.movie.Movie;
-import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.repository.MovieCacheMemory;
 import com.dodatabase.demo.service.FavoriteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,22 +43,10 @@ public class FavoriteControllerTest {
   private ObjectMapper objectMapper = new ObjectMapper();
 
   private Movie movie;
-  private MovieResponse movieResponse;
 
   @BeforeEach
   void initialize() {
     movie = Movie.builder("A00000")
-        .title("스타워즈")
-        .prodYear(1977)
-        .genre("SF")
-        .nation("미국")
-        .runtime(121)
-        .director("조지 루카스")
-        .actor("한 솔로")
-        .build();
-
-    movieResponse = MovieResponse.builder()
-        .id("A00000")
         .title("스타워즈")
         .prodYear(1977)
         .genre("SF")
@@ -81,9 +68,9 @@ public class FavoriteControllerTest {
 
   @Test
   void createMovieTest_Success() throws Exception {
-    when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(movieResponse);
+    when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(movie);
     when(favoriteService.findByTitle(any())).thenReturn(Optional.empty());
-    when(modelMapper.map(any(MovieResponse.class), eq(Movie.class))).thenReturn(movie);
+    when(modelMapper.map(any(Movie.class), eq(Movie.class))).thenReturn(movie);
 
     mockMvc.perform(post("/v1/favorites")
         .contentType("text/plain")
@@ -93,7 +80,7 @@ public class FavoriteControllerTest {
 
   @Test
   void createMovieTest_AlreadyExists() throws Exception {
-    when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(movieResponse);
+    when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(movie);
     when(favoriteService.findByTitle(any())).thenReturn(Optional.of(movie));
 
     mockMvc.perform(post("/v1/favorites")

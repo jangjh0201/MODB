@@ -1,6 +1,6 @@
 package com.dodatabase.demo.service;
 
-import com.dodatabase.demo.domain.movie.MovieResponse;
+import com.dodatabase.demo.domain.movie.Movie;
 import com.dodatabase.demo.util.JsonParser;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ public class MovieApiService {
 
   private final WebClient movieApiClient;
 
-  public List<MovieResponse> findByKeyword(String nation, String genre, String title) {
+  public List<Movie> findByKeyword(String nation, String genre, String title) {
     String jsonResponse = getApiResponse(nation, genre, title).block();
     return JsonParser.parseResponse(jsonResponse);
   }

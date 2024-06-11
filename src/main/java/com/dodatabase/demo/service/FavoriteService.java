@@ -25,8 +25,8 @@ public class FavoriteService {
   }
 
   @Transactional(readOnly = true)
-  public Optional<Movie> findByTitle(String title) {
-    return movieRepository.findByTitle(title);
+  public Optional<Movie> findById(String id) {
+    return movieRepository.findById(id);
   }
 
   @Transactional

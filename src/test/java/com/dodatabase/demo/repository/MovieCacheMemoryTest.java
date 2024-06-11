@@ -2,7 +2,7 @@ package com.dodatabase.demo.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.dodatabase.demo.domain.movie.MovieResponse;
+import com.dodatabase.demo.domain.movie.Movie;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,15 +10,14 @@ public class MovieCacheMemoryTest {
 
   private MovieCacheMemory movieCacheMemory;
 
-  private MovieResponse movieResponse;
+  private Movie movie;
   private String id;
 
   @BeforeEach
   void initialize() {
     movieCacheMemory = new MovieCacheMemory();
 
-    movieResponse = MovieResponse.movieResponseBuilder()
-        .id("A00000")
+    movie = Movie.builder("A00000")
         .title("스타워즈")
         .prodYear(1977)
         .genre("SF")
@@ -34,9 +33,9 @@ public class MovieCacheMemoryTest {
   @Test
   public void addMovieCacheTest() {
 
-    movieCacheMemory.addMovieCache(movieResponse);
+    movieCacheMemory.addMovieCache(movie);
 
-    MovieResponse cachedMovie = movieCacheMemory.getMovieCacheById(id);
+    Movie cachedMovie = movieCacheMemory.getMovieCacheById(id);
 
     assertThat(cachedMovie).isNotNull();
     assertThat(cachedMovie.getId()).isEqualTo("A00000");
@@ -52,10 +51,10 @@ public class MovieCacheMemoryTest {
   @Test
   public void clearCacheTest() {
 
-    movieCacheMemory.addMovieCache(movieResponse);
+    movieCacheMemory.addMovieCache(movie);
     movieCacheMemory.clearCache();
 
-    MovieResponse cachedMovie = movieCacheMemory.getMovieCacheById(id);
+    Movie cachedMovie = movieCacheMemory.getMovieCacheById(id);
     assertThat(cachedMovie).isNull();
   }
 }
