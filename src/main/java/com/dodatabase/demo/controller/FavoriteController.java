@@ -1,13 +1,10 @@
 package com.dodatabase.demo.controller;
 
 import com.dodatabase.demo.domain.movie.Movie;
-import com.dodatabase.demo.domain.movie.Movie;
-import com.dodatabase.demo.repository.MovieCacheMemory;
 import com.dodatabase.demo.service.FavoriteService;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
