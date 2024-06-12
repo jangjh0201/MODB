@@ -1,7 +1,9 @@
 package com.dodatabase.demo.service;
 
-import com.dodatabase.demo.domain.movie.Movie;
-import com.dodatabase.demo.util.JsonParser;
+import com.dodatabase.demo.domain.movie.MovieData;
+import com.dodatabase.demo.domain.movie.MovieRequest;
+import com.dodatabase.demo.domain.movie.MovieResponse;
+import com.dodatabase.demo.util.MovieResponseParser;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -15,12 +17,16 @@ public class MovieApiService {
 
   private final WebClient movieApiClient;
 
-  public List<Movie> findByKeyword(String nation, String genre, String title) {
-    String jsonResponse = getApiResponse(nation, genre, title).block();
-    return JsonParser.parseResponse(jsonResponse);
+  public List<MovieData> findMovie(MovieRequest movieRequest) {
+    MovieResponse movieResponse = getApiResponse(
+        movieRequest.getNation(),
+        movieRequest.getGenre(),
+        movieRequest.getTitle()).block();
+
+    return MovieResponseParser.parse(movieResponse);
   }
 
-  private Mono<String> getApiResponse(String nation, String genre, String title) {
+  private Mono<MovieResponse> getApiResponse(String nation, String genre, String title) {
     return movieApiClient.mutate()
         .build()
         .get()
@@ -31,7 +37,7 @@ public class MovieApiService {
             .build())
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
-        .bodyToMono(String.class);
+        .bodyToMono(MovieResponse.class);
   }
 
 }

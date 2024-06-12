@@ -68,8 +68,7 @@ public class FavoriteControllerTest {
 
   @Test
   void createMovieTest_Success() throws Exception {
-    when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(movie);
-    when(favoriteService.findByTitle(any())).thenReturn(Optional.empty());
+    when(favoriteService.findById(any())).thenReturn(Optional.empty());
     when(modelMapper.map(any(Movie.class), eq(Movie.class))).thenReturn(movie);
 
     mockMvc.perform(post("/v1/favorites")
@@ -81,7 +80,7 @@ public class FavoriteControllerTest {
   @Test
   void createMovieTest_AlreadyExists() throws Exception {
     when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(movie);
-    when(favoriteService.findByTitle(any())).thenReturn(Optional.of(movie));
+    when(favoriteService.findById(any())).thenReturn(Optional.of(movie));
 
     mockMvc.perform(post("/v1/favorites")
         .contentType("text/plain")
