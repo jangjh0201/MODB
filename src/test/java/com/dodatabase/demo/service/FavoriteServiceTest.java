@@ -58,7 +58,7 @@ public class FavoriteServiceTest {
   @Test
   void findByTitleTest() {
     when(movieRepository.findByTitle("스타워즈")).thenReturn(Optional.of(movie));
-    Optional<Movie> foundMovie = favoriteService.findByTitle("스타워즈");
+    Optional<Movie> foundMovie = favoriteService.findById("A00000");
     assertTrue(foundMovie.isPresent());
     assertEquals(movie.getTitle(), foundMovie.get().getTitle());
   }

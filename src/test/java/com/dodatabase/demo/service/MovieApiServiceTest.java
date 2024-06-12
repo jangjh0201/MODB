@@ -1,8 +1,11 @@
 package com.dodatabase.demo.service;
 
-import com.dodatabase.demo.domain.movie.Movie;
+import com.dodatabase.demo.domain.movie.MovieData;
+import com.dodatabase.demo.domain.movie.MovieRequest;
+import com.dodatabase.demo.domain.movie.MovieResponse;
 import java.io.IOException;
 import java.util.List;
+
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterAll;
@@ -10,8 +13,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
 
 public class MovieApiServiceTest {
 
@@ -20,6 +21,8 @@ public class MovieApiServiceTest {
   private MovieApiService movieApiService;
 
   private WebClient movieApiClient;
+
+  private MovieRequest movieRequest;
   private String result;
 
   @BeforeAll
@@ -33,33 +36,46 @@ public class MovieApiServiceTest {
     String baseUrl = String.format("http://localhost:%s", mockWebServer.getPort());
     movieApiClient = WebClient.create(baseUrl);
     movieApiService = new MovieApiService(movieApiClient);
+    movieRequest = MovieRequest.builder()
+        .nation("미국")
+        .genre("SF")
+        .title("스타워즈")
+        .build();
 
     result = """
         {
-        "Data": [
-          {
-            "Result": [
-              {
-                "DOCID": "A00000",
-                "title": "스타워즈",
-                "prodYear": 1977,
-                "genre": "SF",
-                "nation": "미국",
-                "runtime": 121,
-                "directors": {
-                  "director": [
-                    { "directorNm": "조지 루카스" }
-                  ]
-                },
-                "actors": {
-                  "actor": [
-                    { "actorNm": "한 솔로" }
-                  ]
+          "data": [
+            {
+              "result": [
+                {
+                  "DOCID": "F10538",
+                  "title": "스타워즈 에피소드 3 : 시스의 복수",
+                  "prodYear": "2005",
+                  "genre": "액션,SF,어드벤처,판타지",
+                  "nation": "미국",
+                  "runtime": "139",
+                  "directors": {
+                    "director": [
+                      {
+                        "directorNm": "조지 루카스",
+                        "directorEnNm": "George Lucas",
+                        "directorId": "00049192"
+                      }
+                    ]
+                  },
+                  "actors": {
+                    "actor": [
+                      {
+                        "actorNm": "이완 맥그리거",
+                        "actorEnNm": "Ewan McGregor",
+                        "actorId": "00049011"
+                      }
+                    ]
+                  }
                 }
-              }
-            ]
-          }
-        ]
+              ]
+            }
+          ]
         }
         """;
   }
@@ -77,11 +93,10 @@ public class MovieApiServiceTest {
         .addHeader("Content-Type", "application/json"));
 
     // when
-    final List<Movie> Movies = movieApiService.findByKeyword("미국", "SF", "스타워즈");
+    final List<MovieData> movieDataList = movieApiService.findMovie(movieRequest);
 
     // then
-    StepVerifier.create(Mono.just(Movies))
-        .expectNextMatches(data -> data.size() == 1 && data.get(0).getTitle().equals("스타워즈"))
-        .verifyComplete();
+    assert movieDataList != null;
+    assert movieDataList.get(0).getId().equals("F10538");
   }
 }
