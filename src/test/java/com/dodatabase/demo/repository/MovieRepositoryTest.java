@@ -3,6 +3,7 @@ package com.dodatabase.demo.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.dodatabase.demo.domain.movie.Movie;
+import java.time.Year;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,13 +20,12 @@ public class MovieRepositoryTest {
 
   @BeforeEach
   void initialize() {
-    movie = Movie.movieBuilder()
-        .id("A00000")
-        .title("스타워즈")
-        .prodYear(1977)
-        .genre("SF")
+    movie = Movie.builder("F10538")
+        .title("스타워즈 에피소드 3 : 시스의 복수")
+        .prodYear(Year.of(2005))
+        .genre("액션,SF,어드벤처,판타지")
         .nation("미국")
-        .runtime(121)
+        .runtime(139)
         .director("조지 루카스")
         .actor("한 솔로")
         .build();

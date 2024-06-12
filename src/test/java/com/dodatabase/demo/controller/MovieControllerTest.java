@@ -50,12 +50,12 @@ public class MovieControllerTest {
         .build();
 
     movieData = MovieData.builder()
-        .id("A00000")
-        .title("스타워즈")
-        .prodYear(Year.of(1977))
-        .genre("SF")
+        .id("F10538")
+        .title("스타워즈 에피소드 3 : 시스의 복수")
+        .prodYear(Year.of(2005))
+        .genre("액션,SF,어드벤처,판타지")
         .nation("미국")
-        .runtime(121)
+        .runtime(139)
         .directors(Collections.singletonList(MovieData.Director.builder()
             .directorNm("조지 루카스")
             .directorEnNm("George Lucas")

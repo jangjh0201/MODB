@@ -2,10 +2,8 @@ package com.dodatabase.demo.service;
 
 import com.dodatabase.demo.domain.movie.MovieData;
 import com.dodatabase.demo.domain.movie.MovieRequest;
-import com.dodatabase.demo.domain.movie.MovieResponse;
 import java.io.IOException;
 import java.util.List;
-
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterAll;

@@ -7,7 +7,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dodatabase.demo.domain.movie.Movie;
+import com.dodatabase.demo.domain.movie.MovieData;
 import com.dodatabase.demo.repository.MovieRepository;
+import java.time.Year;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -30,9 +32,9 @@ public class FavoriteServiceTest {
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    movie = Movie.builder("A00000")
-        .title("스타워즈")
-        .prodYear(1977)
+    movie = Movie.builder("F10538")
+        .title("스타워즈 에피소드 3 : 시스의 복수")
+        .prodYear(Year.of(2005))
         .genre("SF")
         .nation("미국")
         .runtime(121)
