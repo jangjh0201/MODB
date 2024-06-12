@@ -24,7 +24,7 @@ public class Movie {
   private String actor;
 
   @Builder(builderClassName = "MovieBuilder", builderMethodName = "movieBuilder")
-  public Movie(String id, String title, int prodYear, String genre,
+  private Movie(String id, String title, int prodYear, String genre,
       String nation, int runtime, String director, String actor) {
     this.id = id;
     this.title = title;
