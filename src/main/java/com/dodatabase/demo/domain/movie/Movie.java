@@ -1,5 +1,6 @@
 package com.dodatabase.demo.domain.movie;
 
+import java.time.Year;
 import jakarta.persistence.Entity; // 원래 Long id로 자동생성 전략을 채택하였는데 String타입의 docId를 받아서 사용하기로 바꾼 후 문제가 생김. 자세히 탐구해볼 것.
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
@@ -16,7 +17,7 @@ public class Movie {
   private String id;
 
   private String title;
-  private int prodYear;
+  private Year prodYear;
   private String genre;
   private String nation;
   private int runtime;
@@ -24,7 +25,7 @@ public class Movie {
   private String actor;
 
   @Builder(builderClassName = "MovieBuilder", builderMethodName = "movieBuilder")
-  private Movie(String id, String title, int prodYear, String genre,
+  private Movie(String id, String title, Year prodYear, String genre,
       String nation, int runtime, String director, String actor) {
     this.id = id;
     this.title = title;
