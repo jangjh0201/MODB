@@ -1,2 +1,5 @@
-@import url("../common/navbar.css");
-@import url("../common/form.css");
+form {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+}

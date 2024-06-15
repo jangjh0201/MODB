@@ -13,7 +13,6 @@ import com.dodatabase.demo.domain.movie.MovieData;
 import com.dodatabase.demo.domain.movie.MovieRequest;
 import com.dodatabase.demo.service.MovieApiService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.time.Year;
 import java.util.Collections;
 import java.util.List;
@@ -62,8 +61,8 @@ public class MovieControllerTest {
             .directorId("00049192")
             .build()))
         .actors(Collections.singletonList(MovieData.Actor.builder()
-            .actorNm("한 솔로")
-            .actorEnNm("Han Solo")
+            .actorNm("이완 맥그리거")
+            .actorEnNm("Ewan McGregor")
             .actorId("00049011")
             .build()))
         .build();
@@ -82,7 +81,6 @@ public class MovieControllerTest {
 
   @Test
   public void searchApiPostTest() throws Exception {
-
     // given
     given(movieApiService.findMovie(movieRequest)).willReturn(movieDataList);
 

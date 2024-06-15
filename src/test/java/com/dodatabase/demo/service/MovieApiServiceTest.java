@@ -2,6 +2,8 @@ package com.dodatabase.demo.service;
 
 import com.dodatabase.demo.domain.movie.MovieData;
 import com.dodatabase.demo.domain.movie.MovieRequest;
+import com.dodatabase.demo.domain.movie.MovieResponse;
+import com.dodatabase.demo.util.MovieResponseParser;
 import java.io.IOException;
 import java.util.List;
 import okhttp3.mockwebserver.MockResponse;
@@ -11,6 +13,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MovieApiServiceTest {
 
@@ -21,7 +26,7 @@ public class MovieApiServiceTest {
   private WebClient movieApiClient;
 
   private MovieRequest movieRequest;
-  private String result;
+  private String jsonMovieResponse;
 
   @BeforeAll
   static void setUp() throws IOException {
@@ -40,7 +45,7 @@ public class MovieApiServiceTest {
         .title("스타워즈")
         .build();
 
-    result = """
+    jsonMovieResponse = """
         {
           "data": [
             {
@@ -84,17 +89,17 @@ public class MovieApiServiceTest {
   }
 
   @Test
-  public void findByKeywordTest() throws Exception {
+  public void findMovieTest() throws Exception {
     // given
     mockWebServer.enqueue(new MockResponse()
-        .setBody(result)
+        .setBody(jsonMovieResponse)
         .addHeader("Content-Type", "application/json"));
 
     // when
     final List<MovieData> movieDataList = movieApiService.findMovie(movieRequest);
 
     // then
-    assert movieDataList != null;
-    assert movieDataList.get(0).getId().equals("F10538");
+    assertNotNull(movieDataList);
+    assertEquals("F10538", movieDataList.get(0).getId());
   }
 }
