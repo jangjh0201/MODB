@@ -9,11 +9,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import com.dodatabase.demo.domain.movie.MovieData;
 import com.dodatabase.demo.domain.movie.MovieRequest;
+import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.service.MovieApiService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.Year;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,10 +33,8 @@ public class MovieControllerTest {
   private MovieApiService movieApiService;
 
   private MovieRequest movieRequest;
-  private MovieData movieData;
-  private List<MovieData> movieDataList;
-
-  private ObjectMapper objectMapper = new ObjectMapper();
+  private MovieResponse movieResponse;
+  private List<MovieResponse> movieResponseList;
 
   @BeforeEach
   void initialize() {
@@ -48,26 +44,18 @@ public class MovieControllerTest {
         .title("스타워즈")
         .build();
 
-    movieData = MovieData.builder()
+    movieResponse = MovieResponse.builder()
         .id("F10538")
         .title("스타워즈 에피소드 3 : 시스의 복수")
-        .prodYear(Year.of(2005))
+        .prodYear(2005)
         .genre("액션,SF,어드벤처,판타지")
         .nation("미국")
         .runtime(139)
-        .directors(Collections.singletonList(MovieData.Director.builder()
-            .directorNm("조지 루카스")
-            .directorEnNm("George Lucas")
-            .directorId("00049192")
-            .build()))
-        .actors(Collections.singletonList(MovieData.Actor.builder()
-            .actorNm("이완 맥그리거")
-            .actorEnNm("Ewan McGregor")
-            .actorId("00049011")
-            .build()))
+        .director("조지 루카스")
+        .actor("이완 맥그리거")
         .build();
 
-    movieDataList = Collections.singletonList(movieData);
+    movieResponseList = Collections.singletonList(movieResponse);
   }
 
   @Test
@@ -81,22 +69,19 @@ public class MovieControllerTest {
 
   @Test
   public void searchApiPostTest() throws Exception {
-    // given
-    given(movieApiService.findMovie(movieRequest)).willReturn(movieDataList);
+    given(movieApiService.findByKeyword(movieRequest)).willReturn(movieResponseList);
 
-    // when
-    String movieRequestJson = objectMapper.writeValueAsString(movieRequest);
     ResultActions resultActions = mockMvc.perform(post("/v1/movies")
-        .content(movieRequestJson)
-        .contentType(MediaType.APPLICATION_JSON))
-        .andDo(print());
+        .param("nation", "미국")
+        .param("genre", "SF")
+        .param("title", "스타워즈")
+        .contentType(MediaType.APPLICATION_FORM_URLENCODED));
 
-    // then
     resultActions
         .andExpect(status().isOk())
         .andExpect(view().name("html/movie/list"))
         .andExpect(model().attributeExists("movies"))
-        .andExpect(model().attribute("movies", movieDataList))
+        .andExpect(model().attribute("movies", movieResponseList))
         .andDo(print());
   }
 }

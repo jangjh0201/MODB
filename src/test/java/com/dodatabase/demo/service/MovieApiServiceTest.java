@@ -1,9 +1,11 @@
 package com.dodatabase.demo.service;
 
-import com.dodatabase.demo.domain.movie.MovieData;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import com.dodatabase.demo.domain.movie.MovieRequest;
 import com.dodatabase.demo.domain.movie.MovieResponse;
-import com.dodatabase.demo.util.MovieResponseParser;
+import com.dodatabase.demo.util.JsonParser;
 import java.io.IOException;
 import java.util.List;
 import okhttp3.mockwebserver.MockResponse;
@@ -13,9 +15,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class MovieApiServiceTest {
 
@@ -47,9 +46,9 @@ public class MovieApiServiceTest {
 
     jsonMovieResponse = """
         {
-          "data": [
+          "Data": [
             {
-              "result": [
+              "Result": [
                 {
                   "DOCID": "F10538",
                   "title": "스타워즈 에피소드 3 : 시스의 복수",
@@ -89,17 +88,24 @@ public class MovieApiServiceTest {
   }
 
   @Test
-  public void findMovieTest() throws Exception {
+  public void findByKewordTest() throws Exception {
     // given
     mockWebServer.enqueue(new MockResponse()
         .setBody(jsonMovieResponse)
-        .addHeader("Content-Type", "application/json"));
+        .addHeader("Content-Type", "test/html"));
 
     // when
-    final List<MovieData> movieDataList = movieApiService.findMovie(movieRequest);
+    final List<MovieResponse> movieDataList = movieApiService.findByKeyword(movieRequest);
 
     // then
     assertNotNull(movieDataList);
     assertEquals("F10538", movieDataList.get(0).getId());
+    assertEquals("스타워즈 에피소드 3 : 시스의 복수", movieDataList.get(0).getTitle());
+    assertEquals(2005, movieDataList.get(0).getProdYear());
+    assertEquals("액션,SF,어드벤처,판타지", movieDataList.get(0).getGenre());
+    assertEquals("미국", movieDataList.get(0).getNation());
+    assertEquals(139, movieDataList.get(0).getRuntime());
+    assertEquals("조지 루카스", movieDataList.get(0).getDirector());
+    assertEquals("이완 맥그리거", movieDataList.get(0).getActor());
   }
 }

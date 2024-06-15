@@ -3,17 +3,12 @@ package com.dodatabase.demo.util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.dodatabase.demo.domain.movie.Movie;
-import com.dodatabase.demo.domain.movie.MovieData;
 import com.dodatabase.demo.domain.movie.MovieResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.time.Year;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MovieResponseParserTest {
+public class JsonParserTest {
 
   String result;
 
@@ -21,9 +16,9 @@ public class MovieResponseParserTest {
   void initialize() {
     result = """
         {
-          "data": [
+          "Data": [
             {
-              "result": [
+              "Result": [
                 {
                   "DOCID": "F10538",
                   "title": "스타워즈 에피소드 3 : 시스의 복수",
@@ -58,25 +53,22 @@ public class MovieResponseParserTest {
   }
 
   @Test
-  public void parseTest() throws Exception {
-    // JSON 문자열을 MovieResponse 객체로 변환
-    ObjectMapper objectMapper = new ObjectMapper();
-    MovieResponse movieResponse = objectMapper.readValue(result, MovieResponse.class);
+  public void parseResponseTest() {
 
-    // MovieResponse 객체를 MovieData 리스트로 변환
-    List<MovieData> movieDataList = MovieResponseParser.parse(movieResponse);
+    // when
+    List<MovieResponse> movieResponses = JsonParser.parseResponse(result);
 
     // then
-    assertNotNull(movieDataList);
-    assertEquals(1, movieDataList.size());
-    MovieData movieData = movieDataList.get(0);
-    assertEquals("F10538", movieData.getId());
-    assertEquals("스타워즈 에피소드 3 : 시스의 복수", movieData.getTitle());
-    assertEquals(Year.of(2005), movieData.getProdYear());
-    assertEquals("액션,SF,어드벤처,판타지", movieData.getGenre());
-    assertEquals("미국", movieData.getNation());
-    assertEquals(139, movieData.getRuntime());
-    assertEquals("조지 루카스", movieData.getDirectorNames());
-    assertEquals("이완 맥그리거", movieData.getActorNames());
+    assertNotNull(movieResponses);
+    assertEquals(1, movieResponses.size());
+    MovieResponse movieResponse = movieResponses.get(0);
+    assertEquals("F10538", movieResponse.getId());
+    assertEquals("스타워즈 에피소드 3 : 시스의 복수", movieResponse.getTitle());
+    assertEquals(2005, movieResponse.getProdYear());
+    assertEquals("액션,SF,어드벤처,판타지", movieResponse.getGenre());
+    assertEquals("미국", movieResponse.getNation());
+    assertEquals(139, movieResponse.getRuntime());
+    assertEquals("조지 루카스", movieResponse.getDirector());
+    assertEquals("이완 맥그리거", movieResponse.getActor());
   }
 }
