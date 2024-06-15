@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,8 +27,15 @@ public class MovieController {
 
   @PostMapping("")
   public String searchApi(
-      @RequestBody MovieRequest movieRequest, Model model) {
-    List<MovieData> movieDataList = movieApiService.findMovie(movieRequest);
+      @RequestParam(value = "nation", required = false) String nation,
+      @RequestParam(value = "genre", required = false) String genre,
+      @RequestParam(value = "title") String title, Model model) {
+
+    List<MovieData> movieDataList = movieApiService.findMovie(MovieRequest.builder()
+        .nation(nation)
+        .genre(genre)
+        .title(title)
+        .build());
 
     model.addAttribute("movies", movieDataList);
 
