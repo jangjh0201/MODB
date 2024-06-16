@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.List;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -92,7 +94,7 @@ public class MovieApiServiceTest {
     // given
     mockWebServer.enqueue(new MockResponse()
         .setBody(jsonMovieResponse)
-        .addHeader("Content-Type", "test/html"));
+        .addHeader("Content-Type", "text/html"));
 
     // when
     final List<MovieResponse> movieDataList = movieApiService.findByKeyword(movieRequest);
@@ -107,5 +109,10 @@ public class MovieApiServiceTest {
     assertEquals(139, movieDataList.get(0).getRuntime());
     assertEquals("조지 루카스", movieDataList.get(0).getDirector());
     assertEquals("이완 맥그리거", movieDataList.get(0).getActor());
+
+    // Verify the request
+    RecordedRequest recordedRequest = mockWebServer.takeRequest();
+    assertEquals("/?nation=미국&genre=SF&title=스타워즈", recordedRequest.getPath());
+    assertEquals("GET", recordedRequest.getMethod());
   }
 }
