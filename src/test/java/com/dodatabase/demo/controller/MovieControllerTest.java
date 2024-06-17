@@ -1,6 +1,5 @@
 package com.dodatabase.demo.controller;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -71,7 +70,7 @@ public class MovieControllerTest {
   @Test
   public void searchApiPostTest() throws Exception {
     // given
-    given(movieApiService.findByKeyword(any(MovieRequest.class))).willReturn(movieResponseList);
+    given(movieApiService.findByKeyword(movieRequest)).willReturn(movieResponseList);
 
     // when
     ResultActions resultActions = mockMvc.perform(post("/v1/movies")
