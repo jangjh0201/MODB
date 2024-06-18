@@ -1,9 +1,8 @@
 package com.dodatabase.demo.domain.movie;
 
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.Objects;
 
 @Getter
 public class MovieRequest {

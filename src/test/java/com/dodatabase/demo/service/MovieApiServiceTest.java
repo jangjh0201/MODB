@@ -5,13 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.dodatabase.demo.domain.movie.MovieRequest;
 import com.dodatabase.demo.domain.movie.MovieResponse;
-import com.dodatabase.demo.util.JsonParser;
 import java.io.IOException;
 import java.util.List;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
