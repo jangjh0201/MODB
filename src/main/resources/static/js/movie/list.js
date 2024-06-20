@@ -21,8 +21,8 @@ function saveMovie(movieId) {
     type: "POST",
     url: "/v1/favorites",
     dataType: "text",
-    contentType: "text/plain; charset=utf-8",
-    data: movieId,
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(movie),
   })
     .done(() => {
       alert("등록되었습니다.");

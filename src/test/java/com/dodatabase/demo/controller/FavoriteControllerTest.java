@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import com.dodatabase.demo.domain.movie.Movie;
+import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.repository.MovieCacheMemory;
 import com.dodatabase.demo.service.FavoriteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,13 +44,14 @@ public class FavoriteControllerTest {
 
   private ObjectMapper objectMapper = new ObjectMapper();
 
-  private Movie movie;
+  private MovieResponse movieResponse;
 
   @BeforeEach
   void initialize() {
-    movie = Movie.builder("F10538")
+    movieResponse = MovieResponse.builder()
+        .id("F10538")
         .title("스타워즈 에피소드 3 : 시스의 복수")
-        .prodYear(Year.of(2005))
+        .prodYear(2005)
         .genre("액션,SF,어드벤처,판타지")
         .nation("미국")
         .runtime(139)
@@ -70,32 +72,30 @@ public class FavoriteControllerTest {
   @Test
   void createMovieTest_Success() throws Exception {
     when(favoriteService.findById(any())).thenReturn(Optional.empty());
-    when(modelMapper.map(any(Movie.class), eq(Movie.class))).thenReturn(movie);
+    when(modelMapper.map(any(MovieResponse.class), eq(MovieResponse.class))).thenReturn(movie);
 
     mockMvc.perform(post("/v1/favorites")
-        .contentType("text/plain")
-        .content(objectMapper.writeValueAsString("A00000")))
+        .contentType("application/json")
+        .content(objectMapper.writeValueAsString("F10538")))
         .andExpect(status().isCreated());
   }
 
   @Test
   void createMovieTest_AlreadyExists() throws Exception {
-    when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(movie);
-    when(favoriteService.findById(any())).thenReturn(Optional.of(movie));
+    when(favoriteService.findById(any())).thenReturn(Optional.of(movieResponse));
 
     mockMvc.perform(post("/v1/favorites")
         .contentType("text/plain")
-        .content(objectMapper.writeValueAsString("A00000")))
+        .content(objectMapper.writeValueAsString("F10538")))
         .andExpect(status().isConflict());
   }
 
   @Test
   void createMovieTest_NotFound() throws Exception {
-    when(movieCacheMemory.getMovieCacheById(any(String.class))).thenReturn(null);
 
     mockMvc.perform(post("/v1/favorites")
         .contentType("text/plain")
-        .content(objectMapper.writeValueAsString("A00000")))
+        .content(objectMapper.writeValueAsString("F10538")))
         .andExpect(status().isNotFound());
   }
 
@@ -103,7 +103,7 @@ public class FavoriteControllerTest {
   void removeMovieTest_Success() throws Exception {
     mockMvc.perform(delete("/v1/favorites")
         .contentType("text/plain")
-        .content(objectMapper.writeValueAsString("A00000")))
+        .content(objectMapper.writeValueAsString("F10538")))
         .andExpect(status().isOk());
   }
 }
