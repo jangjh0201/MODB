@@ -24,21 +24,4 @@ public class Movie {
   private String director;
   private String actor;
 
-  @Builder(builderClassName = "MovieBuilder", builderMethodName = "movieBuilder")
-  private Movie(String id, String title, Year prodYear, String genre,
-      String nation, int runtime, String director, String actor) {
-    this.id = id;
-    this.title = title;
-    this.prodYear = prodYear;
-    this.genre = genre;
-    this.nation = nation;
-    this.runtime = runtime;
-    this.director = director;
-    this.actor = actor;
-  }
-
-  public static MovieBuilder builder(String id) {
-    return movieBuilder().id(id);
-  }
-
 }
