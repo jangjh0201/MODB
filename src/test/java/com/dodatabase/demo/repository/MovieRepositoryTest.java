@@ -3,7 +3,6 @@ package com.dodatabase.demo.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.dodatabase.demo.domain.movie.Movie;
-import java.time.Year;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,12 +21,12 @@ public class MovieRepositoryTest {
   void initialize() {
     movie = Movie.builder("F10538")
         .title("스타워즈 에피소드 3 : 시스의 복수")
-        .prodYear(Year.of(2005))
+        .prodYear(2005)
         .genre("액션,SF,어드벤처,판타지")
         .nation("미국")
         .runtime(139)
         .director("조지 루카스")
-        .actor("한 솔로")
+        .actor("이완 맥그리거")
         .build();
   }
 
@@ -38,7 +37,7 @@ public class MovieRepositoryTest {
 
     Optional<Movie> foundMovie = movieRepository.findById(movie.getId());
     assertThat(foundMovie).isPresent();
-    assertThat(foundMovie.get().getTitle()).isEqualTo("스타워즈");
+    assertThat(foundMovie.get().getTitle()).isEqualTo("스타워즈 에피소드 3 : 시스의 복수");
   }
 
   @Test
@@ -46,9 +45,9 @@ public class MovieRepositoryTest {
 
     movieRepository.save(movie);
 
-    Optional<Movie> foundMovie = movieRepository.findByTitle("스타워즈");
+    Optional<Movie> foundMovie = movieRepository.findByTitle("스타워즈 에피소드 3 : 시스의 복수");
     assertThat(foundMovie).isPresent();
-    assertThat(foundMovie.get().getTitle()).isEqualTo("스타워즈");
+    assertThat(foundMovie.get().getTitle()).isEqualTo("스타워즈 에피소드 3 : 시스의 복수");
   }
 
   @Test

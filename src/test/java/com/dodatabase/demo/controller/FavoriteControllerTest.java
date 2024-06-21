@@ -1,7 +1,6 @@
 package com.dodatabase.demo.controller;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -11,12 +10,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import com.dodatabase.demo.domain.movie.Movie;
-import com.dodatabase.demo.domain.movie.MovieResponse;
+import com.dodatabase.demo.domain.wishlist.WishRequest;
+import com.dodatabase.demo.domain.wishlist.WishResponse;
 import com.dodatabase.demo.repository.MovieCacheMemory;
 import com.dodatabase.demo.service.FavoriteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.Year;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,11 +42,11 @@ public class FavoriteControllerTest {
 
   private ObjectMapper objectMapper = new ObjectMapper();
 
-  private MovieResponse movieResponse;
+  private WishRequest wishRequest;
 
   @BeforeEach
   void initialize() {
-    movieResponse = MovieResponse.builder()
+    wishRequest = WishRequest.builder()
         .id("F10538")
         .title("스타워즈 에피소드 3 : 시스의 복수")
         .prodYear(2005)
@@ -56,7 +54,7 @@ public class FavoriteControllerTest {
         .nation("미국")
         .runtime(139)
         .director("조지 루카스")
-        .actor("한 솔로")
+        .actor("이완 맥그리거")
         .build();
   }
 
@@ -71,38 +69,38 @@ public class FavoriteControllerTest {
 
   @Test
   void createMovieTest_Success() throws Exception {
+
     when(favoriteService.findById(any())).thenReturn(Optional.empty());
-    when(modelMapper.map(any(MovieResponse.class), eq(MovieResponse.class))).thenReturn(movie);
 
     mockMvc.perform(post("/v1/favorites")
         .contentType("application/json")
-        .content(objectMapper.writeValueAsString("F10538")))
+        .content(objectMapper.writeValueAsString(wishRequest)))
         .andExpect(status().isCreated());
   }
 
   @Test
   void createMovieTest_AlreadyExists() throws Exception {
-    when(favoriteService.findById(any())).thenReturn(Optional.of(movieResponse));
+    when(favoriteService.findById("F10538")).thenReturn(Optional.of(WishResponse.builder()
+        .id("F10538")
+        .title("스타워즈 에피소드 3 : 시스의 복수")
+        .prodYear(2005)
+        .genre("액션,SF,어드벤처,판타지")
+        .nation("미국")
+        .runtime(139)
+        .director("조지 루카스")
+        .actor("이완 맥그리거")
+        .build()));
 
     mockMvc.perform(post("/v1/favorites")
-        .contentType("text/plain")
-        .content(objectMapper.writeValueAsString("F10538")))
+        .contentType("application/json")
+        .content(objectMapper.writeValueAsString(wishRequest)))
         .andExpect(status().isConflict());
-  }
-
-  @Test
-  void createMovieTest_NotFound() throws Exception {
-
-    mockMvc.perform(post("/v1/favorites")
-        .contentType("text/plain")
-        .content(objectMapper.writeValueAsString("F10538")))
-        .andExpect(status().isNotFound());
   }
 
   @Test
   void removeMovieTest_Success() throws Exception {
     mockMvc.perform(delete("/v1/favorites")
-        .contentType("text/plain")
+        .contentType("application/json")
         .content(objectMapper.writeValueAsString("F10538")))
         .andExpect(status().isOk());
   }
