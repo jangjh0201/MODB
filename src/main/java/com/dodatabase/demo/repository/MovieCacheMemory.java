@@ -10,8 +10,8 @@ public class MovieCacheMemory {
 
   private final Map<String, Movie> movieCache = new HashMap<>();
 
-  public void addMovieCache(Movie Movie) {
-    movieCache.put(Movie.getId(), Movie);
+  public void addMovieCache(Movie movie) {
+    movieCache.put(movie.getId(), movie);
   }
 
   public Movie getMovieCacheById(String id) {

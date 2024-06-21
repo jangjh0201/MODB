@@ -17,17 +17,17 @@
 // void initialize() {
 // movieCacheMemory = new MovieCacheMemory();
 
-// movie = Movie.builder("A00000")
+// movie = Movie.builder("F10538")
 // .title("스타워즈")
 // .prodYear(1977)
 // .genre("SF")
 // .nation("미국")
 // .runtime(121)
 // .director("조지 루카스")
-// .actor("한 솔로")
+// .actor("이완 맥그리거")
 // .build();
 
-// id = "A00000";
+// id = "F10538";
 // }
 
 // @Test
@@ -38,14 +38,14 @@
 // Movie cachedMovie = movieCacheMemory.getMovieCacheById(id);
 
 // assertThat(cachedMovie).isNotNull();
-// assertThat(cachedMovie.getId()).isEqualTo("A00000");
+// assertThat(cachedMovie.getId()).isEqualTo("F10538");
 // assertThat(cachedMovie.getTitle()).isEqualTo("스타워즈");
 // assertThat(cachedMovie.getProdYear()).isEqualTo(1977);
 // assertThat(cachedMovie.getGenre()).isEqualTo("SF");
 // assertThat(cachedMovie.getNation()).isEqualTo("미국");
 // assertThat(cachedMovie.getRuntime()).isEqualTo(121);
 // assertThat(cachedMovie.getDirector()).isEqualTo("조지 루카스");
-// assertThat(cachedMovie.getActor()).isEqualTo("한 솔로");
+// assertThat(cachedMovie.getActor()).isEqualTo("이완 맥그리거");
 // }
 
 // @Test
