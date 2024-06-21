@@ -1,9 +1,9 @@
 package com.dodatabase.demo.controller;
 
-import com.dodatabase.demo.domain.movie.Movie;
+import com.dodatabase.demo.domain.wishlist.WishRequest;
+import com.dodatabase.demo.domain.wishlist.WishResponse;
 import com.dodatabase.demo.service.FavoriteService;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,26 +25,19 @@ public class FavoriteController {
 
   @GetMapping("")
   public String list(Model model) {
-    List<Movie> movies = favoriteService.findMovies();
-    model.addAttribute("movies", movies);
+    List<WishResponse> wishResponses = favoriteService.findMovies();
+    model.addAttribute("movies", wishResponses);
     return "html/favorite/list";
   }
 
   @PostMapping("")
   @ResponseBody
-  public ResponseEntity<Void> createMovie(@RequestBody Movie movie) {
-
-    Optional<Movie> favoriteMovie = favoriteService.findById(movie.getId());
-
-    if (favoriteMovie.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    }
-
-    if (favoriteService.findById(movie.getId()).isPresent()) {
+  public ResponseEntity<Void> createMovie(@RequestBody WishRequest wishRequest) {
+    if (favoriteService.findById(wishRequest.getId()).isPresent()) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
-    favoriteService.create(movie);
+    favoriteService.create(wishRequest);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
