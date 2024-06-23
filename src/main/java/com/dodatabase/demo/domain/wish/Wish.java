@@ -1,18 +1,17 @@
-package com.dodatabase.demo.domain.movie;
+package com.dodatabase.demo.domain.wish;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Objects;
-
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Movie {
+public class Wish {
 
   @Id
   private String id;
@@ -25,8 +24,8 @@ public class Movie {
   private String director;
   private String actor;
 
-  @Builder(builderClassName = "MovieBuilder", builderMethodName = "movieBuilder")
-  public Movie(String id, String title, int prodYear, String genre,
+  @Builder(builderClassName = "Wishbuilder", builderMethodName = "wishbuilder")
+  public Wish(String id, String title, int prodYear, String genre,
       String nation, int runtime, String director, String actor) {
     this.id = id;
     this.title = title;
@@ -38,8 +37,8 @@ public class Movie {
     this.actor = actor;
   }
 
-  public static MovieBuilder builder(String id) {
-    return movieBuilder().id(id);
+  public static Wishbuilder builder(String id) {
+    return wishbuilder().id(id);
   }
 
   @Override
@@ -50,7 +49,7 @@ public class Movie {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Movie movie = (Movie) o;
+    Wish movie = (Wish) o;
     return Objects.equals(id, movie.id);
   }
 

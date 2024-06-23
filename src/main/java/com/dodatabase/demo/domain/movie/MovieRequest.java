@@ -12,7 +12,7 @@ public class MovieRequest {
   String title;
 
   @Builder(builderClassName = "MovieRequestBuilder", builderMethodName = "movieRequestBuilder")
-  private MovieRequest(String nation, String genre, String title) {
+  public MovieRequest(String nation, String genre, String title) {
     this.nation = nation;
     this.genre = genre;
     this.title = title;

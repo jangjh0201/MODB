@@ -10,7 +10,7 @@ $(document).ready(function () {
 function deleteMovie(movieId) {
   $.ajax({
     type: "DELETE",
-    url: "/v1/favorites",
+    url: "/v1/wish",
     dataType: "text",
     contentType: "text/plain; charset=utf-8",
     data: movieId,

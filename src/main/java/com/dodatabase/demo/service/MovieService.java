@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-public class MovieApiService {
+public class MovieService {
 
   private final WebClient movieApiClient;
 

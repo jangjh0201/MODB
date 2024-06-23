@@ -10,10 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import com.dodatabase.demo.domain.wishlist.WishRequest;
-import com.dodatabase.demo.domain.wishlist.WishResponse;
-import com.dodatabase.demo.repository.MovieCacheMemory;
-import com.dodatabase.demo.service.FavoriteService;
+import com.dodatabase.demo.domain.wish.WishRequest;
+import com.dodatabase.demo.domain.wish.WishResponse;
+import com.dodatabase.demo.service.WishService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,17 +24,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(FavoriteController.class)
-public class FavoriteControllerTest {
+@WebMvcTest(WishController.class)
+public class WishControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @MockBean
-  private FavoriteService favoriteService;
-
-  @MockBean
-  private MovieCacheMemory movieCacheMemory;
+  private WishService wishService;
 
   @MockBean
   private ModelMapper modelMapper;
@@ -60,19 +56,19 @@ public class FavoriteControllerTest {
 
   @Test
   public void movieListTest() throws Exception {
-    mockMvc.perform(get("/v1/favorites"))
+    mockMvc.perform(get("/v1/wish"))
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-        .andExpect(view().name("html/favorite/list"))
+        .andExpect(view().name("html/wish/list"))
         .andDo(print());
   }
 
   @Test
   void createMovieTest_Success() throws Exception {
 
-    when(favoriteService.findById(any())).thenReturn(Optional.empty());
+    when(wishService.findById(any())).thenReturn(Optional.empty());
 
-    mockMvc.perform(post("/v1/favorites")
+    mockMvc.perform(post("/v1/wish")
         .contentType("application/json")
         .content(objectMapper.writeValueAsString(wishRequest)))
         .andExpect(status().isCreated());
@@ -80,7 +76,7 @@ public class FavoriteControllerTest {
 
   @Test
   void createMovieTest_AlreadyExists() throws Exception {
-    when(favoriteService.findById("F10538")).thenReturn(Optional.of(WishResponse.builder()
+    when(wishService.findById("F10538")).thenReturn(Optional.of(WishResponse.builder()
         .id("F10538")
         .title("스타워즈 에피소드 3 : 시스의 복수")
         .prodYear(2005)
@@ -91,7 +87,7 @@ public class FavoriteControllerTest {
         .actor("이완 맥그리거")
         .build()));
 
-    mockMvc.perform(post("/v1/favorites")
+    mockMvc.perform(post("/v1/wish")
         .contentType("application/json")
         .content(objectMapper.writeValueAsString(wishRequest)))
         .andExpect(status().isConflict());
@@ -99,7 +95,7 @@ public class FavoriteControllerTest {
 
   @Test
   void removeMovieTest_Success() throws Exception {
-    mockMvc.perform(delete("/v1/favorites")
+    mockMvc.perform(delete("/v1/wish")
         .contentType("application/json")
         .content(objectMapper.writeValueAsString("F10538")))
         .andExpect(status().isOk());

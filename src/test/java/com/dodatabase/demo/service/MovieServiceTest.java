@@ -16,11 +16,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.reactive.function.client.WebClient;
 
-public class MovieApiServiceTest {
+public class MovieServiceTest {
 
   private static MockWebServer mockWebServer;
 
-  private MovieApiService movieApiService;
+  private MovieService movieApiService;
 
   private WebClient movieApiClient;
 
@@ -37,7 +37,7 @@ public class MovieApiServiceTest {
   void initialize() {
     String baseUrl = String.format("http://localhost:%s", mockWebServer.getPort());
     movieApiClient = WebClient.create(baseUrl);
-    movieApiService = new MovieApiService(movieApiClient);
+    movieApiService = new MovieService(movieApiClient);
     movieRequest = MovieRequest.builder()
         .nation("미국")
         .genre("SF")

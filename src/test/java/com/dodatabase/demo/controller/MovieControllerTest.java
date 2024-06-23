@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.dodatabase.demo.domain.movie.MovieRequest;
 import com.dodatabase.demo.domain.movie.MovieResponse;
-import com.dodatabase.demo.service.MovieApiService;
+import com.dodatabase.demo.service.MovieService;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +30,7 @@ public class MovieControllerTest {
   private MockMvc mockMvc;
 
   @MockBean
-  private MovieApiService movieApiService;
+  private MovieService movieApiService;
 
   private MovieRequest movieRequest;
   private MovieResponse movieResponse;
@@ -60,7 +60,7 @@ public class MovieControllerTest {
 
   @Test
   public void searchApiGetTest() throws Exception {
-    mockMvc.perform(get("/v1/movies"))
+    mockMvc.perform(get("/v1/movie"))
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
         .andExpect(view().name("html/movie/list"))
@@ -73,7 +73,7 @@ public class MovieControllerTest {
     given(movieApiService.findByKeyword(movieRequest)).willReturn(movieResponseList);
 
     // when
-    ResultActions resultActions = mockMvc.perform(post("/v1/movies")
+    ResultActions resultActions = mockMvc.perform(post("/v1/movie")
         .param("nation", "미국")
         .param("genre", "SF")
         .param("title", "스타워즈")

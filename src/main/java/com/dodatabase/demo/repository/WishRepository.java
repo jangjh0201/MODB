@@ -1,16 +1,17 @@
 package com.dodatabase.demo.repository;
 
-import com.dodatabase.demo.domain.movie.Movie;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.dodatabase.demo.domain.wish.Wish;
+
 @Repository
-public interface MovieRepository extends JpaRepository<Movie, String> {
+public interface WishRepository extends JpaRepository<Wish, String> {
 
   // Movie findById(Movie movie);i
 
-  Optional<Movie> findByTitle(String title);
+  Optional<Wish> findByTitle(String title);
 
   // List<Movie> findAll();
 

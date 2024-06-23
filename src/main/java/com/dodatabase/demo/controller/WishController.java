@@ -1,8 +1,8 @@
 package com.dodatabase.demo.controller;
 
-import com.dodatabase.demo.domain.wishlist.WishRequest;
-import com.dodatabase.demo.domain.wishlist.WishResponse;
-import com.dodatabase.demo.service.FavoriteService;
+import com.dodatabase.demo.domain.wish.WishRequest;
+import com.dodatabase.demo.domain.wish.WishResponse;
+import com.dodatabase.demo.service.WishService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,33 +18,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/v1/favorites")
-public class FavoriteController {
+@RequestMapping("/v1/wish")
+public class WishController {
 
-  private final FavoriteService favoriteService;
+  private final WishService wishService;
 
   @GetMapping("")
   public String list(Model model) {
-    List<WishResponse> wishResponses = favoriteService.findMovies();
-    model.addAttribute("movies", wishResponses);
-    return "html/favorite/list";
+    List<WishResponse> wishResponses = wishService.findWishes();
+    model.addAttribute("wishes", wishResponses);
+    return "html/wish/list";
   }
 
   @PostMapping("")
   @ResponseBody
   public ResponseEntity<Void> createMovie(@RequestBody WishRequest wishRequest) {
-    if (favoriteService.findById(wishRequest.getId()).isPresent()) {
+    if (wishService.findById(wishRequest.getId()).isPresent()) {
       return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
-    favoriteService.create(wishRequest);
+    wishService.create(wishRequest);
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @DeleteMapping("")
   @ResponseBody
   public ResponseEntity<Void> removeMovie(@RequestBody String id) {
-    favoriteService.deleteById(id);
+    wishService.deleteById(id);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
 }
