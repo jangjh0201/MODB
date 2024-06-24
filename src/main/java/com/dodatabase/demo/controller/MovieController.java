@@ -9,8 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,20 +26,9 @@ public class MovieController {
   }
 
   @PostMapping("")
-  public String searchApi(
-      @RequestParam(value = "nation", required = false) String nation,
-      @RequestParam(value = "genre", required = false) String genre,
-      @RequestParam(value = "title") String title, Model model) {
+  @ResponseBody
+  public List<MovieResponse> searchApi(@RequestBody MovieRequest movieRequest, Model model) {
 
-    // 나중에 파리미터로 @RequestBody로 받아서 바로 전달하는 구조로 개선할 것
-    List<MovieResponse> movieResponseList = movieApiService.findByKeyword(MovieRequest.builder()
-        .nation(nation)
-        .genre(genre)
-        .title(title)
-        .build());
-
-    model.addAttribute("movies", movieResponseList);
-
-    return "html/movie/list";
+    return movieApiService.findByKeyword(movieRequest);
   }
 }
