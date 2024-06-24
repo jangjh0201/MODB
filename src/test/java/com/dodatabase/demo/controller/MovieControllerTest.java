@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.dodatabase.demo.domain.movie.MovieRequest;
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.service.MovieService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +32,9 @@ public class MovieControllerTest {
 
   @MockBean
   private MovieService movieApiService;
+
+  @Autowired
+  private ObjectMapper objectMapper;
 
   private MovieRequest movieRequest;
   private MovieResponse movieResponse;
@@ -74,12 +78,9 @@ public class MovieControllerTest {
 
     // when
     ResultActions resultActions = mockMvc.perform(post("/v1/movie")
-        .param("nation", "미국")
-        .param("genre", "SF")
-        .param("title", "스타워즈")
-        .contentType(MediaType.APPLICATION_FORM_URLENCODED));
+        .content(objectMapper.writeValueAsString(movieRequest))
+        .contentType(MediaType.APPLICATION_JSON));
 
-    System.out.println("movieRsponseList : " + movieResponseList);
     // then
     resultActions
         .andExpect(status().isOk())
