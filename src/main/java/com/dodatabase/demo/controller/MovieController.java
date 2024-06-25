@@ -21,13 +21,13 @@ public class MovieController {
   private final MovieService movieApiService;
 
   @GetMapping("")
-  public String searchApi() {
+  public String movieList() {
     return "html/movie/list";
   }
 
   @PostMapping("")
   @ResponseBody
-  public List<MovieResponse> searchApi(@RequestBody MovieRequest movieRequest, Model model) {
+  public List<MovieResponse> movieList(@RequestBody MovieRequest movieRequest, Model model) {
 
     return movieApiService.findByKeyword(movieRequest);
   }

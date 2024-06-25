@@ -55,7 +55,7 @@ public class WishControllerTest {
   }
 
   @Test
-  public void movieListTest() throws Exception {
+  public void wishListTest() throws Exception {
     mockMvc.perform(get("/v1/wish"))
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
@@ -64,7 +64,7 @@ public class WishControllerTest {
   }
 
   @Test
-  void createMovieTest_Success() throws Exception {
+  void createWishTest_Success() throws Exception {
 
     when(wishService.findById(any())).thenReturn(Optional.empty());
 
@@ -75,7 +75,7 @@ public class WishControllerTest {
   }
 
   @Test
-  void createMovieTest_AlreadyExists() throws Exception {
+  void createWishTest_AlreadyExists() throws Exception {
     when(wishService.findById("F10538")).thenReturn(Optional.of(WishResponse.builder()
         .id("F10538")
         .title("스타워즈 에피소드 3 : 시스의 복수")
@@ -94,7 +94,7 @@ public class WishControllerTest {
   }
 
   @Test
-  void removeMovieTest_Success() throws Exception {
+  void removeWishTest_Success() throws Exception {
     mockMvc.perform(delete("/v1/wish")
         .contentType("application/json")
         .content(objectMapper.writeValueAsString("F10538")))
