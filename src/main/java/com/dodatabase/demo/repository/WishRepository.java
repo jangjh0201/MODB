@@ -1,10 +1,9 @@
 package com.dodatabase.demo.repository;
 
+import com.dodatabase.demo.domain.wish.Wish;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.dodatabase.demo.domain.wish.Wish;
 
 @Repository
 public interface WishRepository extends JpaRepository<Wish, String> {
