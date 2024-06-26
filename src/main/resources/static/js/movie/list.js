@@ -68,7 +68,9 @@ function renderMovies(movies) {
       <td>${movie.director}</td>
       <td class="fixed-width-td">${movie.actor}</td>
       <td>
-        <button class="btn btn-outline-primary save-button" data-movie-id="${movie.id}">저장</button>
+        <button class="btn btn-outline-primary save-button" data-movie='${JSON.stringify(
+          movie
+        )}'>저장</button>
       </td>`;
     tbody.appendChild(tr);
   });
@@ -79,18 +81,18 @@ function renderMovies(movies) {
   // Save button event listener
   document.querySelectorAll(".save-button").forEach((button) => {
     button.addEventListener("click", function () {
-      saveMovie(this.dataset.movieId);
+      saveMovie(JSON.parse(this.dataset.movie));
     });
   });
 }
 
-function saveMovie(movieId) {
+function saveMovie(movie) {
   fetch("/v1/wish", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ id: movieId }),
+    body: JSON.stringify(movie),
   })
     .then((response) => {
       if (response.status === 201) {
