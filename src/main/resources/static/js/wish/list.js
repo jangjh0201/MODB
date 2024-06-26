@@ -1,20 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetchWishes(); // 위시리스트를 가져오는 함수 호출
-});
-
-function fetchWishes() {
   fetch("/v1/wish")
     .then((response) => response.json())
-    .then((data) => renderWishes(data))
+    .then((data) => {
+      renderWishes(data);
+    })
     .catch((error) => console.error("Error:", error));
-}
+});
 
 function renderWishes(wishes) {
   const container = document.getElementById("wishList");
   container.innerHTML = ""; // Clear previous results
 
   if (wishes.length === 0) {
-    container.innerHTML = "<p class='text-center'>저장된 영화가 없습니다.</p>";
+    container.innerHTML =
+      "<p class='text-center no-movies-message'>저장된 영화가 없습니다.</p>";
     return;
   }
 
@@ -49,30 +48,34 @@ function renderWishes(wishes) {
       <td>${wish.director}</td>
       <td class="fixed-width-td">${wish.actor}</td>
       <td>
-        <button class="btn btn-outline-primary delete-button" data-movie-id="${wish.id}">삭제</button>
+        <button class="btn btn-outline-primary delete-button" data-wish-id="${wish.id}">삭제</button>
       </td>`;
     tbody.appendChild(tr);
-
-    tr.querySelector(".delete-button").addEventListener("click", function () {
-      deleteWish(wish.id);
-    });
   });
 
   table.appendChild(tbody);
   container.appendChild(table);
+
+  // Delete button event listener
+  document.querySelectorAll(".delete-button").forEach((button) => {
+    button.addEventListener("click", function () {
+      deleteWish(this.dataset.wishId);
+    });
+  });
 }
 
 function deleteWish(wishId) {
-  fetch(`/v1/wish/${wishId}`, {
+  fetch("/v1/wish", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify({ id: wishId }),
   })
     .then((response) => {
       if (response.status === 200) {
         alert("삭제되었습니다.");
-        fetchWishes(); // Wish list refresh
+        location.reload(); // Reload the wish list
       } else {
         alert("오류가 발생했습니다.");
       }
