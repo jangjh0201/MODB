@@ -8,9 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -18,17 +17,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/v1/movie")
 public class MovieController {
 
-  private final MovieService movieApiService;
+  private final MovieService movieService;
 
   @GetMapping("")
-  public String movieList() {
-    return "html/movie/list";
-  }
-
-  @PostMapping("")
   @ResponseBody
-  public List<MovieResponse> movieList(@RequestBody MovieRequest movieRequest, Model model) {
+  public List<MovieResponse> movies(
+      @RequestParam(value = "nation", required = false) String nation,
+      @RequestParam(value = "genre", required = false) String genre,
+      @RequestParam(value = "title") String title,
+      Model model) {
 
-    return movieApiService.findByKeyword(movieRequest);
+    return movieService.findByKeyword(
+        MovieRequest.builder()
+            .nation(nation)
+            .genre(genre)
+            .title(title)
+            .build());
   }
 }

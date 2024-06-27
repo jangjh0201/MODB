@@ -25,10 +25,9 @@ public class WishController {
   private final WishService wishService;
 
   @GetMapping("")
-  public String wishList(Model model) {
-    List<WishResponse> wishResponses = wishService.findWishes();
-    model.addAttribute("wishes", wishResponses);
-    return "html/wish/list";
+  @ResponseBody
+  public ResponseEntity<List<WishResponse>> wishList(Model model) {
+    return ResponseEntity.status(HttpStatus.OK).body(wishService.findWishes());
   }
 
   @PostMapping("")
