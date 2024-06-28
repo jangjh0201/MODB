@@ -14,7 +14,7 @@
 
 <body>
   <nav th:replace="~{html/fragments/navbar :: navbar('movielist')}"></nav>
-  <div class="container-fluid d-flex justify-content-center align-items-center flex-column">
+  <div class="container-fluid">
     <form id="searchForm" class="row g-3 my-4" method="GET" action="/v1/movie">
       <div class="col-md-1">
         <label for="inputNation" class="form-label">국가</label>
@@ -35,7 +35,7 @@
         <input id="inputTitle" name="title" class="form-control" type="text" required>
       </div>
     </form>
-    <div id="movieList" class="table-container w-100"></div>
+    <div id="movieList" class="table-container"></div>
   </div>
 
   <!-- 부트스트랩 JS -->
