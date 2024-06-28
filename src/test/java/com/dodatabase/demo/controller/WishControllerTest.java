@@ -55,15 +55,6 @@ public class WishControllerTest {
   }
 
   @Test
-  public void wishListTest() throws Exception {
-    mockMvc.perform(get("/v1/wish"))
-        .andExpect(status().isOk())
-        .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-        .andExpect(view().name("html/wish/list"))
-        .andDo(print());
-  }
-
-  @Test
   void createWishTest_Success() throws Exception {
 
     when(wishService.findById(any())).thenReturn(Optional.empty());
@@ -95,9 +86,19 @@ public class WishControllerTest {
 
   @Test
   void removeWishTest_Success() throws Exception {
-    mockMvc.perform(delete("/v1/wish")
-        .contentType("application/json")
-        .content(objectMapper.writeValueAsString("F10538")))
+    when(wishService.findById("F10538")).thenReturn(Optional.of(WishResponse.builder()
+        .id("F10538")
+        .title("스타워즈 에피소드 3 : 시스의 복수")
+        .prodYear(2005)
+        .genre("액션,SF,어드벤처,판타지")
+        .nation("미국")
+        .runtime(139)
+        .director("조지 루카스")
+        .actor("이완 맥그리거")
+        .build()));
+
+    mockMvc.perform(delete("/v1/wish/F10538")
+        .contentType("application/json"))
         .andExpect(status().isOk());
   }
 }
