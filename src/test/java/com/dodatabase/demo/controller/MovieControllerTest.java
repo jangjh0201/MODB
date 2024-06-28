@@ -4,8 +4,8 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import com.dodatabase.demo.domain.movie.MovieRequest;
 import com.dodatabase.demo.domain.movie.MovieResponse;
@@ -65,7 +65,14 @@ public class MovieControllerTest {
         .param("title", "스타워즈"))
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-        .andExpect(view().name("html/movie/list"))
+        .andExpect(jsonPath("$[0].id").value("F10538"))
+        .andExpect(jsonPath("$[0].title").value("스타워즈 에피소드 3 : 시스의 복수"))
+        .andExpect(jsonPath("$[0].prodYear").value(2005))
+        .andExpect(jsonPath("$[0].genre").value("액션,SF,어드벤처,판타지"))
+        .andExpect(jsonPath("$[0].nation").value("미국"))
+        .andExpect(jsonPath("$[0].runtime").value(139))
+        .andExpect(jsonPath("$[0].director").value("조지 루카스"))
+        .andExpect(jsonPath("$[0].actor").value("이완 맥그리거"))
         .andDo(print());
   }
 }
