@@ -1,0 +1,48 @@
+@import url("../common/navbar.css");
+
+.container-fluid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.row.g-3.my-4 {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 중앙 정렬을 위한 수직 정렬 추가 */
+  width: 100%;
+}
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+table {
+  width: 80%;
+  max-width: 80%;
+  margin: 0 auto;
+  table-layout: auto;
+  text-align: center;
+  word-break: break-all;
+}
+
+th,
+td {
+  white-space: normal;
+}
+
+.fixed-width-td {
+  width: 30%;
+  word-wrap: break-word;
+}
+
+button {
+  white-space: nowrap;
+}
+
+.text-center {
+  text-align: center;
+}

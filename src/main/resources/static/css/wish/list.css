@@ -1,0 +1,38 @@
+@import url("../common/navbar.css");
+
+.no-movies-message {
+  margin-top: 30px;
+}
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+table {
+  width: 80%;
+  max-width: 80%;
+  margin: 0 auto;
+  table-layout: auto;
+  text-align: center;
+  word-break: break-all;
+}
+
+th,
+td {
+  white-space: normal;
+}
+
+.fixed-width-td {
+  width: 30%;
+  word-wrap: break-word;
+}
+
+button {
+  white-space: nowrap;
+}
+
+.text-center {
+  text-align: center;
+}
