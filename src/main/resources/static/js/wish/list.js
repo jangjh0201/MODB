@@ -65,12 +65,8 @@ function renderWishes(wishes) {
 }
 
 function deleteWish(wishId) {
-  fetch("/v1/wish", {
+  fetch(`/v1/wish/${wishId}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id: wishId }),
   })
     .then((response) => {
       if (response.status === 200) {
