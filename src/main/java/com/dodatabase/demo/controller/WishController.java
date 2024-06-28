@@ -26,7 +26,7 @@ public class WishController {
 
   @GetMapping("")
   @ResponseBody
-  public ResponseEntity<List<WishResponse>> wishList(Model model) {
+  public ResponseEntity<List<WishResponse>> wishList() {
     return ResponseEntity.status(HttpStatus.OK).body(wishService.findWishes());
   }
 
