@@ -24,8 +24,7 @@ public class MovieController {
   public List<MovieResponse> movies(
       @RequestParam(value = "nation", required = false) String nation,
       @RequestParam(value = "genre", required = false) String genre,
-      @RequestParam(value = "title") String title,
-      Model model) {
+      @RequestParam(value = "title") String title) {
 
     return movieService.findByKeyword(
         MovieRequest.builder()
