@@ -1,10 +1,9 @@
 package com.dodatabase.demo.repository;
 
+import com.dodatabase.demo.domain.wish.Wish;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.stereotype.Component;
-
-import com.dodatabase.demo.domain.wish.Wish;
 
 @Component
 public class MovieCacheMemory {
