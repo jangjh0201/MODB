@@ -1,27 +1,54 @@
-function searchMovies() {
-  let nation = document.getElementById("inputNation").value;
-  let genre = document.getElementById("inputGenre").value;
-  let title = document.getElementById("inputTitle").value;
-
-  if (title === "") {
-    alert("검색어는 필수입니다.");
-    return;
+document.addEventListener("DOMContentLoaded", function () {
+  // 페이지가 로드될 때 URL에서 쿼리 스트링을 읽어와 검색 수행
+  const urlParams = new URLSearchParams(window.location.search);
+  if (
+    urlParams.has("title") ||
+    urlParams.has("nation") ||
+    urlParams.has("genre")
+  ) {
+    searchMovies(urlParams.toString());
+    // 폼 필드 값을 URL 쿼리 스트링 값으로 설정
+    document.getElementById("inputTitle").value = urlParams.get("title") || "";
+    document.getElementById("inputNation").value =
+      urlParams.get("nation") || "";
+    document.getElementById("inputGenre").value = urlParams.get("genre") || "";
   }
 
-  let request = {
-    nation: nation,
-    genre: genre,
-    title: title,
-  };
+  document
+    .getElementById("searchForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // 폼 기본 제출 방지
+      updateUrlAndSearch(); // URL 업데이트 및 검색 수행
+    });
+});
 
-  fetch("/v1/movie", {
-    method: "POST",
+function updateUrlAndSearch() {
+  let form = document.getElementById("searchForm");
+  let formData = new FormData(form);
+  let queryParams = new URLSearchParams();
+
+  for (let [key, value] of formData.entries()) {
+    if (value) {
+      queryParams.append(key, value);
+    }
+  }
+
+  // URL 업데이트
+  let newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+  history.pushState(null, "", newUrl);
+
+  // 검색 수행
+  searchMovies(queryParams.toString());
+}
+
+function searchMovies(queryParams) {
+  fetch(`/v1/movie?${queryParams}`, {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(request),
   })
-    .then((response) => response.json()) // JSON 응답으로 변환
+    .then((response) => response.json())
     .then((data) => {
       renderMovies(data);
     })
@@ -78,7 +105,6 @@ function renderMovies(movies) {
   table.appendChild(tbody);
   container.appendChild(table);
 
-  // Save button event listener
   document.querySelectorAll(".save-button").forEach((button) => {
     button.addEventListener("click", function () {
       saveMovie(JSON.parse(this.dataset.movie));
@@ -108,7 +134,7 @@ function saveMovie(movie) {
 
 function checkEnter(event) {
   if (event.key === "Enter") {
-    event.preventDefault(); // 기본 Enter 키 동작을 막습니다.
-    searchMovies(); // 검색 함수 호출
+    event.preventDefault();
+    updateUrlAndSearch();
   }
 }
