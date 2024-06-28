@@ -1,50 +1,35 @@
 package com.dodatabase.demo.controller;
 
-import com.dodatabase.demo.domain.movie.GenreType;
+import com.dodatabase.demo.domain.movie.MovieRequest;
 import com.dodatabase.demo.domain.movie.MovieResponse;
-import com.dodatabase.demo.domain.movie.NationType;
-import com.dodatabase.demo.repository.MovieCacheMemory;
-import com.dodatabase.demo.service.MovieApiService;
+import com.dodatabase.demo.service.MovieService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/v1/movies")
+@RequestMapping("/v1/movie")
 public class MovieController {
 
-  private final MovieApiService movieApiService;
-  private final MovieCacheMemory movieCacheMemory;
+  private final MovieService movieService;
 
   @GetMapping("")
-  public String searchApi() {
-    return "html/movie/list";
-  }
-
-  @PostMapping("")
-  public String searchApi(
+  @ResponseBody
+  public List<MovieResponse> movies(
       @RequestParam(value = "nation", required = false) String nation,
       @RequestParam(value = "genre", required = false) String genre,
-      @RequestParam(value = "title") String title,
-      Model model) {
-    List<MovieResponse> results = movieApiService.findByKeyword(nation, genre, title);
+      @RequestParam(value = "title") String title) {
 
-    // 캐시 초기화
-    movieCacheMemory.clearCache();
-
-    // 캐시에 영화 데이터를 저장하고 ID를 매핑합니다.
-    results.forEach(movieCacheMemory::addMovieCache);
-
-    model.addAttribute("nations", NationType.values());
-    model.addAttribute("genres", GenreType.values());
-    model.addAttribute("movies", results);
-
-    return "html/movie/list";
+    return movieService.findByKeyword(
+        MovieRequest.builder()
+            .nation(nation)
+            .genre(genre)
+            .title(title)
+            .build());
   }
 }

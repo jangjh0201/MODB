@@ -2,18 +2,14 @@ package com.dodatabase.demo.controller;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import com.dodatabase.demo.domain.movie.GenreType;
+import com.dodatabase.demo.domain.movie.MovieRequest;
 import com.dodatabase.demo.domain.movie.MovieResponse;
-import com.dodatabase.demo.domain.movie.NationType;
-import com.dodatabase.demo.repository.MovieCacheMemory;
-import com.dodatabase.demo.service.MovieApiService;
+import com.dodatabase.demo.service.MovieService;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +19,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 
 @WebMvcTest(MovieController.class)
 public class MovieControllerTest {
@@ -32,25 +27,29 @@ public class MovieControllerTest {
   private MockMvc mockMvc;
 
   @MockBean
-  private MovieApiService movieApiService;
+  private MovieService movieService;
 
-  @MockBean
-  private MovieCacheMemory movieCacheMemory;
-
+  private MovieRequest movieRequest;
   private MovieResponse movieResponse;
   private List<MovieResponse> movieResponseList;
 
   @BeforeEach
   void initialize() {
-    movieResponse = MovieResponse.builder()
-        .id("A00000")
-        .title("스타워즈")
-        .prodYear(1977)
-        .genre("SF")
+    movieRequest = MovieRequest.builder()
         .nation("미국")
-        .runtime(121)
+        .genre("SF")
+        .title("스타워즈")
+        .build();
+
+    movieResponse = MovieResponse.builder()
+        .id("F10538")
+        .title("스타워즈 에피소드 3 : 시스의 복수")
+        .prodYear(2005)
+        .genre("액션,SF,어드벤처,판타지")
+        .nation("미국")
+        .runtime(139)
         .director("조지 루카스")
-        .actor("한 솔로")
+        .actor("이완 맥그리거")
         .build();
 
     movieResponseList = Collections.singletonList(movieResponse);
@@ -58,40 +57,22 @@ public class MovieControllerTest {
 
   @Test
   public void searchApiGetTest() throws Exception {
-    mockMvc.perform(get("/v1/movies"))
+    given(movieService.findByKeyword(movieRequest)).willReturn(movieResponseList);
+
+    mockMvc.perform(get("/v1/movie")
+        .param("nation", "미국")
+        .param("genre", "SF")
+        .param("title", "스타워즈"))
         .andExpect(status().isOk())
-        .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-        .andExpect(view().name("html/movie/list"))
-        .andDo(print());
-  }
-
-  @Test
-  public void searchApiPostTest() throws Exception {
-    String nation = "미국";
-    String genre = "SF";
-    String title = "스타워즈";
-
-    // given
-    given(movieApiService.findByKeyword(nation, genre, title)).willReturn(movieResponseList);
-
-    // when
-    ResultActions resultActions = mockMvc.perform(post("/v1/movies")
-        .param("nation", nation)
-        .param("genre", genre)
-        .param("title", title)
-        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
-        .andDo(print());
-
-    // then
-    resultActions
-        .andExpect(status().isOk())
-        .andExpect(view().name("html/movie/list"))
-        .andExpect(model().attributeExists("nations"))
-        .andExpect(model().attributeExists("genres"))
-        .andExpect(model().attributeExists("movies"))
-        .andExpect(model().attribute("nations", NationType.values()))
-        .andExpect(model().attribute("genres", GenreType.values()))
-        .andExpect(model().attribute("movies", movieResponseList))
+        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$[0].id").value("F10538"))
+        .andExpect(jsonPath("$[0].title").value("스타워즈 에피소드 3 : 시스의 복수"))
+        .andExpect(jsonPath("$[0].prodYear").value(2005))
+        .andExpect(jsonPath("$[0].genre").value("액션,SF,어드벤처,판타지"))
+        .andExpect(jsonPath("$[0].nation").value("미국"))
+        .andExpect(jsonPath("$[0].runtime").value(139))
+        .andExpect(jsonPath("$[0].director").value("조지 루카스"))
+        .andExpect(jsonPath("$[0].actor").value("이완 맥그리거"))
         .andDo(print());
   }
 }

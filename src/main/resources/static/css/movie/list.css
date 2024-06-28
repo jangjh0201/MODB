@@ -1,5 +1,18 @@
 @import url("../common/navbar.css");
-@import url("../common/form.css");
+
+.container-fluid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.row.g-3.my-4 {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 중앙 정렬을 위한 수직 정렬 추가 */
+  width: 100%;
+}
 
 .table-container {
   display: flex;

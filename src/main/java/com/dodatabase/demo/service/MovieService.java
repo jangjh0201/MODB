@@ -1,5 +1,6 @@
 package com.dodatabase.demo.service;
 
+import com.dodatabase.demo.domain.movie.MovieRequest;
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.util.JsonParser;
 import java.util.List;
@@ -11,12 +12,16 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-public class MovieApiService {
+public class MovieService {
 
   private final WebClient movieApiClient;
 
-  public List<MovieResponse> findByKeyword(String nation, String genre, String title) {
-    String jsonResponse = getApiResponse(nation, genre, title).block();
+  public List<MovieResponse> findByKeyword(MovieRequest movieRequest) {
+    String jsonResponse = getApiResponse(
+        movieRequest.getNation(),
+        movieRequest.getGenre(),
+        movieRequest.getTitle()).block();
+
     return JsonParser.parseResponse(jsonResponse);
   }
 
@@ -29,7 +34,7 @@ public class MovieApiService {
             .queryParam("genre", genre)
             .queryParam("title", title)
             .build())
-        .accept(MediaType.APPLICATION_JSON)
+        .accept(MediaType.TEXT_HTML)
         .retrieve()
         .bodyToMono(String.class);
   }

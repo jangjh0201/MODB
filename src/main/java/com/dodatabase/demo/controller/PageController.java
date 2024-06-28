@@ -6,10 +6,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/v1")
-public class HomeController {
+public class PageController {
 
-  @GetMapping("")
+  @GetMapping("/home")
   public String home() {
     return "html/index";
+  }
+
+  @GetMapping("/movielist")
+  public String movieList() {
+    return "html/movie/list";
+  }
+
+  @GetMapping("/wishlist")
+  public String wishList() {
+    return "html/wish/list";
   }
 }
