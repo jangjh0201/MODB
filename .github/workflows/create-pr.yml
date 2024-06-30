@@ -21,7 +21,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
-          branch: dev
+          branch: ${{ github.ref }}
           title: "Automated PR from dev to main"
           body: "This PR was automatically created from dev to main."
           commit-message: "Automated PR: Merging changes from dev to main"
