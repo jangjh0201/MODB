@@ -1,4 +1,4 @@
-name: Create PR on dev to main
+name: Create PR to main
 
 on:
   pull_request:
@@ -6,8 +6,6 @@ on:
       - dev
     types:
       - closed
-
-run-name: Run with ${{ github.actor }}
 
 jobs:
   create-pr:
@@ -19,11 +17,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create Pull Request to main
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
-          head: dev
+          branch: dev
           title: "Automated PR from dev to main"
           body: "This PR was automatically created from dev to main."
           commit-message: "Automated PR: Merging changes from dev to main"
