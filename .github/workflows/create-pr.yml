@@ -7,6 +7,8 @@ on:
     types:
       - closed
 
+run-name: Run with ${{ github.actor }}
+
 jobs:
   create-pr:
     if: github.event.pull_request.merged == true
@@ -21,7 +23,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
-          branch: ${{ github.ref }}
+          branch: dev
           title: "Automated PR from dev to main"
           body: "This PR was automatically created from dev to main."
           commit-message: "Automated PR: Merging changes from dev to main"
