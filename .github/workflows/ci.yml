@@ -4,6 +4,8 @@ on:
   push:
     branches: ["feature"]
 
+run-name: Run with ${{ github.actor }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
