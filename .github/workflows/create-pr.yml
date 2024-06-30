@@ -7,9 +7,7 @@ on:
     types:
       - closed
 
-permissions:
-  contents: write
-  pull-requests: write
+run-name: Run with ${{ github.actor }}
 
 jobs:
   create-pr:
