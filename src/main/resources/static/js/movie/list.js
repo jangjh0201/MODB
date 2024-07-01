@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // 페이지가 로드될 때 URL에서 쿼리 스트링을 읽어와 검색 수행
   const urlParams = new URLSearchParams(window.location.search);
   if (
     urlParams.has("title") ||
@@ -7,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
     urlParams.has("genre")
   ) {
     searchMovies(urlParams.toString());
-    // 폼 필드 값을 URL 쿼리 스트링 값으로 설정
     document.getElementById("inputTitle").value = urlParams.get("title") || "";
     document.getElementById("inputNation").value =
       urlParams.get("nation") || "";
@@ -17,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("searchForm")
     .addEventListener("submit", function (event) {
-      event.preventDefault(); // 폼 기본 제출 방지
-      updateUrlAndSearch(); // URL 업데이트 및 검색 수행
+      event.preventDefault();
+      updateUrlAndSearch();
     });
 });
 
@@ -33,11 +31,9 @@ function updateUrlAndSearch() {
     }
   }
 
-  // URL 업데이트
   let newUrl = `${window.location.pathname}?${queryParams.toString()}`;
   history.pushState(null, "", newUrl);
 
-  // 검색 수행
   searchMovies(queryParams.toString());
 }
 
@@ -57,7 +53,7 @@ function searchMovies(queryParams) {
 
 function renderMovies(movies) {
   const container = document.getElementById("movieList");
-  container.innerHTML = ""; // Clear previous results
+  container.innerHTML = "";
 
   if (movies.length === 0) {
     container.innerHTML = "<p class='text-center'>검색 결과가 없습니다.</p>";
@@ -85,9 +81,25 @@ function renderMovies(movies) {
   tbody.classList.add("table-group-divider");
 
   movies.forEach((movie) => {
+    // 배우 목록과 줄거리 제한 길이 설정
+    const shortenedActors =
+      movie.actor.length > 100
+        ? movie.actor.substring(0, 100) + "..."
+        : movie.actor;
+    const shortenedPlot =
+      movie.movieDetail.plot.length > 200
+        ? movie.movieDetail.plot.substring(0, 200) + "..."
+        : movie.movieDetail.plot;
+
+    // movie 객체에 잘라낸 데이터를 반영
+    movie.actor = shortenedActors;
+    movie.movieDetail.plot = shortenedPlot;
     const tr = document.createElement("tr");
+
     tr.innerHTML = `
-      <td>${movie.title}</td>
+      <td><a href="#" class="movie-title" data-movie='${encodeURIComponent(
+        JSON.stringify(movie)
+      )}'>${movie.title}</a></td>
       <td>${movie.prodYear}</td>
       <td>${movie.genre}</td>
       <td>${movie.nation}</td>
@@ -95,8 +107,8 @@ function renderMovies(movies) {
       <td>${movie.director}</td>
       <td class="fixed-width-td">${movie.actor}</td>
       <td>
-        <button class="btn btn-outline-primary save-button" data-movie='${JSON.stringify(
-          movie
+        <button class="btn btn-outline-primary save-button" data-movie='${encodeURIComponent(
+          JSON.stringify(movie)
         )}'>저장</button>
       </td>`;
     tbody.appendChild(tr);
@@ -107,9 +119,86 @@ function renderMovies(movies) {
 
   document.querySelectorAll(".save-button").forEach((button) => {
     button.addEventListener("click", function () {
-      saveMovie(JSON.parse(this.dataset.movie));
+      saveMovie(JSON.parse(decodeURIComponent(this.dataset.movie)));
     });
   });
+
+  document.querySelectorAll(".movie-title").forEach((title) => {
+    title.addEventListener("click", function (event) {
+      event.preventDefault();
+      showMovieModal(JSON.parse(decodeURIComponent(this.dataset.movie)));
+    });
+  });
+}
+
+function showMovieModal(movie) {
+  const posters = movie.movieDetail.posters.filter((poster) => poster); // 빈 문자열 필터링
+  const hasMultiplePosters = posters.length > 1;
+  const posterCarousel = hasMultiplePosters
+    ? `
+      <div id="posterCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          ${posters
+            .map(
+              (poster, index) => `
+            <div class="carousel-item ${index === 0 ? "active" : ""}">
+              <img src="${poster}" class="d-block w-100" alt="${
+                movie.title
+              } 포스터">
+            </div>`
+            )
+            .join("")}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#posterCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#posterCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>`
+    : `<img src="${
+        posters[0] || "../../images/No-Image-Placeholder.svg.png"
+      }" class="d-block w-100" alt="${movie.title} 포스터">`;
+
+  let modalHtml = `
+    <div class="modal fade" id="movieModal" tabindex="-1" aria-labelledby="movieModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="movieModalLabel">영화 정보</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ${posterCarousel}
+            <p id="modalPlot">${movie.movieDetail.plot}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary" id="saveButton">저장</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  document.body.insertAdjacentHTML("beforeend", modalHtml);
+
+  document.getElementById("saveButton").addEventListener("click", function () {
+    saveMovie(movie);
+    let modal = bootstrap.Modal.getInstance(
+      document.getElementById("movieModal")
+    );
+    modal.hide();
+  });
+
+  let modal = new bootstrap.Modal(document.getElementById("movieModal"));
+  modal.show();
+
+  document
+    .getElementById("movieModal")
+    .addEventListener("hidden.bs.modal", function () {
+      this.remove();
+    });
 }
 
 function saveMovie(movie) {
