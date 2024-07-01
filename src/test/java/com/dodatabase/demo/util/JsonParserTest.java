@@ -43,7 +43,20 @@ public class JsonParserTest {
                         "actorId": "00049011"
                       }
                     ]
-                  }
+                  },
+                  "plots": {
+                    "plot": [
+                      {
+                        "plotLang": "한국어",
+                        "plotText": "클론 전쟁이 시작되었던 때로부터 3년이 지나고..."
+                      },
+                      {
+                        "plotLang": "영어",
+                        "plotText": "It has been three years since the Clone Wars began..."
+                      }
+                    ]
+                  },
+                  "posters": "http://file.koreafilm.or.kr/thm/02/00/02/63/tn_DPF006410.JPG"
                 }
               ]
             }
@@ -70,5 +83,9 @@ public class JsonParserTest {
     assertEquals(139, movieResponse.getRuntime());
     assertEquals("조지 루카스", movieResponse.getDirector());
     assertEquals("이완 맥그리거", movieResponse.getActor());
+    assertEquals("클론 전쟁이 시작되었던 때로부터 3년이 지나고...", movieResponse.getMovieDetail().getPlot());
+    assertEquals("http://file.koreafilm.or.kr/thm/02/00/02/63/tn_DPF006410.JPG",
+        movieResponse.getMovieDetail().getPosters().get(0));
   }
+
 }
