@@ -1,9 +1,11 @@
 package com.dodatabase.demo.util;
 
+import com.dodatabase.demo.domain.movie.MovieDetail;
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,6 +54,13 @@ public class JsonParser {
     int runtime = resultNode.path("runtime").asInt();
     String directors = parseDirectors(resultNode.path("directors").path("director"));
     String actors = parseActors(resultNode.path("actors").path("actor"));
+    List<String> posters = parsePosters(resultNode.path("posters"));
+    String plots = parsePlots(resultNode.path("plots").path("plot"));
+
+    MovieDetail movieDetail = MovieDetail.builder()
+        .posters(posters)
+        .plot(plots)
+        .build();
 
     return MovieResponse.builder()
         .id(id)
@@ -62,6 +71,7 @@ public class JsonParser {
         .runtime(runtime)
         .director(directors)
         .actor(actors)
+        .movieDetail(movieDetail)
         .build();
   }
 
@@ -75,5 +85,16 @@ public class JsonParser {
     return StreamSupport.stream(actorsNode.spliterator(), false)
         .map(actorNode -> actorNode.path("actorNm").asText())
         .collect(Collectors.joining(", "));
+  }
+
+  private static List<String> parsePosters(JsonNode postersNode) {
+    return Arrays.asList(postersNode.asText().split("\\|"));
+  }
+
+  private static String parsePlots(JsonNode plotsNode) {
+    return StreamSupport.stream(plotsNode.spliterator(), false)
+        .filter(plotNode -> "한국어".equals(plotNode.path("plotLang").asText()))
+        .map(plotNode -> plotNode.path("plotText").asText())
+        .collect(Collectors.joining("\n")).replaceAll("'", "");
   }
 }
