@@ -81,19 +81,6 @@ function renderMovies(movies) {
   tbody.classList.add("table-group-divider");
 
   movies.forEach((movie) => {
-    // 배우 목록과 줄거리 제한 길이 설정
-    const shortenedActors =
-      movie.actor.length > 100
-        ? movie.actor.substring(0, 100) + "..."
-        : movie.actor;
-    const shortenedPlot =
-      movie.movieDetail.plot.length > 200
-        ? movie.movieDetail.plot.substring(0, 200) + "..."
-        : movie.movieDetail.plot;
-
-    // movie 객체에 잘라낸 데이터를 반영
-    movie.actor = shortenedActors;
-    movie.movieDetail.plot = shortenedPlot;
     const tr = document.createElement("tr");
 
     tr.innerHTML = `

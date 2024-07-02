@@ -1,0 +1,9 @@
+.custom-modal-width {
+  max-width: 60%; /* 원하는 가로 길이로 설정 */
+}
+
+@media (max-width: 768px) {
+  .custom-modal-width {
+    max-width: 100%; /* 모바일 화면에서는 가로 길이를 100%로 설정 */
+  }
+}
