@@ -47,14 +47,3 @@ button {
 .text-center {
   text-align: center;
 }
-
-/* 모달 이미지 크기 및 중앙 정렬 */
-.modal-body img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: auto;
-  max-height: 310px; /* 최대 높이 설정 */
-  max-width: 220px; /* 최대 너비 설정 */
-  height: auto; /* 높이를 자동으로 조절 */
-}
