@@ -23,10 +23,11 @@ public class Wish {
   private int runtime;
   private String director;
   private String actor;
+  private WishDetail wishDetail;
 
   @Builder(builderClassName = "Wishbuilder", builderMethodName = "wishbuilder")
   public Wish(String id, String title, int prodYear, String genre,
-      String nation, int runtime, String director, String actor) {
+      String nation, int runtime, String director, String actor, WishDetail wishDetail) {
     this.id = id;
     this.title = title;
     this.prodYear = prodYear;
@@ -35,6 +36,7 @@ public class Wish {
     this.runtime = runtime;
     this.director = director;
     this.actor = actor;
+    this.wishDetail = wishDetail;
   }
 
   public static Wishbuilder builder(String id) {
