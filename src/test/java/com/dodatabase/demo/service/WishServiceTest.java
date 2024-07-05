@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.dodatabase.demo.domain.wish.Wish;
+import com.dodatabase.demo.domain.wish.WishDetail;
 import com.dodatabase.demo.domain.wish.WishRequest;
 import com.dodatabase.demo.domain.wish.WishResponse;
 import com.dodatabase.demo.repository.WishRepository;
@@ -41,6 +42,8 @@ public class WishServiceTest {
         .runtime(121)
         .director("조지 루카스")
         .actor("이완 맥그리거")
+        .posters(Arrays.asList("http://file.koreafilm.or.kr/thm/02/00/02/63/tn_DPF006410.JPG"))
+        .plot("클론 전쟁이 시작되었던 때로부터 3년이 지나고...")
         .build();
 
     wishRequest = WishRequest.builder()
@@ -52,6 +55,10 @@ public class WishServiceTest {
         .runtime(121)
         .director("조지 루카스")
         .actor("이완 맥그리거")
+        .detail(WishDetail.builder()
+            .posters(Arrays.asList("http://file.koreafilm.or.kr/thm/02/00/02/63/tn_DPF006410.JPG"))
+            .plot("클론 전쟁이 시작되었던 때로부터 3년이 지나고...")
+            .build())
         .build();
   }
 

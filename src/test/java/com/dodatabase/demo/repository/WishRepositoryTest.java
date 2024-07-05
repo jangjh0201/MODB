@@ -2,6 +2,7 @@ package com.dodatabase.demo.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,8 @@ public class WishRepositoryTest {
         .runtime(139)
         .director("조지 루카스")
         .actor("이완 맥그리거")
+        .posters(Arrays.asList("http://file.koreafilm.or.kr/thm/02/00/02/63/tn_DPF006410.JPG"))
+        .plot("클론 전쟁이 시작되었던 때로부터 3년이 지나고...")
         .build();
   }
 
