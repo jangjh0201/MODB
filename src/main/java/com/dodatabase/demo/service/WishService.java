@@ -1,6 +1,7 @@
 package com.dodatabase.demo.service;
 
 import com.dodatabase.demo.domain.wish.Wish;
+import com.dodatabase.demo.domain.wish.WishDetail;
 import com.dodatabase.demo.domain.wish.WishRequest;
 import com.dodatabase.demo.domain.wish.WishResponse;
 import com.dodatabase.demo.repository.WishRepository;
@@ -51,6 +52,8 @@ public class WishService {
         .runtime(wishRequest.getRuntime())
         .director(wishRequest.getDirector())
         .actor(wishRequest.getActor())
+        .posters(wishRequest.getDetail().getPosters())
+        .plot(wishRequest.getDetail().getPlot())
         .build();
   }
 
@@ -64,6 +67,10 @@ public class WishService {
         .runtime(wish.getRuntime())
         .director(wish.getDirector())
         .actor(wish.getActor())
+        .detail(WishDetail.builder()
+            .posters(wish.getPosters())
+            .plot(wish.getPlot())
+            .build())
         .build();
   }
 }

@@ -57,7 +57,7 @@ public class JsonParser {
     List<String> posters = parsePosters(resultNode.path("posters"));
     String plots = parsePlots(resultNode.path("plots").path("plot"));
 
-    MovieDetail movieDetail = MovieDetail.builder()
+    MovieDetail detail = MovieDetail.builder()
         .posters(posters)
         .plot(plots)
         .build();
@@ -71,7 +71,7 @@ public class JsonParser {
         .runtime(runtime)
         .director(directors)
         .actor(actors)
-        .movieDetail(movieDetail)
+        .detail(detail)
         .build();
   }
 
