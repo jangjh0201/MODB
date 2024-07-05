@@ -2,6 +2,8 @@ package com.dodatabase.demo.domain.wish;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+
+import java.util.List;
 import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -23,11 +25,13 @@ public class Wish {
   private int runtime;
   private String director;
   private String actor;
-  private WishDetail wishDetail;
+  private List<String> posters;
+  private String plot;
 
   @Builder(builderClassName = "Wishbuilder", builderMethodName = "wishbuilder")
   public Wish(String id, String title, int prodYear, String genre,
-      String nation, int runtime, String director, String actor, WishDetail wishDetail) {
+      String nation, int runtime, String director, String actor,
+      List<String> posters, String plot) {
     this.id = id;
     this.title = title;
     this.prodYear = prodYear;
@@ -36,7 +40,8 @@ public class Wish {
     this.runtime = runtime;
     this.director = director;
     this.actor = actor;
-    this.wishDetail = wishDetail;
+    this.posters = posters;
+    this.plot = plot;
   }
 
   public static Wishbuilder builder(String id) {
