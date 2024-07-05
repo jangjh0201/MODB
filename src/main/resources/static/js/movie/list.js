@@ -119,7 +119,7 @@ function renderMovies(movies) {
 }
 
 function showMovieModal(movie) {
-  const posters = movie.movieDetail.posters.filter((poster) => poster); // 빈 문자열 필터링
+  const posters = movie.detail.posters.filter((poster) => poster); // 빈 문자열 필터링
   const hasMultiplePosters = posters.length > 1;
   const posterCarousel = hasMultiplePosters
     ? `
@@ -159,7 +159,7 @@ function showMovieModal(movie) {
           </div>
           <div class="modal-body">
             ${posterCarousel}
-            <p id="modalPlot">${movie.movieDetail.plot}</p>
+            <p id="modalPlot">${movie.detail.plot}</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-primary" id="saveButton">저장</button>
