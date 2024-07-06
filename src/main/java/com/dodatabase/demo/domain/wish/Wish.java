@@ -29,9 +29,8 @@ public class Wish {
   private String plot;
 
   @Builder(builderClassName = "Wishbuilder", builderMethodName = "wishbuilder")
-  public Wish(String id, String title, int prodYear, String genre,
-      String nation, int runtime, String director, String actor,
-      List<String> posters, String plot) {
+  public Wish(String id, String title, int prodYear, String genre, String nation,
+      int runtime, String director, String actor, List<String> posters, String plot) {
     this.id = id;
     this.title = title;
     this.prodYear = prodYear;
