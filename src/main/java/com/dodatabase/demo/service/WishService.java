@@ -5,6 +5,8 @@ import com.dodatabase.demo.domain.wish.WishDetail;
 import com.dodatabase.demo.domain.wish.WishRequest;
 import com.dodatabase.demo.domain.wish.WishResponse;
 import com.dodatabase.demo.repository.WishRepository;
+import com.dodatabase.demo.util.JsonUtils;
+import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,8 +22,13 @@ public class WishService {
 
   @Transactional
   public void create(WishRequest wishRequest) {
-    Wish wish = convertTowish(wishRequest);
-    wishRepository.save(wish);
+    try {
+      Wish wish = convertToWish(wishRequest);
+      wishRepository.save(wish);
+    } catch (Exception e) {
+      e.printStackTrace();
+      // 예외 처리 추가
+    }
   }
 
   @Transactional(readOnly = true)
@@ -43,7 +50,8 @@ public class WishService {
     wishRepository.deleteById(id);
   }
 
-  private Wish convertTowish(WishRequest wishRequest) {
+  private Wish convertToWish(WishRequest wishRequest) throws Exception {
+    byte[] postersData = JsonUtils.serialize(wishRequest.getDetail().getPosters());
     return Wish.builder(wishRequest.getId())
         .title(wishRequest.getTitle())
         .prodYear(wishRequest.getProdYear())
@@ -52,12 +60,19 @@ public class WishService {
         .runtime(wishRequest.getRuntime())
         .director(wishRequest.getDirector())
         .actor(wishRequest.getActor())
-        .posters(wishRequest.getDetail().getPosters())
+        .posters(postersData)
         .plot(wishRequest.getDetail().getPlot())
         .build();
   }
 
   private WishResponse convertToWishResponse(Wish wish) {
+    List<String> posters = null;
+    try {
+      posters = JsonUtils.deserialize(wish.getPosters(), new TypeReference<List<String>>() {
+      });
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     return WishResponse.builder()
         .id(wish.getId())
         .title(wish.getTitle())
@@ -68,7 +83,7 @@ public class WishService {
         .director(wish.getDirector())
         .actor(wish.getActor())
         .detail(WishDetail.builder()
-            .posters(wish.getPosters())
+            .posters(posters)
             .plot(wish.getPlot())
             .build())
         .build();
