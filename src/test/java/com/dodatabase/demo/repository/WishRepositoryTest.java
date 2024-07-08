@@ -2,14 +2,14 @@ package com.dodatabase.demo.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.dodatabase.demo.domain.wish.Wish;
+import com.dodatabase.demo.util.JsonUtils;
 import java.util.Arrays;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import com.dodatabase.demo.domain.wish.Wish;
 
 @DataJpaTest
 public class WishRepositoryTest {
@@ -20,7 +20,10 @@ public class WishRepositoryTest {
   private Wish wish;
 
   @BeforeEach
-  void initialize() {
+  void initialize() throws Exception {
+    byte[] postersData = JsonUtils.serialize(
+        Arrays.asList("http://file.koreafilm.or.kr/thm/02/00/02/63/tn_DPF006410.JPG"));
+
     wish = Wish.builder("F10538")
         .title("스타워즈 에피소드 3 : 시스의 복수")
         .prodYear(2005)
@@ -29,14 +32,13 @@ public class WishRepositoryTest {
         .runtime(139)
         .director("조지 루카스")
         .actor("이완 맥그리거")
-        .posters(Arrays.asList("http://file.koreafilm.or.kr/thm/02/00/02/63/tn_DPF006410.JPG"))
+        .posters(postersData)
         .plot("클론 전쟁이 시작되었던 때로부터 3년이 지나고...")
         .build();
   }
 
   @Test
   public void saveAndFindByIdTest() {
-
     movieRepository.save(wish);
 
     Optional<Wish> foundMovie = movieRepository.findById(wish.getId());
@@ -46,7 +48,6 @@ public class WishRepositoryTest {
 
   @Test
   public void findByTitleTest() {
-
     movieRepository.save(wish);
 
     Optional<Wish> foundMovie = movieRepository.findByTitle("스타워즈 에피소드 3 : 시스의 복수");
@@ -56,7 +57,6 @@ public class WishRepositoryTest {
 
   @Test
   public void deleteByIdTest() {
-
     movieRepository.save(wish);
 
     movieRepository.deleteById(wish.getId());

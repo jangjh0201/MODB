@@ -11,6 +11,7 @@ import com.dodatabase.demo.domain.wish.WishDetail;
 import com.dodatabase.demo.domain.wish.WishRequest;
 import com.dodatabase.demo.domain.wish.WishResponse;
 import com.dodatabase.demo.repository.WishRepository;
+import com.dodatabase.demo.util.JsonUtils;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -32,8 +33,12 @@ public class WishServiceTest {
   private WishRequest wishRequest;
 
   @BeforeEach
-  void initialize() {
+  void initialize() throws Exception {
     MockitoAnnotations.openMocks(this);
+
+    byte[] postersData = JsonUtils.serialize(
+        Arrays.asList("http://file.koreafilm.or.kr/thm/02/00/02/63/tn_DPF006410.JPG"));
+
     wish = Wish.builder("F10538")
         .title("스타워즈 에피소드 3 : 시스의 복수")
         .prodYear(2005)
@@ -42,7 +47,7 @@ public class WishServiceTest {
         .runtime(121)
         .director("조지 루카스")
         .actor("이완 맥그리거")
-        .posters(Arrays.asList("http://file.koreafilm.or.kr/thm/02/00/02/63/tn_DPF006410.JPG"))
+        .posters(postersData)
         .plot("클론 전쟁이 시작되었던 때로부터 3년이 지나고...")
         .build();
 
