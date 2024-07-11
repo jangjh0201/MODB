@@ -1,3 +1,6 @@
+import { showMovieModal } from "../common/modal.js";
+import { saveMovie } from "../common/api.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
   if (
@@ -116,101 +119,4 @@ function renderMovies(movies) {
       showMovieModal(JSON.parse(decodeURIComponent(this.dataset.movie)));
     });
   });
-}
-
-function showMovieModal(movie) {
-  const posters = movie.detail.posters.filter((poster) => poster); // 빈 문자열 필터링
-  const hasMultiplePosters = posters.length > 1;
-  const posterCarousel = hasMultiplePosters
-    ? `
-      <div id="posterCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          ${posters
-            .map(
-              (poster, index) => `
-            <div class="carousel-item ${index === 0 ? "active" : ""}">
-              <img src="${poster}" class="d-block w-100" alt="${
-                movie.title
-              } 포스터">
-            </div>`
-            )
-            .join("")}
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#posterCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#posterCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>`
-    : `<img src="${
-        posters[0] || "../../images/No-Image-Placeholder.svg.png"
-      }" class="d-block w-100" alt="${movie.title} 포스터">`;
-
-  let modalHtml = `
-    <div class="modal fade" id="movieModal" tabindex="-1" aria-labelledby="movieModalLabel" aria-hidden="true">
-      <div class="modal-dialog custom-modal-width">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="movieModalLabel">영화 정보</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            ${posterCarousel}
-            <p id="modalPlot">${movie.detail.plot}</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-primary" id="saveButton">저장</button>
-          </div>
-        </div>
-      </div>
-    </div>`;
-
-  document.body.insertAdjacentHTML("beforeend", modalHtml);
-
-  document.getElementById("saveButton").addEventListener("click", function () {
-    saveMovie(movie);
-    let modal = bootstrap.Modal.getInstance(
-      document.getElementById("movieModal")
-    );
-    modal.hide();
-  });
-
-  let modal = new bootstrap.Modal(document.getElementById("movieModal"));
-  modal.show();
-
-  document
-    .getElementById("movieModal")
-    .addEventListener("hidden.bs.modal", function () {
-      this.remove();
-    });
-}
-
-function saveMovie(movie) {
-  fetch("/v1/wish", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(movie),
-  })
-    .then((response) => {
-      if (response.status === 201) {
-        alert("등록되었습니다.");
-      } else if (response.status === 409) {
-        alert("이미 등록된 영화입니다.");
-      } else {
-        alert("오류가 발생했습니다.");
-      }
-    })
-    .catch((error) => console.error("Error:", error));
-}
-
-function checkEnter(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    updateUrlAndSearch();
-  }
 }
