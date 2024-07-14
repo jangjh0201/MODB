@@ -2,9 +2,10 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: ["feature"]
+    branches:
+      - feature
 
-run-name: Run with ${{ github.actor }}
+run-name: CI with ${{ github.actor }}
 
 jobs:
   build:

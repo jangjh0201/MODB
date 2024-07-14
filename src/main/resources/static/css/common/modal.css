@@ -1,0 +1,21 @@
+/* 모달 이미지 크기 및 중앙 정렬 */
+.modal-body img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px; /* 이미지와 줄거리 간의 간격 추가 */
+  width: auto;
+  height: auto; /* 높이를 자동으로 조절 */
+  max-height: 310px; /* 최대 높이 설정 */
+  max-width: 220px; /* 최대 너비 설정 */
+}
+
+.custom-modal-width {
+  max-width: 40%; /* 원하는 가로 길이로 설정 */
+}
+
+@media (max-width: 768px) {
+  .custom-modal-width {
+    max-width: 100%; /* 모바일 화면에서는 가로 길이를 100%로 설정 */
+  }
+}

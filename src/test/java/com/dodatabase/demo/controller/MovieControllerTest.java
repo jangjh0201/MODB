@@ -7,9 +7,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.dodatabase.demo.domain.movie.MovieDetail;
 import com.dodatabase.demo.domain.movie.MovieRequest;
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.service.MovieService;
+
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,6 +53,10 @@ public class MovieControllerTest {
         .runtime(139)
         .director("조지 루카스")
         .actor("이완 맥그리거")
+        .detail(MovieDetail.builder()
+            .posters(Arrays.asList("http://file.koreafilm.or.kr/thm/02/00/02/63/tn_DPF006410.JPG"))
+            .plot("클론 전쟁이 시작되었던 때로부터 3년이 지나고...")
+            .build())
         .build();
 
     movieResponseList = Collections.singletonList(movieResponse);
@@ -73,6 +80,9 @@ public class MovieControllerTest {
         .andExpect(jsonPath("$[0].runtime").value(139))
         .andExpect(jsonPath("$[0].director").value("조지 루카스"))
         .andExpect(jsonPath("$[0].actor").value("이완 맥그리거"))
+        .andExpect(
+            jsonPath("$[0].detail.posters[0]").value("http://file.koreafilm.or.kr/thm/02/00/02/63/tn_DPF006410.JPG"))
+        .andExpect(jsonPath("$[0].detail.plot").value("클론 전쟁이 시작되었던 때로부터 3년이 지나고..."))
         .andDo(print());
   }
 }

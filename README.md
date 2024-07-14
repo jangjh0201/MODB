@@ -1,4 +1,26 @@
-# demo
+# About The Project
+
+## Built With
+
+# Getting Started
+
+## Prerequisites
+
+## Installation
+
+# Usage
+
+# Roadmap
+
+# Contributing
+
+# License
+
+# Contact
+
+# Acknowledgments
+
+##https://github.com/othneildrew/Best-README-Template
 
 1. Naver Api를 통해 키워드에 맞는 영화 검색 -> view
 
