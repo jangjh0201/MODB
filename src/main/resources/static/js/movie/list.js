@@ -1,5 +1,5 @@
 import { showMovieModal } from "../common/modal.js";
-import { saveMovie } from "../common/api.js";
+import { saveMovie, getMovies } from "../common/api.js";
 
 document.addEventListener("DOMContentLoaded", function () {
   const urlParams = new URLSearchParams(window.location.search);
@@ -41,13 +41,7 @@ function updateUrlAndSearch() {
 }
 
 function searchMovies(queryParams) {
-  fetch(`/v1/movie?${queryParams}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
+  getMovies(queryParams)
     .then((data) => {
       renderMovies(data);
     })

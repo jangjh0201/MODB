@@ -1,9 +1,8 @@
 import { showWishModal } from "../common/modal.js";
-import { deleteWish } from "../common/api.js";
+import { deleteWish, getWishes } from "../common/api.js";
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("/v1/wish")
-    .then((response) => response.json())
+  getWishes()
     .then((data) => {
       renderWishes(data);
     })

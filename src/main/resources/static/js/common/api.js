@@ -32,3 +32,31 @@ export function deleteWish(wishId) {
     })
     .catch((error) => console.error("Error:", error));
 }
+
+export function getMovies(queryParams) {
+  return fetch(`/v1/movie?${queryParams}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error("Error:", error);
+      throw error;
+    });
+}
+
+export function getWishes() {
+  return fetch("/v1/wish", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error("Error:", error);
+      throw error;
+    });
+}
