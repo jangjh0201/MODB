@@ -1,5 +1,7 @@
+import { showMovieModal } from "../common/modal.js";
+import { saveMovie, getMovies } from "../common/api.js";
+
 document.addEventListener("DOMContentLoaded", function () {
-  // 페이지가 로드될 때 URL에서 쿼리 스트링을 읽어와 검색 수행
   const urlParams = new URLSearchParams(window.location.search);
   if (
     urlParams.has("title") ||
@@ -7,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
     urlParams.has("genre")
   ) {
     searchMovies(urlParams.toString());
-    // 폼 필드 값을 URL 쿼리 스트링 값으로 설정
     document.getElementById("inputTitle").value = urlParams.get("title") || "";
     document.getElementById("inputNation").value =
       urlParams.get("nation") || "";
@@ -17,8 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("searchForm")
     .addEventListener("submit", function (event) {
-      event.preventDefault(); // 폼 기본 제출 방지
-      updateUrlAndSearch(); // URL 업데이트 및 검색 수행
+      event.preventDefault();
+      updateUrlAndSearch();
     });
 });
 
@@ -33,22 +34,14 @@ function updateUrlAndSearch() {
     }
   }
 
-  // URL 업데이트
   let newUrl = `${window.location.pathname}?${queryParams.toString()}`;
   history.pushState(null, "", newUrl);
 
-  // 검색 수행
   searchMovies(queryParams.toString());
 }
 
 function searchMovies(queryParams) {
-  fetch(`/v1/movie?${queryParams}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
+  getMovies(queryParams)
     .then((data) => {
       renderMovies(data);
     })
@@ -57,7 +50,7 @@ function searchMovies(queryParams) {
 
 function renderMovies(movies) {
   const container = document.getElementById("movieList");
-  container.innerHTML = ""; // Clear previous results
+  container.innerHTML = "";
 
   if (movies.length === 0) {
     container.innerHTML = "<p class='text-center'>검색 결과가 없습니다.</p>";
@@ -86,8 +79,11 @@ function renderMovies(movies) {
 
   movies.forEach((movie) => {
     const tr = document.createElement("tr");
+
     tr.innerHTML = `
-      <td>${movie.title}</td>
+      <td><a href="#" class="movie-title" data-movie='${encodeURIComponent(
+        JSON.stringify(movie)
+      )}'>${movie.title}</a></td>
       <td>${movie.prodYear}</td>
       <td>${movie.genre}</td>
       <td>${movie.nation}</td>
@@ -95,8 +91,8 @@ function renderMovies(movies) {
       <td>${movie.director}</td>
       <td class="fixed-width-td">${movie.actor}</td>
       <td>
-        <button class="btn btn-outline-primary save-button" data-movie='${JSON.stringify(
-          movie
+        <button class="btn btn-outline-primary save-button" data-movie='${encodeURIComponent(
+          JSON.stringify(movie)
         )}'>저장</button>
       </td>`;
     tbody.appendChild(tr);
@@ -107,34 +103,14 @@ function renderMovies(movies) {
 
   document.querySelectorAll(".save-button").forEach((button) => {
     button.addEventListener("click", function () {
-      saveMovie(JSON.parse(this.dataset.movie));
+      saveMovie(JSON.parse(decodeURIComponent(this.dataset.movie)));
     });
   });
-}
 
-function saveMovie(movie) {
-  fetch("/v1/wish", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(movie),
-  })
-    .then((response) => {
-      if (response.status === 201) {
-        alert("등록되었습니다.");
-      } else if (response.status === 409) {
-        alert("이미 등록된 영화입니다.");
-      } else {
-        alert("오류가 발생했습니다.");
-      }
-    })
-    .catch((error) => console.error("Error:", error));
-}
-
-function checkEnter(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    updateUrlAndSearch();
-  }
+  document.querySelectorAll(".movie-title").forEach((title) => {
+    title.addEventListener("click", function (event) {
+      event.preventDefault();
+      showMovieModal(JSON.parse(decodeURIComponent(this.dataset.movie)));
+    });
+  });
 }

@@ -1,5 +1,6 @@
 package com.dodatabase.demo.domain.wish;
 
+import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -13,10 +14,11 @@ public class WishRequest {
   private int runtime;
   private String director;
   private String actor;
+  private WishDetail detail;
 
   @Builder(builderClassName = "WishRequestBuilder", builderMethodName = "wishRequestBuilder")
   public WishRequest(String id, String title, int prodYear, String genre,
-      String nation, int runtime, String director, String actor) {
+      String nation, int runtime, String director, String actor, WishDetail detail) {
     this.id = id;
     this.title = title;
     this.prodYear = prodYear;
@@ -25,6 +27,7 @@ public class WishRequest {
     this.runtime = runtime;
     this.director = director;
     this.actor = actor;
+    this.detail = detail;
   }
 
   public static WishRequestBuilder builder() {

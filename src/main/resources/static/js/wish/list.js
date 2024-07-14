@@ -1,6 +1,8 @@
+import { showWishModal } from "../common/modal.js";
+import { deleteWish, getWishes } from "../common/api.js";
+
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("/v1/wish")
-    .then((response) => response.json())
+  getWishes()
     .then((data) => {
       renderWishes(data);
     })
@@ -40,7 +42,9 @@ function renderWishes(wishes) {
   wishes.forEach((wish) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${wish.title}</td>
+      <td><a href="#" class="wish-title" data-wish='${encodeURIComponent(
+        JSON.stringify(wish)
+      )}'>${wish.title}</a></td>
       <td>${wish.prodYear}</td>
       <td>${wish.genre}</td>
       <td>${wish.nation}</td>
@@ -48,7 +52,9 @@ function renderWishes(wishes) {
       <td>${wish.director}</td>
       <td class="fixed-width-td">${wish.actor}</td>
       <td>
-        <button class="btn btn-outline-primary delete-button" data-wish-id="${wish.id}">삭제</button>
+        <button class="btn btn-outline-primary delete-button" data-wish-id="${
+          wish.id
+        }">삭제</button>
       </td>`;
     tbody.appendChild(tr);
   });
@@ -62,19 +68,12 @@ function renderWishes(wishes) {
       deleteWish(this.dataset.wishId);
     });
   });
-}
 
-function deleteWish(wishId) {
-  fetch(`/v1/wish/${wishId}`, {
-    method: "DELETE",
-  })
-    .then((response) => {
-      if (response.status === 200) {
-        alert("삭제되었습니다.");
-        location.reload(); // Reload the wish list
-      } else {
-        alert("오류가 발생했습니다.");
-      }
-    })
-    .catch((error) => console.error("Error:", error));
+  // Wish title click event listener for modal
+  document.querySelectorAll(".wish-title").forEach((title) => {
+    title.addEventListener("click", function (event) {
+      event.preventDefault();
+      showWishModal(JSON.parse(decodeURIComponent(this.dataset.wish)));
+    });
+  });
 }

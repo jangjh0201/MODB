@@ -7,7 +7,7 @@ on:
     types:
       - closed
 
-run-name: Run with ${{ github.actor }}
+run-name: PR with ${{ github.actor }}
 
 jobs:
   create-pr:
