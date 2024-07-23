@@ -6,16 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/v1")
+@RequestMapping("/v1/login")
 public class AuthController {
-  @GetMapping("/login")
+  @GetMapping("")
   public String login() {
-    return "html/login/form";
+    return "html/auth/login";
   }
 
-  @GetMapping(value = "/login", params = "failure")
+  @GetMapping(value = "", params = "failure")
   public String loginFail(Model model) {
     model.addAttribute("failure", "로그인에 실패했습니다.");
-    return "html/login/form";
+    return "html/auth/login";
   }
 }
