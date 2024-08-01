@@ -1,0 +1,13 @@
+@import url("../common/navbar.css");
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5vh;
+  /* align-items: center;
+  height: 100vh; */
+}
+
+.form-box {
+  width: 50%;
+}
