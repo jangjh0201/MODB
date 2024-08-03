@@ -2,6 +2,7 @@ package com.dodatabase.demo.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -26,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(WishController.class)
@@ -82,6 +84,7 @@ public class WishControllerTest {
   }
 
   @Test
+  @WithMockUser(username = "user", roles = "USER")
   void wishListTest() throws Exception {
     when(wishService.findWishes()).thenReturn(wishResponseList);
 
@@ -103,39 +106,47 @@ public class WishControllerTest {
   }
 
   @Test
+  @WithMockUser(username = "user", roles = "USER")
   void createWishTest_Success() throws Exception {
     when(wishService.findById(any())).thenReturn(Optional.empty());
 
     mockMvc.perform(post("/v1/wish")
+        .with(csrf())
         .contentType("application/json")
         .content(objectMapper.writeValueAsString(wishRequest)))
         .andExpect(status().isCreated());
   }
 
   @Test
+  @WithMockUser(username = "user", roles = "USER")
   void createWishTest_AlreadyExists() throws Exception {
     when(wishService.findById("F10538")).thenReturn(Optional.of(wishResponse));
 
     mockMvc.perform(post("/v1/wish")
+        .with(csrf())
         .contentType("application/json")
         .content(objectMapper.writeValueAsString(wishRequest)))
         .andExpect(status().isConflict());
   }
 
   @Test
+  @WithMockUser(username = "user", roles = "USER")
   void removeWishTest_Success() throws Exception {
     when(wishService.findById("F10538")).thenReturn(Optional.of(wishResponse));
 
     mockMvc.perform(delete("/v1/wish/F10538")
+        .with(csrf())
         .contentType("application/json"))
         .andExpect(status().isOk());
   }
 
   @Test
+  @WithMockUser(username = "user", roles = "USER")
   void removeWishTest_NotFound() throws Exception {
     when(wishService.findById("F10538")).thenReturn(Optional.empty());
 
     mockMvc.perform(delete("/v1/wish/F10538")
+        .with(csrf())
         .contentType("application/json"))
         .andExpect(status().isNotFound());
   }
