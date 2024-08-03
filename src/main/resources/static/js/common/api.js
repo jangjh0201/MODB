@@ -3,6 +3,7 @@ export function saveMovie(movie) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "X-Requested-With": "XMLHttpRequest",
     },
     body: JSON.stringify(movie),
   })
@@ -11,6 +12,9 @@ export function saveMovie(movie) {
         alert("등록되었습니다.");
       } else if (response.status === 409) {
         alert("이미 등록된 영화입니다.");
+      } else if (response.status === 403) {
+        alert("로그인이 필요한 서비스입니다.");
+        window.location.href = "/v1/login";
       } else {
         alert("오류가 발생했습니다.");
       }

@@ -11,7 +11,6 @@ import com.dodatabase.demo.domain.movie.MovieDetail;
 import com.dodatabase.demo.domain.movie.MovieRequest;
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.service.MovieService;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(MovieController.class)
@@ -63,6 +63,7 @@ public class MovieControllerTest {
   }
 
   @Test
+  @WithMockUser(username = "user", roles = "USER")
   public void searchApiGetTest() throws Exception {
     given(movieService.findByKeyword(movieRequest)).willReturn(movieResponseList);
 
@@ -70,6 +71,7 @@ public class MovieControllerTest {
         .param("nation", "미국")
         .param("genre", "SF")
         .param("title", "스타워즈"))
+
         .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$[0].id").value("F10538"))

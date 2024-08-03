@@ -1,6 +1,7 @@
 package com.dodatabase.demo.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -10,33 +11,27 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(PageController.class)
-public class PageControllerTest {
+@WebMvcTest(AuthController.class)
+public class AuthControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @Test
   @WithMockUser(username = "user", roles = "USER")
-  public void homeTest() throws Exception {
-    mockMvc.perform(get("/v1/home"))
+  public void testLogin() throws Exception {
+    mockMvc.perform(get("/v1/login"))
         .andExpect(status().isOk())
-        .andExpect(view().name("html/index"));
+        .andExpect(view().name("html/auth/login"));
   }
 
   @Test
   @WithMockUser(username = "user", roles = "USER")
-  public void movieListTest() throws Exception {
-    mockMvc.perform(get("/v1/movielist"))
+  public void testLoginFail() throws Exception {
+    mockMvc.perform(get("/v1/login").param("failure", ""))
         .andExpect(status().isOk())
-        .andExpect(view().name("html/movie/list"));
-  }
-
-  @Test
-  @WithMockUser(username = "user", roles = "USER")
-  public void wishListTest() throws Exception {
-    mockMvc.perform(get("/v1/wishlist"))
-        .andExpect(status().isOk())
-        .andExpect(view().name("html/wish/list"));
+        .andExpect(view().name("html/auth/login"))
+        .andExpect(model().attributeExists("failure"))
+        .andExpect(model().attribute("failure", "로그인에 실패했습니다."));
   }
 }

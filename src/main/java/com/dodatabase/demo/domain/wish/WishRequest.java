@@ -1,6 +1,5 @@
 package com.dodatabase.demo.domain.wish;
 
-import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 
