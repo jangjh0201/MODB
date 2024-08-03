@@ -11,7 +11,6 @@ import com.dodatabase.demo.domain.movie.MovieDetail;
 import com.dodatabase.demo.domain.movie.MovieRequest;
 import com.dodatabase.demo.domain.movie.MovieResponse;
 import com.dodatabase.demo.service.MovieService;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
