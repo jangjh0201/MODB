@@ -3,12 +3,13 @@ package com.dodatabase.demo.repository;
 import com.dodatabase.demo.domain.wish.Wish;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WishRepository extends JpaRepository<Wish, String> {
 
-  // Movie findById(Movie movie);i
+  // Movie findById(Movie movie);
 
   Optional<Wish> findByTitle(String title);
 
@@ -16,6 +17,6 @@ public interface WishRepository extends JpaRepository<Wish, String> {
 
   // List<Movie> Save(Movie movie);
 
-  void deleteById(String id);
+  void deleteById(@NonNull String id);
 
 }
