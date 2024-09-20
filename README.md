@@ -74,9 +74,7 @@
   <li><code>project_description</code>: 이 프로젝트는 KMDB API를 통해 영화를 검색하고 스크랩할 수 있는 기능을 제공합니다.</li>
 </ul>
 
-<p align="right">
-  (<a href="#readme-top">맨 위로</a>)
-</p>
+<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
 
 
 
@@ -97,9 +95,7 @@
   <li><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white"></li>
 </ul>
 
-<p align="right">
-  (<a href="#readme-top">맨 위로</a>)
-</p>
+<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
 
 
 
@@ -107,8 +103,6 @@
 <h2 id="시작하기">시작하기</h2>
 
 이 섹션은 프로젝트를 로컬 환경에서 설정하는 방법에 대한 예시입니다. 로컬에서 프로젝트를 복사하고 실행하려면 다음 간단한 예시 단계를 따르세요.
-
-
 
 <!-- 필수 조건 -->
 <h3 id="필수-조건">필수 조건</h3>
@@ -142,8 +136,6 @@
   </li>
 </ol>
 
-
-
 <!-- 설치 -->
 <h3 id="설치">설치</h3>
 
@@ -168,6 +160,8 @@
 </code></pre>
   </li>
 </ol>
+
+<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
 
 
 
@@ -214,29 +208,54 @@
 
 
 
-
 <!-- 로드맵 -->
 <h2 id="로드맵">로드맵</h2>
+<ul>
+  <li><input type="checkbox" checked disabled> Changelog 추가</li>
+  <li><input type="checkbox" checked disabled> "맨 위로" 링크 추가</li>
+  <li><input type="checkbox" disabled> 추가 템플릿 및 예시 추가</li>
+  <li><input type="checkbox" disabled> 쉽게 복사하여 붙여넣을 수 있는 "components" 문서 추가</li>
+  <li><input type="checkbox" disabled> 다국어 지원
+    <ul>
+      <li><input type="checkbox" disabled> 중국어</li>
+      <li><input type="checkbox" disabled> 스페인어</li>
+    </ul>
+  </li>
+</ul>
+
+<p>제안된 기능 목록(및 알려진 문제점)은 <a href="https://github.com/othneildrew/Best-README-Template/issues" target="_blank">open issues</a>에서 확인할 수 있습니다.</p>
+
+<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
 
 
 
 <!-- 기여하기 -->
 <h2 id="기여하기">기여하기</h2>
 
+<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
+
 
 
 <!-- 라이센스 -->
 <h2 id="라이센스">라이센스</h2>
-<p>MIT 라이센스에 따라 배포됩니다. 자세한 내용은 LICENSE.txt를 참조하십시오.</p>
+<p>MIT 라이센스에 따라 배포됩니다. 자세한 내용은 <code>LICENSE.txt</code>를 참조하십시오.</p>
 
 <p align="right">(<a href="#readme-top">맨 위로</a>)</p>
 
 
 
 <!-- 문의 -->
-<h2 id="문의">문의</h2>
+<h2 id="contact">문의</h2>
+
+<p>Junho Jang - <!-- <a href="https://www.linkedin.com/in/junho-jang-0917162b0/" target="_blank">LinkedIn 프로필</a> - --><a href="mailto:jangjh0201@gmail.com">jangjh0201@gmail.com</a></p>
+
+<p>프로젝트 링크: <a href="https://github.com/jangjh0201/MODB" target="_blank">https://github.com/jangjh0201/MODB</a></p>
+
+<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
 
 
 
 <!-- 알아보기 -->
 <h2 id="알아보기">알아보기</h2>
+
+<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
