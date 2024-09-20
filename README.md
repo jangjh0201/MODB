@@ -48,7 +48,7 @@
     <li><a href="#기여하기">기여하기</a></li>
     <li><a href="#라이센스">라이센스</a></li>
     <li><a href="#문의">문의</a></li>
-    <li><a href="#감사의-글">알아보기</a></li>
+    <li><a href="#감사의-글">감사의 글</a></li>
   </ol>
 </details>
 
