@@ -3,7 +3,7 @@
 <!-- 로고 -->
 <br>
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/jangjh0201/MODB">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
   <br>
@@ -95,7 +95,7 @@
   <li><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white"></li>
 </ul>
 
-<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
+<p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
 
 
 
@@ -161,7 +161,7 @@
   </li>
 </ol>
 
-<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
+<p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
 
 
 
@@ -204,7 +204,7 @@
 
 <p><em>더 많은 예시를 보려면, <a href="https://example.com">문서</a>를 참조하세요.</em></p>
 
-<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
+<p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
 
 
 
@@ -222,12 +222,12 @@
 
 <p>제안된 기능 목록(및 알려진 문제점)은 <a href="https://github.com/jangjh0201/MODB/issues" target="_blank">open issues</a>에서 확인할 수 있습니다.</p>
 
-<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
+<p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
 
 
 
 <!-- 기여하기 -->
-<h2 id="contributing">기여하기</h2>
+<h2 id="기여하기">기여하기</h2>
 
 <p>기여는 오픈 소스 커뮤니티를 배우고, 영감을 얻고, 창조하는 놀라운 공간으로 만드는 원동력입니다. 여러분이 해주시는 모든 기여에 <b>대단히 감사드립니다</b>.</p>
 
@@ -247,23 +247,23 @@
   <img src="https://contrib.rocks/image?repo=jangjh0201/MODB" />
 </a>
 
-<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
+<p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
 
 
 
 <!-- 문의 -->
-<h2 id="contact">문의</h2>
+<h2 id="문의">문의</h2>
 
 <p>Junho Jang - <!-- <a href="https://www.linkedin.com/in/junho-jang-0917162b0/" target="_blank">LinkedIn 프로필</a> - --><a href="mailto:jangjh0201@gmail.com">jangjh0201@gmail.com</a></p>
 
 <p>프로젝트 링크: <a href="https://github.com/jangjh0201/MODB" target="_blank">https://github.com/jangjh0201/MODB</a></p>
 
-<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
+<p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
 
 
 
 <!-- 감사의 글 -->
-<h2 id="acknowledgments">감사의 글</h2>
+<h2 id="감사의-글">감사의 글</h2>
 
 <p>이 문서를 만드는 데 도움을 받은 리소스를 나열하고, 그들에게 감사의 뜻을 전합니다. 몇 가지를 소개하며 시작해 보겠습니다!</p>
 
@@ -278,7 +278,7 @@
   <li><a href="https://react-icons.github.io/react-icons/search" target="_blank">React Icons</a></li>
 </ul>
 
-<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
+<p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
 
 
 
