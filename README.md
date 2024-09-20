@@ -25,57 +25,57 @@
 
 <!-- TABLE OF CONTENTS -->
 <details>
-  <summary>Table of Contents</summary>
+  <summary>목차</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#프로젝트 소개">프로젝트 소개</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#사용 기술">사용 기술</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
+      <a href="#시작하기">시작하기</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#필수 조건">필수 조건</a></li>
+        <li><a href="#설치">설치</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#사용">사용</a></li>
+    <li><a href="#로드맵">로드맵</a></li>
+    <li><a href="#기여하기">기여하기</a></li>
+    <li><a href="#라이센스">라이센스</a></li>
+    <li><a href="#문의">문의</a></li>
+    <li><a href="#알아보기">알아보기</a></li>
   </ol>
 </details>
 
 
-<h1>프로젝트 소개</h1>
+## 프로젝트 소개
 
-<h2>기술 스택</h2>
+### 사용 기술
 
-<h1>시작하기</h1>
+## 시작하기
 
-<h2>확인 사항</h2>
+### 필수 조건
 
-<h2>설치</h2>
+### 설치
 
-<h1>사용</h1>
+## 사용
 
-<h1>로드맵</h1>
+## 로드맵
 
-<h1>기여</h1>
+## 기여하기
 
-<h1>라이센스</h1>
+## 라이센스
 MIT 라이센스에 따라 배포됩니다. 자세한 내용은 LICENSE.txt를 참조하십시오.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
 
-<h1>문의</h1>
+## 문의
 
-<h1>알아보기</h1>
+## 알아보기
 
-<h3>https://github.com/othneildrew/Best-README-Template</h3>
+#### https://github.com/othneildrew/Best-README-Template
 
 1. KMDB API로 키워드에 맞는 영화 검색 -> view
 
