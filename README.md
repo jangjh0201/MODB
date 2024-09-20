@@ -1,6 +1,6 @@
 <a id="readme-top"></a>
 
-<!-- PROJECT LOGO -->
+<!-- 로고 -->
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
@@ -23,7 +23,7 @@
   </p>
 </div>
 
-<!-- TABLE OF CONTENTS -->
+<!-- 목차 -->
 <details>
   <summary>목차</summary>
   <ol>
@@ -56,20 +56,18 @@
 </a>
 
 <p>
-  이 프로젝트는 영화 검색 및 스크랩 기능을 제공하는 <strong>MODB</strong>입니다.<br>
-  이 템플릿을 활용해 유사한 프로젝트의 README를 빠르게 작성할 수 있습니다.<br>
-  텍스트 에디터에서 아래 항목들을 검색 후 본인 프로젝트에 맞는 내용으로 대체해 사용하세요:<br>
+  영화 검색 및 스크랩 기능을 제공하는 <strong>MODB</strong> 서비스입니다.<br>
+  영화 정보를 확인하고, 위시리스트에 저장할 수 있습니다.<br>
+  아래의 내용을 통해 서비스에 대해 알아보세요:<br>
 </p>
 
 <ul>
   <li><code>github_username</code>: jangjh0201</li>
   <li><code>repo_name</code>: MODB</li>
-  <li><code>twitter_handle</code>: your_twitter_handle</li>
-  <li><code>linkedin_username</code>: your_linkedin_username</li>
-  <li><code>email_client</code>: your_email_client</li>
-  <li><code>email</code>: your_email@example.com</li>
+  <li><code>linkedin_username</code>: Junho Jang</li>
+  <li><code>email</code>: jangjh0201@gmail.com</li>
   <li><code>project_title</code>: MODB</li>
-  <li><code>project_description</code>: 이 프로젝트는 Naver API를 통해 영화를 검색하고 스크랩할 수 있는 기능을 제공합니다.</li>
+  <li><code>project_description</code>: 이 프로젝트는 KMDB API를 통해 영화를 검색하고 스크랩할 수 있는 기능을 제공합니다.</li>
 </ul>
 
 <p align="right">
@@ -78,6 +76,24 @@
 
 <!-- 사용 기술 -->
 <h3 id="사용-기술">사용 기술</h3>
+
+<ul>
+  <li><img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white"></li>
+  <li><img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"></li>
+  <li><img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"></li>
+  <li><img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"></li>
+  <li><img src="https://img.shields.io/badge/JUnit5-25A162?style=for-the-badge&logo=JUnit5&logoColor=white"></li>
+  <li><img src="https://img.shields.io/badge/Thymeleaf-005F0F?style=for-the-badge&logo=Thymeleaf&logoColor=white"></li>
+  <li><img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"></li>
+  <li><img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=white"></li>
+  <li><img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"></li>
+  <li><img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white"></li>
+  <li><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white"></li>
+</ul>
+
+<p align="right">
+  (<a href="#readme-top">맨 위로</a>)
+</p>
 
 <!-- 시작하기 -->
 <h2 id="시작하기">시작하기</h2>
