@@ -1,4 +1,4 @@
-<a id="readme-top"></a>
+<a id="맨-위로"></a>
 
 <!-- 로고 -->
 <br>
@@ -48,7 +48,7 @@
     <li><a href="#기여하기">기여하기</a></li>
     <li><a href="#라이센스">라이센스</a></li>
     <li><a href="#문의">문의</a></li>
-    <li><a href="#알아보기">알아보기</a></li>
+    <li><a href="#감사의-글">알아보기</a></li>
   </ol>
 </details>
 
@@ -74,7 +74,7 @@
   <li><code>project_description</code>: 이 프로젝트는 KMDB API를 통해 영화를 검색하고 스크랩할 수 있는 기능을 제공합니다.</li>
 </ul>
 
-<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
+<p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
 
 
 
@@ -166,7 +166,7 @@
 
 
 <!-- 사용 -->
-<h2 id="usage">사용법</h2>
+<h2 id="사용">사용</h2>
 
 <p>이 프로젝트는 사용자가 원하는 영화를 검색하고, 스크랩하여 나만의 영화 목록을 관리할 수 있는 기능을 제공합니다. 아래는 프로젝트의 주요 기능과 사용 예시입니다.</p>
 
@@ -210,35 +210,42 @@
 
 <!-- 로드맵 -->
 <h2 id="로드맵">로드맵</h2>
-<ul>
-  <li><input type="checkbox" checked disabled> Changelog 추가</li>
-  <li><input type="checkbox" checked disabled> "맨 위로" 링크 추가</li>
-  <li><input type="checkbox" disabled> 추가 템플릿 및 예시 추가</li>
-  <li><input type="checkbox" disabled> 쉽게 복사하여 붙여넣을 수 있는 "components" 문서 추가</li>
-  <li><input type="checkbox" disabled> 다국어 지원
-    <ul>
-      <li><input type="checkbox" disabled> 중국어</li>
-      <li><input type="checkbox" disabled> 스페인어</li>
-    </ul>
-  </li>
-</ul>
 
-<p>제안된 기능 목록(및 알려진 문제점)은 <a href="https://github.com/othneildrew/Best-README-Template/issues" target="_blank">open issues</a>에서 확인할 수 있습니다.</p>
+- [X] 영화 검색 기능 추가
+- [X] 영화 저장/삭제 기능 추가
+- [x] 모달창 저장/삭제 기능 추가
+- [x] 로그인 기능 추가
+- [ ] 회원가입 기능 추가
+- [ ] 디자인 수정
+- [ ] 다국어 지원
+    - [ ] 영어
+
+<p>제안된 기능 목록(및 알려진 문제점)은 <a href="https://github.com/jangjh0201/MODB/issues" target="_blank">open issues</a>에서 확인할 수 있습니다.</p>
 
 <p align="right">(<a href="#readme-top">맨 위로</a>)</p>
 
 
 
 <!-- 기여하기 -->
-<h2 id="기여하기">기여하기</h2>
+<h2 id="contributing">기여하기</h2>
 
-<p align="right">(<a href="#readme-top">맨 위로</a>)</p>
+<p>기여는 오픈 소스 커뮤니티를 배우고, 영감을 얻고, 창조하는 놀라운 공간으로 만드는 원동력입니다. 여러분이 해주시는 모든 기여에 <b>대단히 감사드립니다</b>.</p>
 
+<p>더 나은 프로젝트를 위한 제안이 있다면, 레포지토리를 포크하고 풀 리퀘스트를 만들어 주세요. 또는 "enhancement" 태그를 달고 이슈를 생성하셔도 됩니다. 프로젝트에 별을 주는 것도 잊지 마세요! 다시 한 번 감사합니다!</p>
 
+<ol>
+  <li>프로젝트 포크하기</li>
+  <li>기능 브랜치 생성하기 (<code>git checkout -b feature/AmazingFeature</code>)</li>
+  <li>변경 사항 커밋하기 (<code>git commit -m 'Add some AmazingFeature'</code>)</li>
+  <li>브랜치에 푸시하기 (<code>git push origin feature/AmazingFeature</code>)</li>
+  <li>풀 리퀘스트 열기</li>
+</ol>
 
-<!-- 라이센스 -->
-<h2 id="라이센스">라이센스</h2>
-<p>MIT 라이센스에 따라 배포됩니다. 자세한 내용은 <code>LICENSE.txt</code>를 참조하십시오.</p>
+<h3>주요 기여자들:</h3>
+
+<a href="https://github.com/jangjh0201/MODB/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=jangjh0201/MODB" />
+</a>
 
 <p align="right">(<a href="#readme-top">맨 위로</a>)</p>
 
@@ -255,7 +262,55 @@
 
 
 
-<!-- 알아보기 -->
-<h2 id="알아보기">알아보기</h2>
+<!-- 감사의 글 -->
+<h2 id="acknowledgments">감사의 글</h2>
+
+<p>이 문서를 만드는 데 도움을 받은 리소스를 나열하고, 그들에게 감사의 뜻을 전합니다. 몇 가지를 소개하며 시작해 보겠습니다!</p>
+
+<ul>
+  <li><a href="https://choosealicense.com" target="_blank">Choose an Open Source License</a></li>
+  <li><a href="https://www.webpagefx.com/tools/emoji-cheat-sheet" target="_blank">GitHub Emoji Cheat Sheet</a></li>
+  <li><a href="https://flexbox.malven.co/" target="_blank">Malven's Flexbox Cheatsheet</a></li>
+  <li><a href="https://grid.malven.co/" target="_blank">Malven's Grid Cheatsheet</a></li>
+  <li><a href="https://shields.io" target="_blank">Img Shields</a></li>
+  <li><a href="https://pages.github.com" target="_blank">GitHub Pages</a></li>
+  <li><a href="https://fontawesome.com" target="_blank">Font Awesome</a></li>
+  <li><a href="https://react-icons.github.io/react-icons/search" target="_blank">React Icons</a></li>
+</ul>
 
 <p align="right">(<a href="#readme-top">맨 위로</a>)</p>
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
+[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
+[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
+[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/othneildrew
+[product-screenshot]: images/screenshot.png
+[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Next-url]: https://nextjs.org/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
+[Vue-url]: https://vuejs.org/
+[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
+[Angular-url]: https://angular.io/
+[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
+[Svelte-url]: https://svelte.dev/
+[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Laravel-url]: https://laravel.com
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap-url]: https://getbootstrap.com
+[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
+[JQuery-url]: https://jquery.com 
+
