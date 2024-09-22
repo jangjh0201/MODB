@@ -24,8 +24,6 @@
   </p>
 </div>
 
-
-
 <!-- 목차 -->
 <details>
   <summary>목차</summary>
@@ -52,12 +50,10 @@
   </ol>
 </details>
 
-
-
 <!-- 프로젝트 소개 -->
 <h2 id="프로젝트-소개">프로젝트 소개</h2>
 <a href="https://example.com">
-  <img src="[product-screenshot]" alt="제품 이름 스크린샷">
+  <img src="src/main/resources/static/images/MODB.png" alt="제품 이름 스크린샷">
 </a>
 <br>
 <br>
@@ -75,8 +71,6 @@
 </ul>
 
 <p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
-
-
 
 <!-- 사용 기술 -->
 <h3 id="사용-기술">사용 기술</h3>
@@ -96,8 +90,6 @@
 </ul>
 
 <p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
-
-
 
 <!-- 시작하기 -->
 <h2 id="시작하기">시작하기</h2>
@@ -163,8 +155,6 @@
 
 <p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
 
-
-
 <!-- 사용 -->
 <h2 id="사용">사용</h2>
 
@@ -206,25 +196,21 @@
 
 <p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
 
-
-
 <!-- 로드맵 -->
 <h2 id="로드맵">로드맵</h2>
 
-- [X] 영화 검색 기능 추가
-- [X] 영화 저장/삭제 기능 추가
+- [x] 영화 검색 기능 추가
+- [x] 영화 저장/삭제 기능 추가
 - [x] 모달창 저장/삭제 기능 추가
 - [x] 로그인 기능 추가
 - [ ] 회원가입 기능 추가
 - [ ] 디자인 수정
 - [ ] 다국어 지원
-    - [ ] 영어
+  - [ ] 영어
 
 <p>제안된 기능 목록(및 알려진 문제점)은 <a href="https://github.com/jangjh0201/MODB/issues" target="_blank">open issues</a>에서 확인할 수 있습니다.</p>
 
 <p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
-
-
 
 <!-- 기여하기 -->
 <h2 id="기여하기">기여하기</h2>
@@ -249,8 +235,6 @@
 
 <p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
 
-
-
 <!-- 문의 -->
 <h2 id="문의">문의</h2>
 
@@ -259,8 +243,6 @@
 <p>프로젝트 링크: <a href="https://github.com/jangjh0201/MODB" target="_blank">https://github.com/jangjh0201/MODB</a></p>
 
 <p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
-
-
 
 <!-- 감사의 글 -->
 <h2 id="감사의-글">감사의 글</h2>
@@ -280,10 +262,9 @@
 
 <p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
 
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
 [contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
@@ -312,5 +293,4 @@
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
-
+[JQuery-url]: https://jquery.com
