@@ -28,7 +28,7 @@ export function showMovieModal(movie) {
         </button>
       </div>`
     : `<img src="${
-        posters[0] || "../../images/No-Image-Placeholder.svg.png"
+        posters[0] || "../../images/No-Image-Placeholder.png"
       }" class="d-block w-100" alt="${movie.title} 포스터">`;
 
   let modalHtml = `
@@ -98,7 +98,7 @@ export function showWishModal(wish) {
         </button>
       </div>`
     : `<img src="${
-        posters[0] || "../../images/No-Image-Placeholder.svg.png"
+        posters[0] || "../../images/No-Image-Placeholder.png"
       }" class="d-block w-100" alt="${wish.title} 포스터">`;
 
   let modalHtml = `
