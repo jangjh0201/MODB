@@ -23,8 +23,7 @@ public class WebClientConfig {
     String hostUrl = KMDB_HOST + "&ServiceKey=" + apiKey.getKey();
 
     return WebClient.builder()
-        // .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(16 * 1024 *
-        // 1024))
+        .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(16 * 1024 * 1024))
         .baseUrl(hostUrl)
         .build();
   }
