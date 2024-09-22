@@ -4,7 +4,7 @@
 <br>
 <div align="center">
   <a href="https://github.com/jangjh0201/MODB">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="src/main/resources/static/images/MODB.png" alt="Logo" width="160">
   </a>
   <br>
   <h3 align="center">MODB</h3>
@@ -53,7 +53,7 @@
 <!-- 프로젝트 소개 -->
 <h2 id="프로젝트-소개">프로젝트 소개</h2>
 <a href="https://example.com">
-  <img src="src/main/resources/static/images/MODB.png" alt="제품 이름 스크린샷">
+  <img src="[product-screenshot]" alt="제품 이름 스크린샷">
 </a>
 <br>
 <br>
