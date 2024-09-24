@@ -54,7 +54,7 @@
 <h2 id="프로젝트-소개">프로젝트 소개</h2>
 <div align="center">
   <a href="https://github.com/jangjh0201/MODB">
-    <img src="src/main/resources/static/images/home.png" alt="홈 화면" width="80%">
+    <img src="src/main/resources/static/images/home_simple.png" alt="홈 화면" width="80%">
   </a>
 </div>
 <br>
