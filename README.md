@@ -54,7 +54,7 @@
 <h2 id="프로젝트-소개">프로젝트 소개</h2>
 <div align="center">
   <a href="https://github.com/jangjh0201/MODB">
-    <img src="src/main/resources/static/images/home_simple.png" alt="홈 화면" width="80%">
+    <img src="src/main/resources/static/images/home_simple.png" alt="홈 화면" width="100%">
   </a>
 </div>
 <br>
@@ -234,6 +234,13 @@
 <a href="https://github.com/jangjh0201/MODB/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=jangjh0201/MODB" />
 </a>
+
+<p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
+
+<!-- 라이센스 -->
+<h2 id="라이센스">라이센스</h2>
+
+<p>MIT 라이센스에 따라 배포됩니다. 자세한 내용은 <code>LICENSE.txt</code>를 참조하십시오.</p>
 
 <p align="right">(<a href="#맨-위로">맨 위로</a>)</p>
 
