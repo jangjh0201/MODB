@@ -13,14 +13,14 @@
     <b>끝없이 펼쳐지는 영화 세상으로의 여정</b>
     <br>
     <br>
-    <a href="https://github.com/jangjh0201/MODB"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/jangjh0201/MODB"><strong>문서 »</strong></a>
     <br>
     <br>
-    <a href="https://github.com/jangjh0201/MODB">View Demo</a>
+    <a href="https://github.com/jangjh0201/MODB">데모 보기</a>
     ·
-    <a href="https://github.com/jangjh0201/MODB/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/jangjh0201/MODB/issues/new?labels=bug&template=bug-report---.md">버그 제보</a>
     ·
-    <a href="https://github.com/jangjh0201/MODB/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/jangjh0201/MODB/issues/new?labels=enhancement&template=feature-request---.md">기능 문의</a>
   </p>
 </div>
 
