@@ -167,7 +167,7 @@
 
 <!-- 검색 기능 스크린샷 -->
 <div align="center">
-  <img src="images/search_example.png" alt="영화 검색 스크린샷" width="600" />
+      <img src="src/main/resources/static/images/search.png" alt="영화 검색 화면" width="80%">
 </div>
 <p>영화 제목을 입력한 후, 검색 결과는 아래와 같이 출력됩니다.</p>
 
@@ -185,7 +185,7 @@
 
 <!-- 개인 영화 목록 스크린샷 -->
 <div align="center">
-  <img src="images/movie_list.png" alt="개인 영화 목록 스크린샷" width="600" />
+        <img src="src/main/resources/static/images/list.png" alt="영화 리스트 화면" width="80%">
 </div>
 
 <h3>4. 데모 및 예시 페이지</h3>
